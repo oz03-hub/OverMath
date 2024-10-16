@@ -140,9 +140,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   movement_direction: {x: 0, y: 0, z: 0}
+  last_movement_direction: {x: 0, y: 0, z: 0}
   walking_velocity: 0
   text: {fileID: 0}
   speed: 0
+  smooth_time: 0.1
+  rotation_speed: 5
 --- !u!143 &454252547
 CharacterController:
   m_ObjectHideFlags: 0
@@ -294,6 +297,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   allowedNumbers: 010000000200000003000000
   allowedOperators: 0000000001000000
+  maxCombinationLength: 5
 --- !u!4 &919028037
 Transform:
   m_ObjectHideFlags: 0
@@ -360,7 +364,7 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 90
+  field of view: 60
   orthographic: 0
   orthographic size: 5
   m_Depth: -1
@@ -1067,6 +1071,10 @@ PrefabInstance:
     - target: {fileID: 5292771740542430169, guid: df29e77a7d289de4abea6c37b6273338, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7339117053870767971, guid: df29e77a7d289de4abea6c37b6273338, type: 3}
+      propertyPath: rotation_speed
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 8003561140809530731, guid: df29e77a7d289de4abea6c37b6273338, type: 3}
       propertyPath: m_Height

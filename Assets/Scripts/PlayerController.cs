@@ -8,16 +8,22 @@ public class PlayerController : MonoBehaviour
     private Animator animation_controller;
     private CharacterController character_controller;
     public Vector3 movement_direction;
+    public Vector3 last_movement_direction;
     public float walking_velocity;
     public Text text;
     public float speed;
+    public float smooth_time = 0.1f;
+    public float rotation_speed = 10.0f;
     private MovementState current_state;
+    private float dash_timer;
+    private Vector3 dash_direction;
 
     private enum MovementState {
         Walking,
         Idle,
         Jumping,
         Sprinting,
+        Dashing,
     };
 
     // Start is called before the first frame update
@@ -25,12 +31,13 @@ public class PlayerController : MonoBehaviour
     {
         animation_controller = GetComponent<Animator>();
         character_controller = GetComponent<CharacterController>();
-        movement_direction = new Vector3(0.0f, 0.0f, 0.0f);
-        walking_velocity = 5.0f;
+        movement_direction = Vector3.zero;
+        last_movement_direction = Vector3.zero;
+        walking_velocity = 7.0f;
         speed = 0.0f;
     }
 
-    void UpdateVelocity() {
+    void UpdateSpeed() {
         switch (this.current_state) {
             case MovementState.Walking:
                 this.speed = walking_velocity; break;
@@ -38,6 +45,8 @@ public class PlayerController : MonoBehaviour
                 this.speed = walking_velocity * 1.5f; break;
             case MovementState.Idle:
                 this.speed = 0.0f; break;
+            case MovementState.Dashing:
+                this.speed = walking_velocity * 3; break;
         }
     }
 
@@ -48,18 +57,29 @@ public class PlayerController : MonoBehaviour
             this.animation_controller.SetTrigger("Jumping");
         }
         this.animation_controller.SetBool("Sprinting", state==MovementState.Sprinting);
+        if (state == MovementState.Dashing) {
+            this.animation_controller.SetTrigger("Dashing");
+            dash_timer = 0.5f;
+            dash_direction = movement_direction;
+        }
     }
 
     void CheckState() {
-        if (Input.GetKey(KeyCode.W))
+        if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D))
         {
             if (character_controller.isGrounded && Input.GetKey(KeyCode.Space))
             {
                 SetState(MovementState.Jumping);
-            } else if (Input.GetKey(KeyCode.LeftShift))
+            }
+            else if (Input.GetKey(KeyCode.LeftAlt))
+            {
+                SetState(MovementState.Dashing);
+            }
+            else if (Input.GetKey(KeyCode.LeftShift))
             {
                 SetState(MovementState.Sprinting);
-            } else
+            }
+            else
             {
                 SetState(MovementState.Walking);
             }
@@ -74,20 +94,38 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         CheckState();
-        UpdateVelocity();
+        UpdateSpeed();
 
-        if (Input.GetKey(KeyCode.A)) {
-            transform.Rotate(0.0f, -1.0f, 0.0f);
+        if (dash_timer > 0)
+        {
+            dash_timer -= Time.deltaTime;
+            movement_direction = dash_direction;
+        }
+        else
+        {
+
+            float xdirection = Input.GetAxisRaw("Horizontal");
+            float zdirection = Input.GetAxisRaw("Vertical");
+            Vector3 input_direction = new Vector3(xdirection, 0.0f, zdirection).normalized;
+
+            if (input_direction.magnitude > 0)
+            {
+                movement_direction = Vector3.Lerp(movement_direction, input_direction, smooth_time);
+                last_movement_direction = movement_direction;
+
+                Quaternion target_rotation = Quaternion.LookRotation(movement_direction);
+                transform.rotation = Quaternion.Slerp(transform.rotation, target_rotation, Time.deltaTime * rotation_speed);
+            }
+            else
+            {
+                movement_direction = Vector3.zero;
+
+                Quaternion target_rotation = Quaternion.LookRotation(last_movement_direction);
+                transform.rotation = Quaternion.Slerp(transform.rotation, target_rotation, Time.deltaTime * rotation_speed);
+            }
+
         }
 
-        if (Input.GetKey(KeyCode.D)) {
-            transform.Rotate(0.0f, 1.0f, 0.0f);
-        }
-
-        float xdirection = Mathf.Sin(Mathf.Deg2Rad * transform.rotation.eulerAngles.y);
-        float ydirection = 0.0f; // Handle jump
-        float zdirection = Mathf.Cos(Mathf.Deg2Rad * transform.rotation.eulerAngles.y);
-        movement_direction = new Vector3(xdirection, ydirection, zdirection);
         character_controller.Move(movement_direction * speed * Time.deltaTime);
     }
 }
