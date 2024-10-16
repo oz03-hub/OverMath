@@ -17,6 +17,7 @@ public class PlayerController : MonoBehaviour
         Walking,
         Idle,
         Jumping,
+        Sprinting,
     };
 
     // Start is called before the first frame update
@@ -25,7 +26,7 @@ public class PlayerController : MonoBehaviour
         animation_controller = GetComponent<Animator>();
         character_controller = GetComponent<CharacterController>();
         movement_direction = new Vector3(0.0f, 0.0f, 0.0f);
-        walking_velocity = 2.5f;
+        walking_velocity = 5.0f;
         speed = 0.0f;
     }
 
@@ -33,6 +34,8 @@ public class PlayerController : MonoBehaviour
         switch (this.current_state) {
             case MovementState.Walking:
                 this.speed = walking_velocity; break;
+            case MovementState.Sprinting:
+                this.speed = walking_velocity * 1.5f; break;
             case MovementState.Idle:
                 this.speed = 0.0f; break;
         }
@@ -44,6 +47,7 @@ public class PlayerController : MonoBehaviour
         if (state == MovementState.Jumping) {
             this.animation_controller.SetTrigger("Jumping");
         }
+        this.animation_controller.SetBool("Sprinting", state==MovementState.Sprinting);
     }
 
     void CheckState() {
@@ -52,8 +56,10 @@ public class PlayerController : MonoBehaviour
             if (character_controller.isGrounded && Input.GetKey(KeyCode.Space))
             {
                 SetState(MovementState.Jumping);
-            }
-            else
+            } else if (Input.GetKey(KeyCode.LeftShift))
+            {
+                SetState(MovementState.Sprinting);
+            } else
             {
                 SetState(MovementState.Walking);
             }
@@ -71,11 +77,11 @@ public class PlayerController : MonoBehaviour
         UpdateVelocity();
 
         if (Input.GetKey(KeyCode.A)) {
-            transform.Rotate(0.0f, -0.7f, 0.0f);
+            transform.Rotate(0.0f, -1.0f, 0.0f);
         }
 
         if (Input.GetKey(KeyCode.D)) {
-            transform.Rotate(0.0f, 0.7f, 0.0f);
+            transform.Rotate(0.0f, 1.0f, 0.0f);
         }
 
         float xdirection = Mathf.Sin(Mathf.Deg2Rad * transform.rotation.eulerAngles.y);
