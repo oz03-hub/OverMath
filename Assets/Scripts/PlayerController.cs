@@ -18,6 +18,8 @@ public class PlayerController : MonoBehaviour
     private float dash_timer;
     private Vector3 dash_direction;
 
+    private TrailRenderer trail_renderer;
+
     private enum MovementState {
         Walking,
         Idle,
@@ -35,17 +37,23 @@ public class PlayerController : MonoBehaviour
         last_movement_direction = Vector3.zero;
         walking_velocity = 7.0f;
         speed = 0.0f;
+
+        trail_renderer = GetComponent<TrailRenderer>();
     }
 
     void UpdateSpeed() {
         switch (this.current_state) {
             case MovementState.Walking:
+                this.trail_renderer.enabled = false;
                 this.speed = walking_velocity; break;
             case MovementState.Sprinting:
+                this.trail_renderer.enabled = true;
                 this.speed = walking_velocity * 1.5f; break;
             case MovementState.Idle:
+                this.trail_renderer.enabled = false;
                 this.speed = 0.0f; break;
             case MovementState.Dashing:
+                this.trail_renderer.enabled = false;
                 this.speed = walking_velocity * 3; break;
         }
     }
