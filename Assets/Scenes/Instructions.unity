@@ -441,7 +441,7 @@ GameObject:
   - component: {fileID: 1345581500}
   - component: {fileID: 1345581499}
   m_Layer: 5
-  m_Name: InputField (TMP)
+  m_Name: Username
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -464,7 +464,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -49, y: 5}
+  m_AnchoredPosition: {x: -5, y: 5}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1345581499
@@ -660,12 +660,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'A cannon shoots purple and red balls for 60 seconds;
-
-    clicking purple
-    ball increases score +1;
-
-    clicking red ball decreases score -1.'
+  m_text: We are playing OverMathed
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1088,7 +1083,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Start
+  m_text: Let's play!
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1178,10 +1173,9 @@ GameObject:
   - component: {fileID: 1882615070}
   - component: {fileID: 1882615069}
   - component: {fileID: 1882615073}
-  - component: {fileID: 1882615074}
   m_Layer: 5
-  m_Name: LeaderboardManager
-  m_TagString: LeaderboardManager
+  m_Name: Canvas
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1280,24 +1274,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1882615068}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ab4a485d3aa194e7eb67adc6673ed2d4, type: 3}
+  m_Script: {fileID: 11500000, guid: f0dc596a9ef754e98a2fc22b5966d460, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1882615074
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1882615068}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f75069fdd70ed4ebe872401ce896e7a2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  usernameInput: {fileID: 1345581499}
-  startButton: {fileID: 2001067305}
-  path: 
 --- !u!1 &2001067303
 GameObject:
   m_ObjectHideFlags: 0
@@ -1311,7 +1290,7 @@ GameObject:
   - component: {fileID: 2001067306}
   - component: {fileID: 2001067305}
   m_Layer: 5
-  m_Name: Button
+  m_Name: StartButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1334,7 +1313,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -15, y: -57}
+  m_AnchoredPosition: {x: 4, y: -57}
   m_SizeDelta: {x: 250, y: 60}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2001067305
@@ -1382,8 +1361,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1882615073}
-        m_TargetAssemblyTypeName: ChangeMainScene, Assembly-CSharp
-        m_MethodName: GoToMainScene
+        m_TargetAssemblyTypeName: StartButton, Assembly-CSharp
+        m_MethodName: GoToLevel1
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
