@@ -111,7 +111,6 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
-
             float xdirection = Input.GetAxisRaw("Horizontal");
             float zdirection = Input.GetAxisRaw("Vertical");
             Vector3 input_direction = new Vector3(xdirection, 0.0f, zdirection).normalized;

@@ -8,10 +8,16 @@ public class AdversarialAI : MonoBehaviour
     public NavMeshAgent agent;
     public Transform player;
     public LayerMask whatIsGorund, whatIsPlayer;
+    public Rigidbody playerBody;
+
+    public Ragdoll ragdoll;
 
     public GameObject FloatingTextPrefab;
 
     private Animator animation_controller;
+
+    public GameObject smokeEffectPrefab;
+    public Transform smokeSpawn;
 
     // Patroling
     public Vector3 walkPoint;
@@ -29,7 +35,7 @@ public class AdversarialAI : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     private void Awake()
@@ -37,6 +43,8 @@ public class AdversarialAI : MonoBehaviour
         animation_controller = GetComponent<Animator>();
         player = GameObject.FindWithTag("Player").transform;
         agent = GetComponent<NavMeshAgent>();
+        playerBody = GameObject.FindWithTag("Player").GetComponent<Rigidbody>();
+        ragdoll = GameObject.FindWithTag("Player").GetComponent<Ragdoll>();
     }
 
     private void SearchWalkPoint()
@@ -74,10 +82,19 @@ public class AdversarialAI : MonoBehaviour
         agent.SetDestination(transform.position);
         transform.LookAt(player);
 
-        if (!alreadyAttacked) {
+        if (!alreadyAttacked)
+        {
             ShowFloatingText();
             alreadyAttacked = true;
             animation_controller.SetBool("attack", true);
+            Vector3 attackDirection = (player.position - transform.position).normalized;
+            //playerBody.isKinematic = false;
+            playerBody.AddForce(attackDirection * 500f);
+            ragdoll.RagDollModeOn();
+
+            GameObject smoke = Instantiate(smokeEffectPrefab, smokeSpawn.position, Quaternion.identity);
+            Destroy(smoke, timeBetweenAttacks);
+
             Debug.Log("ATTACK");
             Invoke(nameof(ResetAttack), timeBetweenAttacks);
         }
@@ -97,6 +114,10 @@ public class AdversarialAI : MonoBehaviour
     {
         playerInSightRange = Physics.CheckSphere(transform.position, sightRange, whatIsPlayer);
         playerInAttackRange = Physics.CheckSphere(transform.position, attackRange, whatIsPlayer);
+
+        if (alreadyAttacked) {
+            return;
+        }
 
         if (!playerInSightRange && !playerInAttackRange)
         {
