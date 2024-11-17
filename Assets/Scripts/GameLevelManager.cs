@@ -17,6 +17,8 @@ public class GameLevelManager : MonoBehaviour
 
     public TMP_Text timerText;
     public TMP_Text scoreText;
+    public TMP_Text equationText;
+    public TMP_Text feedbackText;
 
     void Start()
     {
@@ -62,6 +64,23 @@ public class GameLevelManager : MonoBehaviour
         if (scoreText != null)
         {
             scoreText.text = "Score: " + playerPoints.ToString();
+        }
+    }
+
+    public void ShowEquation(string equation)
+    {
+        if (equationText != null)
+        {
+            equationText.text = "Solve the equation: " + equation;
+        }
+    }
+
+    public void ShowFeedback(bool isCorrect)
+    {
+        if (feedbackText != null)
+        {
+            feedbackText.text = isCorrect ? "Success!" : "Try again, so close!";
+            feedbackText.color = isCorrect ? Color.green : Color.red;
         }
     }
 
