@@ -24,7 +24,7 @@ public class Ragdoll : MonoBehaviour
             rigidb.isKinematic = false;
         }
 
-        GetComponent<Rigidbody>().isKinematic = false;
+        //GetComponent<Rigidbody>().isKinematic = false;
         Invoke(nameof(RagDollModeOff), 2f);
     }
 
@@ -42,7 +42,7 @@ public class Ragdoll : MonoBehaviour
             rigidb.isKinematic = true;
         }
 
-        GetComponent<Rigidbody>().isKinematic = true;
+        //GetComponent<Rigidbody>().isKinematic = true;
     }
 
     Collider[] ragdollbits;
