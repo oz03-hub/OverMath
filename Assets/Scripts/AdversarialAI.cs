@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.AI.Navigation;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -7,7 +8,7 @@ public class AdversarialAI : MonoBehaviour
 {
     public NavMeshAgent agent;
     public Transform player;
-    public LayerMask whatIsGorund, whatIsPlayer;
+    public LayerMask whatIsGround, whatIsPlayer;
     public Rigidbody playerBody;
 
     public Ragdoll ragdoll;
@@ -43,21 +44,45 @@ public class AdversarialAI : MonoBehaviour
         animation_controller = GetComponent<Animator>();
         player = GameObject.FindWithTag("Player").transform;
         agent = GetComponent<NavMeshAgent>();
-        playerBody = GameObject.FindWithTag("Player").GetComponent<Rigidbody>();
         ragdoll = GameObject.FindWithTag("Player").GetComponent<Ragdoll>();
     }
 
+    //private void SearchWalkPoint()
+    //{
+    //    float randomZ = Random.Range(-walkPointRange, walkPointRange);
+    //    float randomX = Random.Range(-walkPointRange, walkPointRange);
+
+    //    walkPoint = new Vector3(transform.position.x + randomX, transform.position.y, transform.position.z + randomZ);
+
+    //    if (Physics.Raycast(walkPoint, Vector3.down, whatIsGround))
+    //    {
+    //        walkPointSet = true;
+    //    }
+    //}
+
     private void SearchWalkPoint()
     {
-        float randomZ = Random.Range(-walkPointRange, walkPointRange);
-        float randomX = Random.Range(-walkPointRange, walkPointRange);
+        Vector3 randomPoint = transform.position + Random.insideUnitSphere * walkPointRange;
 
-        walkPoint = new Vector3(transform.position.x + randomX, transform.position.y, transform.position.z + randomZ);
+        NavMeshQueryFilter filter = new NavMeshQueryFilter();
+        filter.agentTypeID = agent.agentTypeID;
+        filter.areaMask = agent.areaMask;
 
-        if (Physics.Raycast(walkPoint, -transform.up, whatIsGorund)) {
+        NavMeshHit hit;
+        if (NavMesh.SamplePosition(randomPoint, out hit, walkPointRange, filter))
+        {
+            walkPoint = hit.position;
             walkPointSet = true;
         }
+
+
+        //else
+        //{
+        //    walkPoint = Vector3.zero;
+        //    walkPointSet = false;
+        //}
     }
+
 
     private void Patroling() {
         if (!walkPointSet) SearchWalkPoint();
@@ -88,12 +113,15 @@ public class AdversarialAI : MonoBehaviour
             alreadyAttacked = true;
             animation_controller.SetBool("attack", true);
             Vector3 attackDirection = (player.position - transform.position).normalized;
-            //playerBody.isKinematic = false;
-            playerBody.AddForce(attackDirection * 500f);
             ragdoll.RagDollModeOn();
+            playerBody.AddForce(attackDirection * 50f, ForceMode.Impulse);
 
-            GameObject smoke = Instantiate(smokeEffectPrefab, smokeSpawn.position, Quaternion.identity);
-            Destroy(smoke, timeBetweenAttacks);
+            GameObject smoke = Instantiate(smokeEffectPrefab, smokeSpawn.position, Quaternion.identity, transform);
+            ParticleSystem particle = smoke.GetComponent<ParticleSystem>();
+            if (particle != null)
+            {
+                Destroy(smoke, particle.main.duration + particle.main.startLifetime.constantMax);
+            }
 
             Debug.Log("ATTACK");
             Invoke(nameof(ResetAttack), timeBetweenAttacks);

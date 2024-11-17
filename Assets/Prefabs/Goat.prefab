@@ -102,7 +102,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   agent: {fileID: 1655369469889620780}
   player: {fileID: 0}
-  whatIsGorund:
+  whatIsGround:
     serializedVersion: 2
     m_Bits: 256
   whatIsPlayer:
@@ -128,7 +128,7 @@ NavMeshAgent:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4756981320961124423}
   m_Enabled: 1
-  m_AgentTypeID: 0
+  m_AgentTypeID: -1372625422
   m_Radius: 0.7
   m_Speed: 5
   m_Acceleration: 8
@@ -140,7 +140,7 @@ NavMeshAgent:
   m_AutoRepath: 1
   m_Height: 1
   m_BaseOffset: 0
-  m_WalkableMask: 4294967295
+  m_WalkableMask: 1
   m_ObstacleAvoidanceType: 4
 --- !u!4 &6312248858908513624 stripped
 Transform:
