@@ -1,4 +1,20 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
-    <ui:VisualElement name="Top" style="flex-grow: 1;" />
+    <Style src="project://database/Assets/UI/GameUI/GameGUIStyles.uss?fileID=7433441132597879392&amp;guid=9968e53a227028540ba5b8971365582f&amp;type=3#GameGUIStyles" />
+    <ui:VisualElement name="Top" style="flex-grow: 1; flex-direction: row; padding-top: 12px; padding-right: 12px; padding-bottom: 12px; padding-left: 12px;">
+        <ui:VisualElement name="OrderGroups" style="flex-grow: 1; padding-top: 10px; padding-right: 10px; padding-bottom: 10px; padding-left: 10px; flex-direction: row;">
+            <ui:VisualElement name="OrderCard" class="order-card">
+                <ui:VisualElement name="Order" class="order">
+                    <ui:Label tabindex="-1" text="1" parse-escape-sequences="true" display-tooltip-when-elided="true" name="OrderLabel" class="order-label" />
+                </ui:VisualElement>
+                <ui:VisualElement name="Timer" class="timer" style="flex-grow: 1;">
+                    <ui:VisualElement name="TimerBar" class="timer-bar" style="flex-grow: 1; width: 60%;" />
+                </ui:VisualElement>
+                <ui:VisualElement name="TableNum" class="table-num" style="flex-grow: 1;">
+                    <ui:Label tabindex="-1" text="1" parse-escape-sequences="true" display-tooltip-when-elided="true" name="TableNumLabel" class="table-num-label" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+        </ui:VisualElement>
+        <ui:VisualElement name="MenuBtn" class="icon-btn" style="flex-grow: 1; background-image: url(&quot;project://database/Assets/UI/InstructionUI/UnityThemes/UnityDefaultRuntimeTheme.tss?fileID=-1087164816274819069&amp;guid=737e962f33596834abf2fb0d62cada2b&amp;type=3#arrow-right@2x&quot;); width: 50px; height: 50px;" />
+    </ui:VisualElement>
     <ui:VisualElement name="Bottom" style="flex-grow: 1;" />
 </ui:UXML>

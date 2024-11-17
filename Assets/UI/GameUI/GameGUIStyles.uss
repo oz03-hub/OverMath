@@ -1,0 +1,157 @@
+.icon-btn {
+    width: 50px;
+    height: 50px;
+    flex-grow: initial;
+    background-color: rgb(9, 132, 227);
+    border-left-color: rgb(223, 230, 233);
+    border-right-color: rgb(223, 230, 233);
+    border-top-color: rgb(223, 230, 233);
+    border-bottom-color: rgb(223, 230, 233);
+    border-top-width: 4px;
+    border-right-width: 4px;
+    border-bottom-width: 4px;
+    border-left-width: 4px;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+    border-bottom-left-radius: 8px;
+    max-width: 50px;
+    max-height: 50px;
+}
+
+.icon-btn:hover {
+    width: 50px;
+    height: 50px;
+    flex-grow: initial;
+    background-color: rgb(6, 91, 157);
+    border-left-color: rgb(223, 230, 233);
+    border-right-color: rgb(223, 230, 233);
+    border-top-color: rgb(223, 230, 233);
+    border-bottom-color: rgb(223, 230, 233);
+    border-top-width: 4px;
+    border-right-width: 4px;
+    border-bottom-width: 4px;
+    border-left-width: 4px;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+    border-bottom-left-radius: 8px;
+    max-width: 50px;
+    max-height: 50px;
+}
+
+.order-card {
+    width: 150px;
+    height: 200px;
+    max-width: 150px;
+    max-height: 200px;
+    background-color: rgb(116, 185, 255);
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+    border-bottom-left-radius: 8px;
+    border-left-color: rgb(223, 230, 233);
+    border-right-color: rgb(223, 230, 233);
+    border-top-color: rgb(223, 230, 233);
+    border-bottom-color: rgb(223, 230, 233);
+    border-top-width: 4px;
+    border-right-width: 4px;
+    border-bottom-width: 4px;
+    border-left-width: 4px;
+    padding-top: 10px;
+    padding-right: 10px;
+    padding-bottom: 10px;
+    padding-left: 10px;
+    margin-right: 0;
+}
+
+.table-num {
+    max-width: 60px;
+    max-height: 60px;
+    position: absolute;
+    right: -25px;
+    top: -25px;
+    width: 50px;
+    height: 50px;
+    background-color: rgb(225, 112, 85);
+    border-left-color: rgb(223, 230, 233);
+    border-right-color: rgb(223, 230, 233);
+    border-top-color: rgb(223, 230, 233);
+    border-bottom-color: rgb(223, 230, 233);
+    border-top-left-radius: 200px;
+    border-top-right-radius: 200px;
+    border-bottom-right-radius: 200px;
+    border-bottom-left-radius: 200px;
+    border-top-width: 4px;
+    border-right-width: 4px;
+    border-bottom-width: 4px;
+    border-left-width: 4px;
+    align-items: center;
+    justify-content: center;
+}
+
+.order {
+    margin-bottom: 16px;
+    flex-shrink: 0;
+    background-color: rgb(223, 230, 233);
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+    border-bottom-left-radius: 8px;
+    height: 100%;
+    flex-grow: 1;
+    max-height: 124px;
+    justify-content: center;
+    align-items: center;
+    min-height: 124px;
+}
+
+.timer {
+    background-color: rgb(223, 230, 233);
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+    border-bottom-left-radius: 8px;
+    max-height: 30px;
+    border-top-width: 4px;
+    border-right-width: 4px;
+    border-bottom-width: 4px;
+    border-left-width: 4px;
+    border-left-color: rgb(223, 230, 233);
+    border-right-color: rgb(223, 230, 233);
+    border-top-color: rgb(223, 230, 233);
+    border-bottom-color: rgb(223, 230, 233);
+    height: 100%;
+    flex-shrink: 0;
+    flex-grow: 1;
+}
+
+.timer-bar {
+    background-color: rgb(0, 184, 148);
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+    border-bottom-right-radius: 4px;
+    border-bottom-left-radius: 4px;
+}
+
+.order-label {
+    -unity-text-align: middle-center;
+    font-size: 80px;
+    -unity-font: url("project://database/Assets/Fonts/MouldyCheeseRegular-WyMWG.ttf?fileID=12800000&guid=5684bac3266d1674fa89b636aa92f059&type=3#MouldyCheeseRegular-WyMWG");
+    -unity-font-style: bold;
+    -unity-font-definition: initial;
+    padding-top: 25%;
+}
+
+.unity-text-element {
+}
+
+.table-num-label {
+    -unity-font-style: bold;
+    -unity-font: url("project://database/Assets/TextMesh%20Pro/Fonts/LiberationSans.ttf?fileID=12800000&guid=e3265ab4bf004d28a9537516768c1c75&type=3#LiberationSans");
+    -unity-text-align: middle-left;
+    padding-left: 6px;
+    padding-bottom: 6px;
+    font-size: 20px;
+    color: rgb(255, 255, 255);
+}
