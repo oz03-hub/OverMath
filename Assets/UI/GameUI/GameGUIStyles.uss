@@ -2,7 +2,7 @@
     width: 50px;
     height: 50px;
     flex-grow: initial;
-    background-color: rgb(9, 132, 227);
+    background-color: rgb(116, 185, 255);
     border-left-color: rgb(223, 230, 233);
     border-right-color: rgb(223, 230, 233);
     border-top-color: rgb(223, 230, 233);
@@ -17,6 +17,8 @@
     border-bottom-left-radius: 8px;
     max-width: 50px;
     max-height: 50px;
+    -unity-background-image-tint-color: rgb(223, 230, 233);
+    background-image: url("project://database/Assets/UI/InstructionUI/UnityThemes/UnityDefaultRuntimeTheme.tss?fileID=-1087164816274819069&guid=737e962f33596834abf2fb0d62cada2b&type=3#arrow-right@2x");
 }
 
 .icon-btn:hover {
@@ -154,4 +156,108 @@
     padding-bottom: 6px;
     font-size: 20px;
     color: rgb(255, 255, 255);
+}
+
+.order-card-wrapper {
+    width: 100%;
+    height: 100%;
+    max-width: 100%;
+    max-height: 100%;
+    flex-shrink: 0;
+}
+
+.holding-panel {
+    background-color: rgb(116, 185, 255);
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+    border-bottom-left-radius: 8px;
+    border-top-width: 4px;
+    border-right-width: 4px;
+    border-bottom-width: 4px;
+    border-left-width: 4px;
+    border-left-color: rgb(223, 230, 233);
+    border-right-color: rgb(223, 230, 233);
+    border-top-color: rgb(223, 230, 233);
+    border-bottom-color: rgb(223, 230, 233);
+    padding-top: 0;
+    padding-right: 8px;
+    padding-bottom: 8px;
+    padding-left: 8px;
+    width: 200px;
+    height: 200px;
+}
+
+.holding-label {
+    -unity-font: url("project://database/Assets/Fonts/CollectEmAll-Bold.ttf?fileID=12800000&guid=3a696efbba8b14a47824dae56013e3e2&type=3#CollectEmAll-Bold");
+    -unity-font-definition: initial;
+    color: rgb(223, 230, 233);
+    text-shadow: 2px 2px 0 rgb(27, 27, 27);
+    font-size: 24px;
+    margin-bottom: 8px;
+    -unity-font-style: bold;
+}
+
+.holding-ingredient {
+    background-color: rgb(223, 230, 233);
+    flex-grow: 1;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+    border-bottom-right-radius: 4px;
+    border-bottom-left-radius: 4px;
+    justify-content: center;
+    align-items: center;
+}
+
+.ingredient-label {
+    -unity-font: url("project://database/Assets/Fonts/MouldyCheeseRegular-WyMWG.ttf?fileID=12800000&guid=5684bac3266d1674fa89b636aa92f059&type=3#MouldyCheeseRegular-WyMWG");
+    -unity-font-definition: initial;
+    font-size: 64px;
+    -unity-font-style: normal;
+}
+
+.indicator-card {
+    background-color: rgb(116, 185, 255);
+    border-left-color: rgb(223, 230, 233);
+    border-right-color: rgb(223, 230, 233);
+    border-top-color: rgb(223, 230, 233);
+    border-bottom-color: rgb(223, 230, 233);
+    border-top-width: 4px;
+    border-right-width: 4px;
+    border-bottom-width: 4px;
+    border-left-width: 4px;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+    border-bottom-left-radius: 8px;
+    width: 300px;
+    height: 80px;
+    flex-direction: row;
+    padding-top: 12px;
+    padding-right: 12px;
+    padding-bottom: 12px;
+    padding-left: 12px;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.indicator-card-wrapper {
+    margin-top: 12px;
+}
+
+.indicator-card-icon {
+    width: 59px;
+    height: 59px;
+}
+
+.indicator-card-label {
+    -unity-text-align: upper-center;
+    flex-grow: 1;
+    -unity-font: url("project://database/Assets/Fonts/CollectEmAll-Bold.ttf?fileID=12800000&guid=3a696efbba8b14a47824dae56013e3e2&type=3#CollectEmAll-Bold");
+    -unity-font-definition: initial;
+    margin-bottom: 16%;
+    font-size: 32px;
+    color: rgb(223, 230, 233);
+    text-shadow: 2px 2px 12px rgb(27, 27, 27);
+    -unity-font-style: bold;
 }
