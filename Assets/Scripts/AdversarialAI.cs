@@ -20,6 +20,9 @@ public class AdversarialAI : MonoBehaviour
     public GameObject smokeEffectPrefab;
     public Transform smokeSpawn;
 
+    public AudioClip explosionEffect;
+    public AudioSource AudioSource;
+
     // Patroling
     public Vector3 walkPoint;
     bool walkPointSet;
@@ -36,7 +39,7 @@ public class AdversarialAI : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        AudioSource = GetComponent<AudioSource>();
     }
 
     private void Awake()
@@ -110,6 +113,7 @@ public class AdversarialAI : MonoBehaviour
         if (!alreadyAttacked)
         {
             ShowFloatingText();
+            AudioSource.PlayOneShot(explosionEffect);
             alreadyAttacked = true;
             animation_controller.SetBool("attack", true);
             Vector3 attackDirection = (player.position - transform.position).normalized;

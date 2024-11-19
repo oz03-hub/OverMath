@@ -20,6 +20,10 @@ public class PlayerController : MonoBehaviour
 
     private TrailRenderer trail_renderer;
 
+    private AudioSource audio_source;
+    public AudioClip stepClip;
+    public AudioClip thudClip;
+
     private enum MovementState {
         Walking,
         Idle,
@@ -39,6 +43,16 @@ public class PlayerController : MonoBehaviour
         speed = 0.0f;
 
         trail_renderer = GetComponent<TrailRenderer>();
+
+        audio_source = GetComponent<AudioSource>();
+    }
+
+    private void Step() {
+        audio_source.PlayOneShot(stepClip, 0.01f);
+    }
+
+    private void Thud() {
+        audio_source.PlayOneShot(thudClip);
     }
 
     void UpdateSpeed() {

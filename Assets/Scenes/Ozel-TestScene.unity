@@ -401,6 +401,8 @@ MonoBehaviour:
   speed: 0
   smooth_time: 0.1
   rotation_speed: 5
+  stepClip: {fileID: 0}
+  thudClip: {fileID: 0}
 --- !u!143 &454252547
 CharacterController:
   m_ObjectHideFlags: 0
@@ -822,6 +824,7 @@ GameObject:
   - component: {fileID: 963194228}
   - component: {fileID: 963194227}
   - component: {fileID: 963194229}
+  - component: {fileID: 963194230}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -908,6 +911,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 1577967586}
+--- !u!81 &963194230
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 963194225}
+  m_Enabled: 1
 --- !u!1 &1218733191
 GameObject:
   m_ObjectHideFlags: 0
@@ -2469,6 +2480,8 @@ MonoBehaviour:
   FloatingTextPrefab: {fileID: 0}
   smokeEffectPrefab: {fileID: 0}
   smokeSpawn: {fileID: 0}
+  explosionEffect: {fileID: 0}
+  AudioSource: {fileID: 0}
   walkPoint: {x: 0, y: 0, z: 0}
   walkPointRange: 5
   timeBetweenAttacks: 2
@@ -2850,14 +2863,6 @@ PrefabInstance:
     - target: {fileID: 4479662253345836129, guid: fa2e4db8726e79a49b678c4d09c19752, type: 3}
       propertyPath: m_Name
       value: Kitchen
-      objectReference: {fileID: 0}
-    - target: {fileID: 8319156279878507730, guid: fa2e4db8726e79a49b678c4d09c19752, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 5.3823185
-      objectReference: {fileID: 0}
-    - target: {fileID: 8319156279878507730, guid: fa2e4db8726e79a49b678c4d09c19752, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -7.14
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
