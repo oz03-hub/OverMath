@@ -308,7 +308,7 @@ MonoBehaviour:
   m_OverrideVoxelSize: 0
   m_VoxelSize: 0.16666667
   m_MinRegionArea: 2
-  m_NavMeshData: {fileID: 23800000, guid: 276b4be374d131b42a17f2b84b60c63b, type: 2}
+  m_NavMeshData: {fileID: 23800000, guid: b3a9182d9c8d0324f87bd0bf12124549, type: 2}
   m_BuildHeightMesh: 0
 --- !u!1 &641561666
 GameObject:
@@ -629,13 +629,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   agent: {fileID: 780548280}
   player: {fileID: 4116813028144421515}
-  whatIsGorund:
+  whatIsGround:
     serializedVersion: 2
-    m_Bits: 256
+    m_Bits: 0
   whatIsPlayer:
     serializedVersion: 2
     m_Bits: 128
+  playerBody: {fileID: 0}
+  ragdoll: {fileID: 0}
   FloatingTextPrefab: {fileID: 6487523235464291236, guid: 88217f88e51311b4a8e1b29ada8edbd6, type: 3}
+  smokeEffectPrefab: {fileID: 0}
+  smokeSpawn: {fileID: 0}
   walkPoint: {x: 0, y: 0, z: 0}
   walkPointRange: 5
   timeBetweenAttacks: 2
@@ -1497,13 +1501,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   agent: {fileID: 2009640137}
   player: {fileID: 4116813028144421515}
-  whatIsGorund:
+  whatIsGround:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 0
   whatIsPlayer:
     serializedVersion: 2
     m_Bits: 128
+  playerBody: {fileID: 0}
+  ragdoll: {fileID: 0}
   FloatingTextPrefab: {fileID: 0}
+  smokeEffectPrefab: {fileID: 0}
+  smokeSpawn: {fileID: 0}
   walkPoint: {x: 0, y: 0, z: 0}
   walkPointRange: 5
   timeBetweenAttacks: 2
