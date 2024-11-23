@@ -127,12 +127,11 @@ public class GameLevelManager : MonoBehaviour
 
         if (orderList != null) {
             // Add new order to GUI if there is
-            Debug.Log("wooooooooooooooooooooooooooooooooooooo");
             List<int> orders = quizGenerator.GetOrder();
             if (orders.Count > orderList.Count && orders.Count < totalOrders)
             {
                 int newOrderNum = orders[orders.Count - 1];
-                int givenTime = Random.Range(100, 300);
+                int givenTime = Random.Range(50, 200);
                 Order newOrder = new Order
                 {
                     orderNum = newOrderNum,
@@ -141,8 +140,6 @@ public class GameLevelManager : MonoBehaviour
                     timeLimit = givenTime,
                     isCompleted = false
                 };
-                Debug.Log("NEW ORDER -----------------");
-                Debug.Log(newOrderNum);
 
                 VisualTreeAsset orderCardTemplate = Resources.Load<VisualTreeAsset>("UI/GameUI/OrderCard");
                 if (orderCardTemplate == null)
