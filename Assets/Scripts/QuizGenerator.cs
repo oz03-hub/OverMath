@@ -2,6 +2,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
+
 
 public class QuizGenerator : MonoBehaviour
 {
@@ -16,10 +18,11 @@ public class QuizGenerator : MonoBehaviour
     }
 
     private Dictionary<Operators, Func<int, int, int>> operatorFunctions;
+    private List<int> orderList;
     void Start()
     {
         InitializeOperatorFunctions();
-        StartCoroutine(AwaitQuiz());
+        orderList = new List<int>();
     }
 
     private void InitializeOperatorFunctions()
@@ -32,7 +35,7 @@ public class QuizGenerator : MonoBehaviour
         };
     }
 
-    public int PerformOperation(Operators op, int a, int b)
+    private int PerformOperation(Operators op, int a, int b)
     {
         if (operatorFunctions.TryGetValue(op, out Func<int, int, int> func))
         {
@@ -41,36 +44,41 @@ public class QuizGenerator : MonoBehaviour
         throw new ArgumentException("Invalid operator");
     }
 
-    public int GenerateQuestion()
+    private int GenerateQuestion()
     {
         int a = 0;
-        int b = 0 ;
-        Operators op = Operators.Addition;
-        for (global::System.Int32 i = 0; i < UnityEngine.Random.Range(1, maxCombinationLength); i++)
+        for (int i = 0; i < UnityEngine.Random.Range(1, maxCombinationLength); i++)
         {
-            if (i == 0) {
+            int b = allowedNumbers[UnityEngine.Random.Range(0, allowedNumbers.Length)];
+            Operators op = allowedOperators[UnityEngine.Random.Range(0, allowedOperators.Length)];
+            if (i == 0)
+            {
                 a = allowedNumbers[UnityEngine.Random.Range(0, allowedNumbers.Length)];
-                b = allowedNumbers[UnityEngine.Random.Range(0, allowedNumbers.Length)];
-                op = allowedOperators[UnityEngine.Random.Range(0, allowedOperators.Length)];
-                a = PerformOperation(op, a, b);
-                continue;
             }
-
-            b = allowedNumbers[UnityEngine.Random.Range(0, allowedNumbers.Length)];
-            op = allowedOperators[UnityEngine.Random.Range(0, allowedOperators.Length)];
             a = PerformOperation(op, a, b);
-
+            if (a < 0) a = 0; // Ensure non-negative result
         }
 
         return a;
     }
 
-    IEnumerator AwaitQuiz() {
+    public void InitOrder()
+    {
+        StartCoroutine(AwaitQuiz());
+    }
+
+    public List<int> GetOrder()
+    {
+        return orderList;
+    }
+
+    IEnumerator AwaitQuiz()
+    {
         while (true)
         {
-            yield return new WaitForSeconds(10.0f);
             int result = GenerateQuestion();
-            Debug.Log($"New quiz question: {result}");
+            orderList.Add(result);
+            yield return new WaitForSeconds(10.0f);
         }
     }
 

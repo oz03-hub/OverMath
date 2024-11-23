@@ -1,60 +1,7 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/UI/GameUI/GameGUIStyles.uss?fileID=7433441132597879392&amp;guid=9968e53a227028540ba5b8971365582f&amp;type=3#GameGUIStyles" />
     <ui:VisualElement name="Top" style="flex-grow: 1; flex-direction: row; padding-top: 12px; padding-right: 12px; padding-bottom: 12px; padding-left: 12px;">
-        <ui:VisualElement name="OrderGroups" style="flex-grow: 1; padding-top: 10px; padding-right: 10px; padding-bottom: 10px; padding-left: 10px; flex-direction: row; align-items: flex-start; justify-content: flex-start; align-self: auto;">
-            <ui:VisualElement name="OrderCardWrapper" class="order-card-wrapper" style="width: auto; height: auto; max-width: none; max-height: none; margin-right: 30px;">
-                <ui:VisualElement name="OrderCard" class="order-card">
-                    <ui:VisualElement name="Order" class="order">
-                        <ui:Label tabindex="-1" text="1" parse-escape-sequences="true" display-tooltip-when-elided="true" name="OrderLabel" class="order-label" />
-                    </ui:VisualElement>
-                    <ui:VisualElement name="Timer" class="timer" style="flex-grow: 1;">
-                        <ui:VisualElement name="TimerBar" class="timer-bar" style="flex-grow: 1; width: 60%;" />
-                    </ui:VisualElement>
-                    <ui:VisualElement name="TableNum" class="table-num" style="flex-grow: 1;">
-                        <ui:Label tabindex="-1" text="1" parse-escape-sequences="true" display-tooltip-when-elided="true" name="TableNumLabel" class="table-num-label" />
-                    </ui:VisualElement>
-                </ui:VisualElement>
-            </ui:VisualElement>
-            <ui:VisualElement name="OrderCardWrapper" class="order-card-wrapper" style="width: auto; height: auto; max-width: none; max-height: none; margin-right: 30px;">
-                <ui:VisualElement name="OrderCard" class="order-card">
-                    <ui:VisualElement name="Order" class="order">
-                        <ui:Label tabindex="-1" text="1" parse-escape-sequences="true" display-tooltip-when-elided="true" name="OrderLabel" class="order-label" />
-                    </ui:VisualElement>
-                    <ui:VisualElement name="Timer" class="timer" style="flex-grow: 1;">
-                        <ui:VisualElement name="TimerBar" class="timer-bar" style="flex-grow: 1; width: 60%;" />
-                    </ui:VisualElement>
-                    <ui:VisualElement name="TableNum" class="table-num" style="flex-grow: 1;">
-                        <ui:Label tabindex="-1" text="1" parse-escape-sequences="true" display-tooltip-when-elided="true" name="TableNumLabel" class="table-num-label" />
-                    </ui:VisualElement>
-                </ui:VisualElement>
-            </ui:VisualElement>
-            <ui:VisualElement name="OrderCardWrapper" class="order-card-wrapper" style="width: auto; height: auto; max-width: none; max-height: none; margin-right: 30px;">
-                <ui:VisualElement name="OrderCard" class="order-card">
-                    <ui:VisualElement name="Order" class="order">
-                        <ui:Label tabindex="-1" text="1" parse-escape-sequences="true" display-tooltip-when-elided="true" name="OrderLabel" class="order-label" />
-                    </ui:VisualElement>
-                    <ui:VisualElement name="Timer" class="timer" style="flex-grow: 1;">
-                        <ui:VisualElement name="TimerBar" class="timer-bar" style="flex-grow: 1; width: 60%;" />
-                    </ui:VisualElement>
-                    <ui:VisualElement name="TableNum" class="table-num" style="flex-grow: 1;">
-                        <ui:Label tabindex="-1" text="1" parse-escape-sequences="true" display-tooltip-when-elided="true" name="TableNumLabel" class="table-num-label" />
-                    </ui:VisualElement>
-                </ui:VisualElement>
-            </ui:VisualElement>
-            <ui:VisualElement name="OrderCardWrapper" class="order-card-wrapper" style="width: auto; height: auto; max-width: none; max-height: none; margin-right: 30px;">
-                <ui:VisualElement name="OrderCard" class="order-card">
-                    <ui:VisualElement name="Order" class="order">
-                        <ui:Label tabindex="-1" text="1" parse-escape-sequences="true" display-tooltip-when-elided="true" name="OrderLabel" class="order-label" />
-                    </ui:VisualElement>
-                    <ui:VisualElement name="Timer" class="timer" style="flex-grow: 1;">
-                        <ui:VisualElement name="TimerBar" class="timer-bar" style="flex-grow: 1; width: 60%;" />
-                    </ui:VisualElement>
-                    <ui:VisualElement name="TableNum" class="table-num">
-                        <ui:Label tabindex="-1" text="1" parse-escape-sequences="true" display-tooltip-when-elided="true" name="TableNumLabel" class="table-num-label" />
-                    </ui:VisualElement>
-                </ui:VisualElement>
-            </ui:VisualElement>
-        </ui:VisualElement>
+        <ui:VisualElement name="OrderGroups" style="flex-grow: 1; padding-top: 10px; padding-right: 10px; padding-bottom: 10px; padding-left: 10px; flex-direction: row; align-items: flex-start; justify-content: flex-start; align-self: auto;" />
         <ui:VisualElement name="MenuBtn" class="icon-btn" />
     </ui:VisualElement>
     <ui:VisualElement name="Bottom" style="flex-grow: 1; padding-top: 12px; padding-right: 12px; padding-bottom: 12px; padding-left: 12px; justify-content: flex-end; flex-direction: row; align-items: flex-end;">
@@ -74,8 +21,8 @@
         </ui:VisualElement>
         <ui:VisualElement name="HoldingPanel" class="holding-panel">
             <ui:Label tabindex="-1" text="Holding:" parse-escape-sequences="true" display-tooltip-when-elided="true" class="holding-label" />
-            <ui:VisualElement name="Ingredient" class="holding-ingredient">
-                <ui:Label tabindex="-1" text="3" parse-escape-sequences="true" display-tooltip-when-elided="true" class="ingredient-label" />
+            <ui:VisualElement name="IngredientContainer" class="holding-ingredient">
+                <ui:Label tabindex="-1" text="3" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Ingredient" class="ingredient-label" />
             </ui:VisualElement>
         </ui:VisualElement>
     </ui:VisualElement>

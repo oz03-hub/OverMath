@@ -228,7 +228,7 @@ GameObject:
   - component: {fileID: 514628335}
   - component: {fileID: 514628337}
   m_Layer: 5
-  m_Name: UIDocument
+  m_Name: InstructionUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

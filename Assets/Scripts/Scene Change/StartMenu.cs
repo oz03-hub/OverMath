@@ -18,6 +18,11 @@ public class StartMenu : MonoBehaviour
   
   }
 
+  void OnDisable()
+  {
+    playButton.UnregisterCallback<ClickEvent>(GoToLevel1);
+  }
+
   private void GoToLevel1(ClickEvent e)
   {
     Debug.Log("Player Name: " + nameInput.value);

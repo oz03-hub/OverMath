@@ -1,29 +1,77 @@
+using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
-using TMPro;
+using UnityEngine.UIElements;
 
 public class GameLevelManager : MonoBehaviour
 {
     public int playerPoints = 0;
     public int pointsToWin = 100;
-    public int tasksCompleted = 0;
-    public int totalTasks = 5;
+    public int ordersCompleted = 0;
+    public int totalOrders = 5;
     public float timeLimit = 300f;
     public bool hasWon = false;
     public bool gameOver = false;
+    public UIDocument GameGUI;
+    public QuizGenerator quizGenerator;
 
     private float timeRemaining;
     private float lastUpdateTime;
 
-    public TMP_Text timerText;
-    public TMP_Text scoreText;
-    public TMP_Text equationText;
-    public TMP_Text feedbackText;
+    private Label timerText;
+    private Label scoreText;
+    private VisualElement orderListContainer;
+    private Label ingredientText;
+
+    // Bad code alert pls dont shame me
+    private class Order {
+        public int orderNum;
+        public int tableNum;
+        public int timeRemaining;
+        public int timeLimit;
+        public bool isCompleted;
+        public VisualElement orderContainer;
+
+        public void UpdateTime() {
+            timeRemaining = Mathf.Max(0, timeRemaining - 1);
+            var timerElement = orderContainer.Q<VisualElement>("Timer");
+            var timerBar = timerElement.Q<VisualElement>("TimerBar");
+            if (timerBar != null)
+            {
+                Debug.Log("Timer: " + timeRemaining);
+                float timeRemainPercent = timeRemaining / (float)timeLimit * 100;
+                if (timeRemainPercent < 20)
+                {
+                    timerBar.style.backgroundColor = new StyleColor(new Color32(225, 112, 85, 255));
+                }
+                else if (timeRemainPercent < 50)
+                {
+                    timerBar.style.backgroundColor = new StyleColor(new Color32(253, 203, 110, 255));
+                }
+                timerBar.style.width = Length.Percent(timeRemainPercent);
+            }
+        }
+    }
+    private List<Order> orderList;
+
+    void OnEnable()
+    {
+        var root = GameGUI.rootVisualElement;
+        timerText = root.Q<Label>("Time");
+        scoreText = root.Q<Label>("Score");
+        orderListContainer = root.Q<VisualElement>("OrderGroups");
+        ingredientText = root.Q<Label>("IngredientText");
+    }
 
     void Start()
     {
         timeRemaining = timeLimit;
         lastUpdateTime = Time.time;
+        if (quizGenerator == null) {
+            Debug.LogError("QuizGenerator not assigned. Will try finding it in scene");
+            quizGenerator = FindObjectOfType<QuizGenerator>();
+        }
+        quizGenerator.InitOrder();
+        orderList = new List<Order>();
     }
 
     void Update()
@@ -34,6 +82,10 @@ public class GameLevelManager : MonoBehaviour
         {
             lastUpdateTime = Time.time;
             timeRemaining = Mathf.Max(0, timeRemaining - 1f);
+            foreach (Order order in orderList)
+            {
+                order.UpdateTime();
+            }
         }
 
         if (timeRemaining <= 0)
@@ -46,7 +98,7 @@ public class GameLevelManager : MonoBehaviour
             WinGame();
         }
 
-        if (tasksCompleted >= totalTasks)
+        if (ordersCompleted >= totalOrders)
         {
             CompleteAllTasks();
         }
@@ -54,34 +106,71 @@ public class GameLevelManager : MonoBehaviour
         UpdateUI();
     }
 
+    void OnDisable()
+    {
+        timerText = null;
+        scoreText = null;
+        ingredientText = null;
+    }
+
     void UpdateUI()
     {
         if (timerText != null)
         {
-            timerText.text = "Time: " + Mathf.Max(0, Mathf.FloorToInt(timeRemaining)).ToString();
+            UpdateTime(Mathf.Max(0, Mathf.FloorToInt(timeRemaining)));
         }
 
         if (scoreText != null)
         {
-            scoreText.text = "Score: " + playerPoints.ToString();
+            scoreText.text = playerPoints.ToString();
+        }
+
+        if (orderList != null) {
+            // Add new order to GUI if there is
+            Debug.Log("wooooooooooooooooooooooooooooooooooooo");
+            List<int> orders = quizGenerator.GetOrder();
+            if (orders.Count > orderList.Count && orders.Count < totalOrders)
+            {
+                int newOrderNum = orders[orders.Count - 1];
+                int givenTime = Random.Range(100, 300);
+                Order newOrder = new Order
+                {
+                    orderNum = newOrderNum,
+                    tableNum = Random.Range(1, 10), // TODO: Fix later
+                    timeRemaining = givenTime,
+                    timeLimit = givenTime,
+                    isCompleted = false
+                };
+                Debug.Log("NEW ORDER -----------------");
+                Debug.Log(newOrderNum);
+
+                VisualTreeAsset orderCardTemplate = Resources.Load<VisualTreeAsset>("UI/GameUI/OrderCard");
+                if (orderCardTemplate == null)
+                {
+                    Debug.LogError("OrderCard template not found");
+                    return;
+                }
+                VisualElement orderCardWrapper = orderCardTemplate.Instantiate();
+  
+                var orderLabel = orderCardWrapper.Q<Label>("OrderLabel");
+                orderLabel.text = newOrder.orderNum.ToString();
+
+                var tableNumLabel = orderCardWrapper.Q<Label>("TableNumLabel");
+                tableNumLabel.text = newOrder.tableNum.ToString();
+
+                newOrder.orderContainer = orderCardWrapper;
+                orderList.Add(newOrder);
+                orderListContainer.Add(orderCardWrapper);
+            }
         }
     }
 
-    public void ShowEquation(string equation)
+    void UpdateTime(int time)
     {
-        if (equationText != null)
-        {
-            equationText.text = "Solve the equation: " + equation;
-        }
-    }
-
-    public void ShowFeedback(bool isCorrect)
-    {
-        if (feedbackText != null)
-        {
-            feedbackText.text = isCorrect ? "Success!" : "Try again, so close!";
-            feedbackText.color = isCorrect ? Color.green : Color.red;
-        }
+        int minutes = time / 60;
+        int seconds = time % 60;
+        string formattedTime = string.Format("{0:00}:{1:00}", minutes, seconds);
+        timerText.text = formattedTime;
     }
 
     void WinGame()
@@ -113,9 +202,9 @@ public class GameLevelManager : MonoBehaviour
 
     public void CompleteTask()
     {
-        if (!gameOver && tasksCompleted < totalTasks)
+        if (!gameOver && ordersCompleted < totalOrders)
         {
-            tasksCompleted++;
+            ordersCompleted++;
         }
     }
 }

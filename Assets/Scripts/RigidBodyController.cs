@@ -30,7 +30,7 @@ public class RigidBodyController : MonoBehaviour
     void Update()
     {
         PlayerMovementInput = new Vector3(Input.GetAxis("Horizontal"), 0f, Input.GetAxis("Vertical")).normalized;
-        Debug.Log(PlayerMovementInput);
+        // Debug.Log(PlayerMovementInput);
     }
 
     void FixedUpdate()
