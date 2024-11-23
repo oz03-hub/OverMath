@@ -85,6 +85,12 @@ public class GameLevelManager : MonoBehaviour
             foreach (Order order in orderList)
             {
                 order.UpdateTime();
+                if (order.timeRemaining == 0)
+                {
+                    orderList.Remove(order);
+                    order.orderContainer.RemoveFromHierarchy();
+                    break;
+                }
             }
         }
 
