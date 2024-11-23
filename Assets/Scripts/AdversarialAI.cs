@@ -39,7 +39,7 @@ public class AdversarialAI : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        AudioSource = GetComponent<AudioSource>();
+
     }
 
     private void Awake()
@@ -48,6 +48,7 @@ public class AdversarialAI : MonoBehaviour
         player = GameObject.FindWithTag("Player").transform;
         agent = GetComponent<NavMeshAgent>();
         ragdoll = GameObject.FindWithTag("Player").GetComponent<Ragdoll>();
+        AudioSource = GetComponent<AudioSource>();
     }
 
     //private void SearchWalkPoint()

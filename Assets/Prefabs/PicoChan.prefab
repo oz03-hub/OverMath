@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: 3510790801495585437}
   - component: {fileID: 4695322581906304273}
   - component: {fileID: 9131711653257525217}
+  - component: {fileID: 625051598313911689}
   m_Layer: 7
   m_Name: PicoChan
   m_TagString: Player
@@ -375,6 +376,14 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!81 &625051598313911689
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1680060744386249596}
+  m_Enabled: 1
 --- !u!1001 &7337084477022908725
 PrefabInstance:
   m_ObjectHideFlags: 0
