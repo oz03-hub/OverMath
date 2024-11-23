@@ -11,7 +11,7 @@ public class CustomerAI : MonoBehaviour
     private NavMeshAgent agent;
     private float timer;
     public bool isSeated = false;
-    private bool isOrderFulfilled = false;
+    public bool isOrderFulfilled = false;
     private Animator animator; // For handling animations
 
     private int orderValue; // The customer's requested value
