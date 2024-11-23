@@ -2,7 +2,7 @@
 
 ## Movement and Controls
 - **Movement**: Use the **WASD** keys to move the character.
-- **Sprint**: Hold **Control** to dash.
+- **Sprint**: Hold **Shift** and direction
 
 ## Game Description
 
