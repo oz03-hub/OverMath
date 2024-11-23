@@ -318,6 +318,7 @@ MonoBehaviour:
   waitTime: 15
   orderUI: {fileID: 0}
   isSeated: 0
+  isOrderFulfilled: 0
 --- !u!195 &126453863
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -372,6 +373,7 @@ MonoBehaviour:
   waitTime: 15
   orderUI: {fileID: 0}
   isSeated: 0
+  isOrderFulfilled: 0
 --- !u!195 &389023166
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -479,6 +481,7 @@ MonoBehaviour:
   waitTime: 15
   orderUI: {fileID: 0}
   isSeated: 0
+  isOrderFulfilled: 0
 --- !u!195 &438424937
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -892,6 +895,7 @@ MonoBehaviour:
   waitTime: 15
   orderUI: {fileID: 0}
   isSeated: 0
+  isOrderFulfilled: 0
 --- !u!195 &630064677
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -1276,6 +1280,7 @@ MonoBehaviour:
   waitTime: 15
   orderUI: {fileID: 0}
   isSeated: 0
+  isOrderFulfilled: 0
 --- !u!195 &857502263
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -1714,6 +1719,7 @@ MonoBehaviour:
   waitTime: 15
   orderUI: {fileID: 0}
   isSeated: 0
+  isOrderFulfilled: 0
 --- !u!195 &1337590685
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -1933,6 +1939,7 @@ MonoBehaviour:
   waitTime: 15
   orderUI: {fileID: 0}
   isSeated: 0
+  isOrderFulfilled: 0
 --- !u!195 &1469524348
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -2694,6 +2701,7 @@ MonoBehaviour:
   waitTime: 15
   orderUI: {fileID: 0}
   isSeated: 0
+  isOrderFulfilled: 0
 --- !u!195 &1798952208
 NavMeshAgent:
   m_ObjectHideFlags: 0
