@@ -47,16 +47,22 @@ public class QuizGenerator : MonoBehaviour
     private int GenerateQuestion()
     {
         int a = 0;
-        for (int i = 0; i < UnityEngine.Random.Range(1, maxCombinationLength); i++)
+        int b = 0;
+        Operators op = Operators.Addition;
+        for (global::System.Int32 i = 0; i < UnityEngine.Random.Range(1, maxCombinationLength); i++)
         {
-            int b = allowedNumbers[UnityEngine.Random.Range(0, allowedNumbers.Length)];
-            Operators op = allowedOperators[UnityEngine.Random.Range(0, allowedOperators.Length)];
             if (i == 0)
             {
                 a = allowedNumbers[UnityEngine.Random.Range(0, allowedNumbers.Length)];
+                b = allowedNumbers[UnityEngine.Random.Range(0, allowedNumbers.Length)];
+                op = allowedOperators[UnityEngine.Random.Range(0, allowedOperators.Length)];
+                a = PerformOperation(op, a, b);
+                continue;
             }
+
+            b = allowedNumbers[UnityEngine.Random.Range(0, allowedNumbers.Length)];
+            op = allowedOperators[UnityEngine.Random.Range(0, allowedOperators.Length)];
             a = PerformOperation(op, a, b);
-            if (a < 0) a = 0; // Ensure non-negative result
         }
 
         return a;
