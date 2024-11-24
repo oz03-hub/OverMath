@@ -101,3 +101,10 @@ ModelImporter:
   userData: 
   assetBundleName: 
   assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 124055
+  packageName: Apartment Kit
+  packageVersion: 4.2
+  assetPath: Assets/Brick Project Studio/_BPS Basic Assets/Common/Models/BPS_Chair_01.fbx
+  uploadId: 594248
