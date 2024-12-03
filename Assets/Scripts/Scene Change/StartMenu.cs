@@ -5,13 +5,11 @@ using UnityEngine.UIElements;
 public class StartMenu : MonoBehaviour
 {
   private Button playButton;
-  private TextField nameInput;
 
   void OnEnable()
   {
     var root = GetComponent<UIDocument>().rootVisualElement;
 
-    nameInput = root.Q<TextField>("NameInput");
     playButton = root.Q<Button>("PlayButton");
 
     playButton.RegisterCallback<ClickEvent>(GoToLevel1);
@@ -25,7 +23,7 @@ public class StartMenu : MonoBehaviour
 
   private void GoToLevel1(ClickEvent e)
   {
-    Debug.Log("Player Name: " + nameInput.value);
+    Debug.Log("Loading Level1");
     SceneManager.LoadScene("Level1");
   }
 }
