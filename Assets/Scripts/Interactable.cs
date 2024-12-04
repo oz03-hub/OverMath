@@ -2,6 +2,12 @@ using UnityEngine;
 using System.Collections;
 public class Interactable : MonoBehaviour
 {
+    public enum InteractionType
+    {
+        PickUp, // For number items
+        Discard // For trash items
+    }
+    public InteractionType interactionType;
     public Material highlightMaterial;
     public Material originalMaterial;
     private Renderer renderer; // This is the class-level renderer reference
@@ -62,8 +68,17 @@ public class Interactable : MonoBehaviour
 			}
 		}
 	}
-    public void Interact()
+    public void Interact(PlayerController player)
     {
-        GameInteractableManager.Instance.DisableTemporarily(gameObject, 3.0f); // Call GameManager to handle re-enabling
+        if (interactionType == InteractionType.PickUp)
+        {
+            gameObject.SetActive(false); // Hide the object
+            GameInteractableManager.Instance.DisableTemporarily(gameObject, 3.0f); // Call GameManager to handle re-enabling
+        }
+        else if (interactionType == InteractionType.Discard)
+        {
+            Debug.Log("Discarding held number");
+            player.DiscardHeldNumber();
+        }
     }
 }

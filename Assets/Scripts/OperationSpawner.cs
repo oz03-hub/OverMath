@@ -77,7 +77,27 @@ public class OperationSpawner : MonoBehaviour
 		additive.transform.localScale = operationScale;
 		subtractive.transform.localScale = operationScale;
 
-		// additive.AddComponent<Rigidbody>();
+		int interactableLayer = LayerMask.NameToLayer("Interactable");
+		additive.layer = interactableLayer;
+		subtractive.layer = interactableLayer;
+
+		additive.AddComponent<BoxCollider>();
+		subtractive.AddComponent<BoxCollider>();
+
+		Interactable additiveInteractable = additive.AddComponent<Interactable>();
+		additiveInteractable.interactionType = Interactable.InteractionType.Discard;
+
+		Interactable subtractiveInteractable = subtractive.AddComponent<Interactable>();
+		subtractiveInteractable.interactionType = Interactable.InteractionType.Discard;
+
+		Material highlightMaterial = Resources.Load<Material>("Materials/HighlightMaterial");
+		if (highlightMaterial != null)
+		{
+			additiveInteractable.highlightMaterial = highlightMaterial;
+			subtractiveInteractable.highlightMaterial = highlightMaterial;
+		}
+		additiveInteractable.originalMaterial = Resources.Load<Material>("Materials/MockMaterial");
+		subtractiveInteractable.originalMaterial = Resources.Load<Material>("Materials/MockMaterial");
 
 		Debug.Log("Operation spawned!");
 	}

@@ -179,22 +179,20 @@ public class PlayerController : MonoBehaviour
         DetectInteractable();
 
         // Handle dropping the number (if holding any)
-        if (heldNumber != null)
-        {
-            if (Input.GetKeyDown(KeyCode.G)) // Example key for dropping
-            {
-                heldNumber = null; // No longer holding anything
-                gameLevelManager.UpdateIngredientText(""); // Clear the UI text
-                Debug.Log("Dropped the number.");
-            }
+        // if (heldNumber != null)
+        // {
+        //     if (Input.GetKeyDown(KeyCode.G)) // Example key for dropping
+        //     {
+        //         DiscardHeldNumber();
+        //     }
 
-            // Prevent picking up another number while holding one
-            return; // Skip the logic below, but allow dropping and blinking
-        }
+        //     // Prevent picking up another number while holding one
+        //     return; // Skip the logic below, but allow dropping and blinking
+        // }
 
         if (currentInteractable != null && Input.GetKeyDown(KeyCode.F))
         {
-            currentInteractable.Interact();
+            currentInteractable.Interact(this);
 
             NumberComponent numberComponent = currentInteractable.GetComponent<NumberComponent>();
             if (numberComponent != null)
@@ -204,7 +202,18 @@ public class PlayerController : MonoBehaviour
             }
             ClearCurrentHighlight();
         }
+
     }
+
+    public void DiscardHeldNumber()
+    {
+        if (heldNumber != null)
+        {
+            heldNumber = null;
+            gameLevelManager.UpdateIngredientText("");
+        }
+    }
+
     void DetectInteractable()
     {
         // Find all colliders within the interaction range
