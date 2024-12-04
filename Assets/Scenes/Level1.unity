@@ -3664,6 +3664,77 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6433478931817329565, guid: 87b837bc5f2c7db4787b6fb7663c16d1, type: 3}
   m_PrefabInstance: {fileID: 1746454750}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1385863982
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1385863984}
+  - component: {fileID: 1385863985}
+  m_Layer: 0
+  m_Name: OperationSpawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1385863984
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1385863982}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 12.449296, y: 2.4741914, z: -9.277268}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1385863985
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1385863982}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cad2448f82785584ebb5a47465ecea6b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefabNames:
+  - Number0
+  - Number1
+  - Number2
+  - Number3
+  - Number4
+  - Number5
+  - Number6
+  - Number7
+  - Number8
+  - Number9
+  spawnPositions:
+  - {x: -14.77, y: 2.5, z: -9.7}
+  - {x: -12.33, y: 2.5, z: -9.7}
+  - {x: -10.19, y: 2.5, z: -9.7}
+  - {x: -4.1, y: 2.8, z: -18.7}
+  - {x: -2.5, y: 2.8, z: -18.7}
+  - {x: -0.9, y: 2.8, z: -18.7}
+  - {x: 0.4, y: 2.8, z: -18.7}
+  - {x: 1.29, y: 2.8, z: -18.7}
+  - {x: 2.1, y: 2.8, z: -18.7}
+  quizGenerator: {fileID: 919028036}
+  spawnPositionAdditive: {x: 11.89, y: 2.5, z: -9.7}
+  spawnPositionSubtractive: {x: 14.27, y: 2.5, z: -9.7}
+  numberScale: {x: 70, y: 70, z: 70}
+  numberRotation: {x: 0, y: 0, z: -90}
+  operationScale: {x: 0.7, y: 0.7, z: 0.7}
 --- !u!1001 &1422688531
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7152,3 +7223,4 @@ SceneRoots:
   - {fileID: 1161354269}
   - {fileID: 421139506}
   - {fileID: 1329360118}
+  - {fileID: 1385863984}
