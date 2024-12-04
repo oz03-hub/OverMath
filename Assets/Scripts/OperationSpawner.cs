@@ -71,6 +71,9 @@ public class OperationSpawner : MonoBehaviour
 		GameObject additive = GameObject.CreatePrimitive(PrimitiveType.Cube);
 		GameObject subtractive = GameObject.CreatePrimitive(PrimitiveType.Sphere);
 
+		additive.name = "Addition";
+		subtractive.name = "Subtraction";
+
 		additive.transform.position = spawnPositionAdditive;
 		subtractive.transform.position = spawnPositionSubtractive;
 
@@ -85,17 +88,26 @@ public class OperationSpawner : MonoBehaviour
 		subtractive.AddComponent<BoxCollider>();
 
 		Interactable additiveInteractable = additive.AddComponent<Interactable>();
-		additiveInteractable.interactionType = Interactable.InteractionType.Discard;
+		additiveInteractable.interactionType = Interactable.InteractionType.Operator;
 
 		Interactable subtractiveInteractable = subtractive.AddComponent<Interactable>();
-		subtractiveInteractable.interactionType = Interactable.InteractionType.Discard;
+		subtractiveInteractable.interactionType = Interactable.InteractionType.Operator;
 
 		Material highlightMaterial = Resources.Load<Material>("Materials/HighlightMaterial");
+		Material filledMaterial = Resources.Load<Material>("Materials/FilledMaterial");
+
 		if (highlightMaterial != null)
 		{
 			additiveInteractable.highlightMaterial = highlightMaterial;
 			subtractiveInteractable.highlightMaterial = highlightMaterial;
 		}
+
+		if (filledMaterial != null)
+		{
+			additiveInteractable.FilledMaterial = filledMaterial;
+			subtractiveInteractable.FilledMaterial = filledMaterial;
+		}
+
 		additiveInteractable.originalMaterial = Resources.Load<Material>("Materials/MockMaterial");
 		subtractiveInteractable.originalMaterial = Resources.Load<Material>("Materials/MockMaterial");
 

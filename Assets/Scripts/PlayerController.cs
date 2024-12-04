@@ -22,6 +22,7 @@ public class PlayerController : MonoBehaviour
     public LayerMask interactableLayer;
     private Interactable currentInteractable;
     private int? heldNumber = null;
+    public int? HeldNumber => heldNumber;
     public GameLevelManager gameLevelManager;
 
     private TrailRenderer trail_renderer;
@@ -205,14 +206,14 @@ public class PlayerController : MonoBehaviour
 
     }
 
-    public void DiscardHeldNumber()
-    {
-        if (heldNumber != null)
-        {
-            heldNumber = null;
-            gameLevelManager.UpdateIngredientText("");
-        }
-    }
+    // public void DiscardHeldNumber()
+    // {
+    //     if (heldNumber != null)
+    //     {
+    //         heldNumber = null;
+    //         gameLevelManager.UpdateIngredientText("");
+    //     }
+    // }
 
     void DetectInteractable()
     {
@@ -244,9 +245,34 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    // void OnDrawGizmosSelected()
-    // {
-    //     Gizmos.color = Color.yellow;
-    //     Gizmos.DrawWireSphere(transform.position, interactionRange);
-    // }
+    public void SetHeldNumber(int? number)
+    {
+        heldNumber = number;
+
+        if (gameLevelManager != null)
+        {
+            gameLevelManager.UpdateIngredientText(heldNumber.ToString());
+        }
+    }
+
+    public void PickUpNumber(int number)
+    {
+        if (HeldNumber != null)
+        {
+            return;
+        }
+        heldNumber = number;
+        gameLevelManager.UpdateIngredientText(heldNumber.ToString());
+    }
+
+    public void DiscardHeldNumber()
+    {
+        if (HeldNumber == null)
+        {
+            return;
+        }
+
+        heldNumber = null;
+        gameLevelManager.UpdateIngredientText("");
+    }
 }

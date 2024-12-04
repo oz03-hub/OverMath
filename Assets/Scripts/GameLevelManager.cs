@@ -37,7 +37,7 @@ public class GameLevelManager : MonoBehaviour
             var timerBar = timerElement.Q<VisualElement>("TimerBar");
             if (timerBar != null)
             {
-                Debug.Log("Timer: " + timeRemaining);
+                // Debug.Log("Timer: " + timeRemaining);
                 float timeRemainPercent = timeRemaining / (float)timeLimit * 100;
                 if (timeRemainPercent < 20)
                 {
