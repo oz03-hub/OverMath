@@ -1194,7 +1194,7 @@ AudioSource:
   m_audioClip: {fileID: 8300000, guid: cfd91864ecfb9f546a797564ac879a46, type: 3}
   m_Resource: {fileID: 8300000, guid: cfd91864ecfb9f546a797564ac879a46, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.15
+  m_Volume: 0.1
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -2240,6 +2240,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetSeat: {fileID: 3680203020390086477}
+  exitDoor: {fileID: 0}
   stopDistance: 1.5
   waitTime: 15
   orderUI: {fileID: 0}
@@ -2518,6 +2519,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetSeat: {fileID: 246098085}
+  exitDoor: {fileID: 0}
   stopDistance: 1.5
   waitTime: 15
   orderUI: {fileID: 0}
@@ -4674,6 +4676,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetSeat: {fileID: 1251642388}
+  exitDoor: {fileID: 0}
   stopDistance: 1.5
   waitTime: 15
   orderUI: {fileID: 0}
@@ -4984,6 +4987,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetSeat: {fileID: 1939481526}
+  exitDoor: {fileID: 0}
   stopDistance: 1.5
   waitTime: 15
   orderUI: {fileID: 0}
