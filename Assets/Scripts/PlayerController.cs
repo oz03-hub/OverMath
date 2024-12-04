@@ -18,6 +18,12 @@ public class PlayerController : MonoBehaviour
     private float dash_timer;
     private Vector3 dash_direction;
     private bool dashing;
+    public float interactionRange = 1.95f;
+    public LayerMask interactableLayer;
+    private Interactable currentInteractable;
+    private int? heldNumber = null;
+    public int? HeldNumber => heldNumber;
+    public GameLevelManager gameLevelManager;
 
     private TrailRenderer trail_renderer;
 
@@ -36,6 +42,11 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        if (currentInteractable == null) {
+            Debug.Log("No interactable found");
+        } else {
+            Debug.Log("Interactable found");
+        }
         animation_controller = GetComponent<Animator>();
         character_controller = GetComponent<CharacterController>();
         movement_direction = Vector3.forward;
@@ -165,5 +176,103 @@ public class PlayerController : MonoBehaviour
 
 
         character_controller.Move(movement_direction * speed * Time.deltaTime);
+
+        DetectInteractable();
+
+        // Handle dropping the number (if holding any)
+        // if (heldNumber != null)
+        // {
+        //     if (Input.GetKeyDown(KeyCode.G)) // Example key for dropping
+        //     {
+        //         DiscardHeldNumber();
+        //     }
+
+        //     // Prevent picking up another number while holding one
+        //     return; // Skip the logic below, but allow dropping and blinking
+        // }
+
+        if (currentInteractable != null && Input.GetKeyDown(KeyCode.F))
+        {
+            currentInteractable.Interact(this);
+
+            NumberComponent numberComponent = currentInteractable.GetComponent<NumberComponent>();
+            if (numberComponent != null)
+            {
+                heldNumber  = numberComponent.numberValue;
+                gameLevelManager.UpdateIngredientText(heldNumber.ToString());
+            }
+            ClearCurrentHighlight();
+        }
+
+    }
+
+    // public void DiscardHeldNumber()
+    // {
+    //     if (heldNumber != null)
+    //     {
+    //         heldNumber = null;
+    //         gameLevelManager.UpdateIngredientText("");
+    //     }
+    // }
+
+    void DetectInteractable()
+    {
+        // Find all colliders within the interaction range
+        // If there are any objects within this range, they are stored in hitColliders as an array of colliders
+        Collider[] hitColliders = Physics.OverlapSphere(transform.position, interactionRange, interactableLayer);
+        // If there are one or more object in this range
+        if (hitColliders.Length > 0)
+        {
+            Interactable nearestInteractable = hitColliders[0].GetComponent<Interactable>();
+            if (nearestInteractable != currentInteractable)
+            {
+                ClearCurrentHighlight();
+                currentInteractable = nearestInteractable;
+                currentInteractable?.Highlight(true);
+            }
+        }
+        else
+        {
+            ClearCurrentHighlight();
+        }
+    }
+    void ClearCurrentHighlight()
+    {
+        if (currentInteractable != null)
+        {
+            currentInteractable?.Highlight(false);
+            currentInteractable = null;
+        }
+    }
+
+    public void SetHeldNumber(int? number)
+    {
+        heldNumber = number;
+
+        if (gameLevelManager != null)
+        {
+            gameLevelManager.UpdateIngredientText(heldNumber.ToString());
+        }
+    }
+
+    public void PickUpNumber(int number)
+    {
+        if (HeldNumber != null)
+        {
+            return;
+        }
+        heldNumber = number;
+        gameLevelManager.UpdateIngredientText(heldNumber.ToString());
+    }
+
+    public void DiscardHeldNumber()
+    {
+        if (HeldNumber == null)
+        {
+            return;
+        }
+
+        heldNumber = null;
+        gameLevelManager.UpdateIngredientText("");
     }
 }
