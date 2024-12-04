@@ -21,7 +21,7 @@ public class AdversarialAudioManager : MonoBehaviour
         if (Time.time - lastBae >= 8f)
         {
             audioSource.PlayOneShot(BaeClip);
-            Debug.Log("Play BAEEE");
+            //Debug.Log("Play BAEEE");
 
             lastBae = Time.time;
         }
