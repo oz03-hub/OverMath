@@ -18,6 +18,9 @@ public class PlayerController : MonoBehaviour
     private float dash_timer;
     private Vector3 dash_direction;
     private bool dashing;
+    public float interactionRange = 10.0f;
+    public LayerMask interactableLayer;
+    private Interactable currentInteractable;
 
     private TrailRenderer trail_renderer;
 
@@ -36,6 +39,11 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        if (currentInteractable == null) {
+            Debug.Log("No interactable found");
+        } else {
+            Debug.Log("Interactable found");
+        }
         animation_controller = GetComponent<Animator>();
         character_controller = GetComponent<CharacterController>();
         movement_direction = Vector3.forward;
@@ -165,5 +173,47 @@ public class PlayerController : MonoBehaviour
 
 
         character_controller.Move(movement_direction * speed * Time.deltaTime);
+
+        DetectInteractable();
+        if (currentInteractable != null && Input.GetKeyDown(KeyCode.F))
+        {
+            currentInteractable.Interact();
+            ClearCurrentHighlight();
+        }
     }
+    void DetectInteractable()
+    {
+        // Find all colliders within the interaction range
+        // If there are any objects within this range, they are stored in hitColliders as an array of colliders
+        Collider[] hitColliders = Physics.OverlapSphere(transform.position, interactionRange, interactableLayer);
+        // If there are one or more object in this range
+        if (hitColliders.Length > 0)
+        {
+            Interactable nearestInteractable = hitColliders[0].GetComponent<Interactable>();
+            if (nearestInteractable != currentInteractable)
+            {
+                ClearCurrentHighlight();
+                currentInteractable = nearestInteractable;
+                currentInteractable?.Highlight(true);
+            }
+        }
+        else
+        {
+            ClearCurrentHighlight();
+        }
+    }
+    void ClearCurrentHighlight()
+    {
+        if (currentInteractable != null)
+        {
+            currentInteractable?.Highlight(false);
+            currentInteractable = null;
+        }
+    }
+
+    // void OnDrawGizmosSelected()
+    // {
+    //     Gizmos.color = Color.yellow;
+    //     Gizmos.DrawWireSphere(transform.position, interactionRange);
+    // }
 }

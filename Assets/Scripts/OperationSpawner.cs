@@ -24,6 +24,7 @@ public class OperationSpawner : MonoBehaviour
 													  new Vector3(2.1f, 2.8f, -18.7f),
 													  };
 	public QuizGenerator quizGenerator;
+	private Interactable interactable;
 	private int[] allowedNumbers;
 	public Vector3 spawnPositionAdditive = new Vector3(11.89f, 2.5f, -9.7f);
 	public Vector3 spawnPositionSubtractive = new Vector3(14.27f, 2.5f, -9.7f);
@@ -32,6 +33,8 @@ public class OperationSpawner : MonoBehaviour
 	public Vector3 numberRotation = new Vector3(0f, 0f, -90f);
 
 	public Vector3 operationScale = new Vector3(0.7f, 0.7f, 0.7f);
+
+	// public Interactable interactable;
 
 	void Start()
 	{
@@ -90,11 +93,33 @@ public class OperationSpawner : MonoBehaviour
 		 * Helper function to apply properties to number prefab
 		 * [CMT: I decided to write inside here to separate the logic of main functions and helper functions]
 		 */
-		void ApplyNumberPrefabProperties(GameObject numberPrefab, Vector3 spawnPositionNumber)
+		void ApplyNumberPrefabProperties(GameObject numberPrefab, Vector3 spawnPositionNumber, int i)
 		{
 			GameObject number = Instantiate(numberPrefab, spawnPositionNumber, Quaternion.identity);
 			number.transform.localScale = numberScale;
 			number.transform.Rotate(numberRotation);
+
+			// Assign the INteractable Layer
+			int interactableLayer = LayerMask.NameToLayer("Interactable");
+			number.layer = interactableLayer;
+			number.AddComponent<BoxCollider>();
+
+			// Add the interactable script and configure it
+			Interactable interactable = number.AddComponent<Interactable>();
+			interactable.originalMaterial = Resources.Load<Material>("Materials/" + prefabNames[i]);
+
+			Material highlightMaterial = Resources.Load<Material>("Materials/HighlightMaterial");
+			if (highlightMaterial != null)
+			{
+				Debug.Log("Highlight material found!");
+				interactable.highlightMaterial = highlightMaterial;
+			}
+			else
+			{
+				Debug.LogError("Highlight material not found!");
+			}
+			interactable.blinkDuration = 1.0f;
+
 		}
 		// End of helper function
 
@@ -102,8 +127,7 @@ public class OperationSpawner : MonoBehaviour
 		for (int i = 0; i < allowedNumbers.Length; i++)
 		{
 			GameObject numberPrefab = Resources.Load<GameObject>("Numbers/" + prefabNames[i]); // Import dynamically
-			ApplyNumberPrefabProperties(numberPrefab, spawnPositions[i]);
+			ApplyNumberPrefabProperties(numberPrefab, spawnPositions[i], i);
 		}
 	}
-
 }
