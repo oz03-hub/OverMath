@@ -18,9 +18,11 @@ public class PlayerController : MonoBehaviour
     private float dash_timer;
     private Vector3 dash_direction;
     private bool dashing;
-    public float interactionRange = 10.0f;
+    public float interactionRange = 1.95f;
     public LayerMask interactableLayer;
     private Interactable currentInteractable;
+    private int? heldNumber = null;
+    public GameLevelManager gameLevelManager;
 
     private TrailRenderer trail_renderer;
 
@@ -175,9 +177,31 @@ public class PlayerController : MonoBehaviour
         character_controller.Move(movement_direction * speed * Time.deltaTime);
 
         DetectInteractable();
+
+        // Handle dropping the number (if holding any)
+        if (heldNumber != null)
+        {
+            if (Input.GetKeyDown(KeyCode.G)) // Example key for dropping
+            {
+                heldNumber = null; // No longer holding anything
+                gameLevelManager.UpdateIngredientText(""); // Clear the UI text
+                Debug.Log("Dropped the number.");
+            }
+
+            // Prevent picking up another number while holding one
+            return; // Skip the logic below, but allow dropping and blinking
+        }
+
         if (currentInteractable != null && Input.GetKeyDown(KeyCode.F))
         {
             currentInteractable.Interact();
+
+            NumberComponent numberComponent = currentInteractable.GetComponent<NumberComponent>();
+            if (numberComponent != null)
+            {
+                heldNumber  = numberComponent.numberValue;
+                gameLevelManager.UpdateIngredientText(heldNumber.ToString());
+            }
             ClearCurrentHighlight();
         }
     }

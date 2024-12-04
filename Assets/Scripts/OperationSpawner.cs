@@ -108,6 +108,10 @@ public class OperationSpawner : MonoBehaviour
 			Interactable interactable = number.AddComponent<Interactable>();
 			interactable.originalMaterial = Resources.Load<Material>("Materials/" + prefabNames[i]);
 
+			// Add and aconfigure the NumberComponent script
+			NumberComponent numberComponent = number.AddComponent<NumberComponent>();
+			numberComponent.numberValue = allowedNumbers[i];
+
 			Material highlightMaterial = Resources.Load<Material>("Materials/HighlightMaterial");
 			if (highlightMaterial != null)
 			{
@@ -126,7 +130,7 @@ public class OperationSpawner : MonoBehaviour
 		// Starts of spawning numbers
 		for (int i = 0; i < allowedNumbers.Length; i++)
 		{
-			GameObject numberPrefab = Resources.Load<GameObject>("Numbers/" + prefabNames[i]); // Import dynamically
+			GameObject numberPrefab = Resources.Load<GameObject>("Numbers/" + prefabNames[allowedNumbers[i]]); // Import dynamically
 			ApplyNumberPrefabProperties(numberPrefab, spawnPositions[i], i);
 		}
 	}

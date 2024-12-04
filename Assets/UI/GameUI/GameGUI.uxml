@@ -22,7 +22,7 @@
         <ui:VisualElement name="HoldingPanel" class="holding-panel">
             <ui:Label tabindex="-1" text="Holding:" parse-escape-sequences="true" display-tooltip-when-elided="true" class="holding-label" />
             <ui:VisualElement name="IngredientContainer" class="holding-ingredient">
-                <ui:Label tabindex="-1" text="3" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Ingredient" class="ingredient-label" />
+                <ui:Label tabindex="-1" text="3" parse-escape-sequences="true" display-tooltip-when-elided="true" name="IngredientText" class="ingredient-label" />
             </ui:VisualElement>
         </ui:VisualElement>
     </ui:VisualElement>

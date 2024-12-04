@@ -60,6 +60,11 @@ public class GameLevelManager : MonoBehaviour
         scoreText = root.Q<Label>("Score");
         orderListContainer = root.Q<VisualElement>("OrderGroups");
         ingredientText = root.Q<Label>("IngredientText");
+
+        if (ingredientText == null)
+        {
+            Debug.LogError("IngredientText not found in GameGUI!");
+        }
     }
 
     void Start()
@@ -72,6 +77,7 @@ public class GameLevelManager : MonoBehaviour
         }
         quizGenerator.InitOrder();
         orderList = new List<Order>();
+        ingredientText.text = "";
     }
 
     void Update()
@@ -208,6 +214,16 @@ public class GameLevelManager : MonoBehaviour
         if (!gameOver && ordersCompleted < totalOrders)
         {
             ordersCompleted++;
+        }
+    }
+
+    public void UpdateIngredientText(string ingredient)
+    {
+        if (string.IsNullOrEmpty(ingredient))
+        {
+            ingredientText.text = "";
+        } else {
+            ingredientText.text = ingredient;
         }
     }
 }
