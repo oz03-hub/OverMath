@@ -1,27 +1,21 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.AI.Navigation;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class AdversarialAI : MonoBehaviour
+public class RangedAdvAI : MonoBehaviour
 {
     public NavMeshAgent agent;
     public Transform player;
     public LayerMask whatIsGround, whatIsPlayer;
-    public Rigidbody playerBody;
-
-    public Ragdoll ragdoll;
-
+    
     public GameObject FloatingTextPrefab;
+    public float projectileSpeed;
 
     private Animator animation_controller;
 
     public GameObject smokeEffectPrefab;
     public Transform smokeSpawn;
-
-    public AudioClip explosionEffect;
-    public AudioSource AudioSource;
 
     // Patroling
     public Vector3 walkPoint;
@@ -36,33 +30,24 @@ public class AdversarialAI : MonoBehaviour
     public float sightRange, attackRange;
     public bool playerInSightRange, playerInAttackRange;
 
+    public GameObject applePrefab;
+    public Rigidbody playerRB;
+
+    public GameObject stash;
+    bool reloading;
+
     // Start is called before the first frame update
     void Start()
     {
-
+        
     }
-
     private void Awake()
     {
         animation_controller = GetComponent<Animator>();
         player = GameObject.FindWithTag("Player").transform;
         agent = GetComponent<NavMeshAgent>();
-        ragdoll = GameObject.FindWithTag("Player").GetComponent<Ragdoll>();
-        AudioSource = GetComponent<AudioSource>();
     }
 
-    //private void SearchWalkPoint()
-    //{
-    //    float randomZ = Random.Range(-walkPointRange, walkPointRange);
-    //    float randomX = Random.Range(-walkPointRange, walkPointRange);
-
-    //    walkPoint = new Vector3(transform.position.x + randomX, transform.position.y, transform.position.z + randomZ);
-
-    //    if (Physics.Raycast(walkPoint, Vector3.down, whatIsGround))
-    //    {
-    //        walkPointSet = true;
-    //    }
-    //}
 
     private void SearchWalkPoint()
     {
@@ -78,20 +63,14 @@ public class AdversarialAI : MonoBehaviour
             walkPoint = hit.position;
             walkPointSet = true;
         }
-
-
-        //else
-        //{
-        //    walkPoint = Vector3.zero;
-        //    walkPointSet = false;
-        //}
     }
 
-
-    private void Patroling() {
+    private void Patroling()
+    {
         if (!walkPointSet) SearchWalkPoint();
 
-        if (walkPointSet) {
+        if (walkPointSet)
+        {
             agent.SetDestination(walkPoint);
         }
 
@@ -103,42 +82,76 @@ public class AdversarialAI : MonoBehaviour
         }
     }
 
-    private void ChasePlayer() {
+    private void ChasePlayer()
+    {
         agent.SetDestination(player.position);
     }
 
-    private void AttackPlayer() {
+    private void GoToStash() {
+        reloading = true;
+        agent.SetDestination(stash.transform.position);
+
+        StartCoroutine(ReloadingRoutine());
+    }
+
+    private void AttackPlayer()
+    {
         agent.SetDestination(transform.position);
         transform.LookAt(player);
 
         if (!alreadyAttacked)
         {
-            ShowFloatingText();
-            AudioSource.PlayOneShot(explosionEffect, 0.1f);
-            alreadyAttacked = true;
-            animation_controller.SetBool("attack", true);
-            Vector3 attackDirection = (player.position - transform.position).normalized;
-            ragdoll.RagDollModeOn();
-            playerBody.AddForce(attackDirection * 50f, ForceMode.Impulse);
+            Vector3 directionToPlayer = player.position - transform.position;
+            if (Physics.Raycast(transform.position, directionToPlayer, out RaycastHit hit, attackRange, whatIsPlayer)) {
+                if (hit.transform.CompareTag("Player"))
+                {
+                    ShowFloatingText();
+                    alreadyAttacked = true;
+                    animation_controller.SetBool("attack", true);
 
-            GameObject smoke = Instantiate(smokeEffectPrefab, smokeSpawn.position, Quaternion.identity, transform);
-            ParticleSystem particle = smoke.GetComponent<ParticleSystem>();
-            if (particle != null)
-            {
-                Destroy(smoke, particle.main.duration + particle.main.startLifetime.constantMax);
+                    GameObject projectile = Instantiate(applePrefab, gameObject.transform.position + new Vector3(0, 0.5f, 0), Quaternion.identity);
+                    projectile.GetComponent<Projectile>().Initialize(playerRB, projectileSpeed);
+
+                    GameObject smoke = Instantiate(smokeEffectPrefab, smokeSpawn.position, Quaternion.identity, transform);
+                    ParticleSystem particle = smoke.GetComponent<ParticleSystem>();
+                    if (particle != null)
+                    {
+                        Destroy(smoke, particle.main.duration + particle.main.startLifetime.constantMax);
+                    }
+
+                    Debug.Log("RANGED ATTACK");
+                    Invoke(nameof(GoToStash), 2);
+                }
+                else {
+                    Debug.Log("Player not in sight");
+                }
             }
-
-            Debug.Log("ATTACK");
-            Invoke(nameof(ResetAttack), timeBetweenAttacks);
         }
     }
 
-    private void ResetAttack() {
+    private void ResetAttack()
+    {
         animation_controller.SetBool("attack", false);
         alreadyAttacked = false;
     }
 
-    void ShowFloatingText() {
+    private IEnumerator ReloadingRoutine() {
+        while (Vector3.Distance(transform.position, stash.transform.position) > 2f) {
+            yield return null;
+        }
+
+        animation_controller.SetBool("run", false);
+        animation_controller.SetBool("idle", true);
+
+        yield return new WaitForSeconds(2);
+
+        reloading = false;
+        ResetAttack();
+        Debug.Log("Reloading complete.");
+    }
+
+    void ShowFloatingText()
+    {
         Instantiate(FloatingTextPrefab, transform.position, Quaternion.identity, transform);
     }
 
@@ -148,7 +161,16 @@ public class AdversarialAI : MonoBehaviour
         playerInSightRange = Physics.CheckSphere(transform.position, sightRange, whatIsPlayer);
         playerInAttackRange = Physics.CheckSphere(transform.position, attackRange, whatIsPlayer);
 
-        if (alreadyAttacked) {
+        if (reloading) {
+            animation_controller.SetBool("run", true);
+            animation_controller.SetBool("idle", false);
+            animation_controller.SetBool("attack", false);
+            return;
+        }
+
+        if (alreadyAttacked)
+        {
+            animation_controller.SetBool("attack", false);
             return;
         }
 
