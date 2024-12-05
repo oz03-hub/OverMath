@@ -10,10 +10,16 @@ public class Projectile : MonoBehaviour
     public Ragdoll ragdoll;
     public Rigidbody playerBody;
 
+    private AudioSource audioSource;
+    public AudioClip clip;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        audioSource = GetComponent<AudioSource>();
+        if (clip != null) { 
+            audioSource.clip = clip;
+        }
     }
 
     public void Initialize(Rigidbody playerRB, float speed)
@@ -35,6 +41,7 @@ public class Projectile : MonoBehaviour
         Debug.Log(collision.gameObject.name);
         if (collision.gameObject.CompareTag("Player")) {
             Debug.Log("Apple collided with Player");
+            audioSource.Play();
             Vector3 hitDirection = (collision.gameObject.transform.position - gameObject.transform.position).normalized;
             ragdoll.RagDollModeOn();
             playerBody.AddForce(hitDirection, ForceMode.Impulse);

@@ -114,7 +114,7 @@ public class AdversarialAI : MonoBehaviour
         if (!alreadyAttacked)
         {
             ShowFloatingText();
-            AudioSource.PlayOneShot(explosionEffect, 0.2f);
+            AudioSource.PlayOneShot(explosionEffect, 0.1f);
             alreadyAttacked = true;
             animation_controller.SetBool("attack", true);
             Vector3 attackDirection = (player.position - transform.position).normalized;

@@ -1532,7 +1532,7 @@ MonoBehaviour:
   m_OverrideVoxelSize: 0
   m_VoxelSize: 0.23333333
   m_MinRegionArea: 2
-  m_NavMeshData: {fileID: 23800000, guid: d46003cc59a4be344922d00d9373bb59, type: 2}
+  m_NavMeshData: {fileID: 23800000, guid: 3a65e866b549b0046aeabb9b0c9f1ff5, type: 2}
   m_BuildHeightMesh: 0
 --- !u!1001 &586664067
 PrefabInstance:
@@ -6938,10 +6938,6 @@ PrefabInstance:
     - target: {fileID: 4756981320961124423, guid: 2e3257ad4be2f5a4b8c8e0e988b192c8, type: 3}
       propertyPath: m_Name
       value: Goat
-      objectReference: {fileID: 0}
-    - target: {fileID: 4756981320961124423, guid: 2e3257ad4be2f5a4b8c8e0e988b192c8, type: 3}
-      propertyPath: m_TagString
-      value: Enemy
       objectReference: {fileID: 0}
     - target: {fileID: 5282689250146267901, guid: 2e3257ad4be2f5a4b8c8e0e988b192c8, type: 3}
       propertyPath: m_LocalPosition.x
