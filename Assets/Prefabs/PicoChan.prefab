@@ -103,6 +103,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rig: {fileID: 7418057366377779447}
   animator: {fileID: 86286991341899190}
+  recoverClips:
+  - {fileID: 8300000, guid: 21e48ce071ff962489d15826a9a2b6bc, type: 3}
+  - {fileID: 8300000, guid: 9562bac74408cc04c9038eee9e11b01d, type: 3}
+  audioSource: {fileID: 0}
 --- !u!114 &7339117053870767971
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -307,7 +311,7 @@ AudioSource:
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
-  Priority: 143
+  Priority: 126
   DopplerLevel: 1
   MinDistance: 1
   MaxDistance: 500
@@ -345,7 +349,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
