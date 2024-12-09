@@ -4516,7 +4516,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1497978113
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6186,7 +6186,7 @@ MonoBehaviour:
   FloatingTextPrefab: {fileID: 0}
   smokeEffectPrefab: {fileID: 0}
   smokeSpawn: {fileID: 0}
-  explosionEffect: {fileID: 0}
+  hitEffect: {fileID: 0}
   AudioSource: {fileID: 0}
   walkPoint: {x: 0, y: 0, z: 0}
   walkPointRange: 5

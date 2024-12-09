@@ -1997,11 +1997,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8564915951976741474, guid: 7b8d9613223ef1f448bbe8fc90d8a85d, type: 3}
   m_PrefabInstance: {fileID: 645176498}
   m_PrefabAsset: {fileID: 0}
---- !u!4 &688905899 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 4361402407913943231, guid: c8c3c61677824c542812b905312f2208, type: 3}
-  m_PrefabInstance: {fileID: 4844684620895388626}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &664245747
 GameObject:
   m_ObjectHideFlags: 0
@@ -2138,6 +2133,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 664245747}
   m_CullTransparentMesh: 1
+--- !u!4 &688905899 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4361402407913943231, guid: c8c3c61677824c542812b905312f2208, type: 3}
+  m_PrefabInstance: {fileID: 4844684620895388626}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -6506,7 +6506,7 @@ MonoBehaviour:
   FloatingTextPrefab: {fileID: 0}
   smokeEffectPrefab: {fileID: 0}
   smokeSpawn: {fileID: 0}
-  explosionEffect: {fileID: 0}
+  hitEffect: {fileID: 0}
   AudioSource: {fileID: 0}
   walkPoint: {x: 0, y: 0, z: 0}
   walkPointRange: 5

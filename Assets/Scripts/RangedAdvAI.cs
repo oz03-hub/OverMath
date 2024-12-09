@@ -36,13 +36,19 @@ public class RangedAdvAI : MonoBehaviour
     public GameObject stash;
     bool reloading;
 
+    public AudioSource audioSource;
+    public AudioClip swooshClip;
+    public AudioClip hitClip;
+
     // Start is called before the first frame update
     void Start()
     {
         
     }
+
     private void Awake()
     {
+        audioSource = GetComponent<AudioSource>();
         animation_controller = GetComponent<Animator>();
         player = GameObject.FindWithTag("Player").transform;
         agent = GetComponent<NavMeshAgent>();
@@ -110,7 +116,8 @@ public class RangedAdvAI : MonoBehaviour
                     animation_controller.SetBool("attack", true);
 
                     GameObject projectile = Instantiate(applePrefab, gameObject.transform.position + new Vector3(0, 0.5f, 0), Quaternion.identity);
-                    projectile.GetComponent<Projectile>().Initialize(playerRB, projectileSpeed);
+                    projectile.GetComponent<Projectile>().Initialize(playerRB, projectileSpeed, hitClip);
+                    audioSource.PlayOneShot(swooshClip);
 
                     GameObject smoke = Instantiate(smokeEffectPrefab, smokeSpawn.position, Quaternion.identity, transform);
                     ParticleSystem particle = smoke.GetComponent<ParticleSystem>();

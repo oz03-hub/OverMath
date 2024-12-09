@@ -20,7 +20,7 @@ public class AdversarialAI : MonoBehaviour
     public GameObject smokeEffectPrefab;
     public Transform smokeSpawn;
 
-    public AudioClip explosionEffect;
+    public AudioClip hitEffect;
     public AudioSource AudioSource;
 
     // Patroling
@@ -114,7 +114,7 @@ public class AdversarialAI : MonoBehaviour
         if (!alreadyAttacked)
         {
             ShowFloatingText();
-            AudioSource.PlayOneShot(explosionEffect, 0.1f);
+            AudioSource.PlayOneShot(hitEffect);
             alreadyAttacked = true;
             animation_controller.SetBool("attack", true);
             Vector3 attackDirection = (player.position - transform.position).normalized;
