@@ -25,7 +25,7 @@ public class CustomerAI : MonoBehaviour
     private Animator animator; // TODO: Needs fix
     private float initialDelay; // New variable for random delay
     private bool hasStartedMoving = false; // New variable to track if customer has started moving
-    private float maxWaitTime = 20f; // Maximum time customer will wait
+    private float maxWaitTime = 100f; // Maximum time customer will wait
     private float currentWaitTime; // Current remaining time
     private bool isTimerStarted = false;
     private CustomerSpawner spawner;
