@@ -111,7 +111,6 @@ public class CustomerAI : MonoBehaviour
         if (!isSeated && Vector3.Distance(transform.position, agent.destination) < 0.5f)
         {
             Debug.Log("[CustomerAI] Customer reached seat destination.");
-            DisplayOrder();
             isSeated = true;
             agent.isStopped = true; // Stop movement
             timer = waitTime;
@@ -119,14 +118,12 @@ public class CustomerAI : MonoBehaviour
             // Trigger idle animation and display order
             animator.SetBool("Jump", false);
             animator.SetBool("Idle", true);
+            
+            // Create and display order after setting isSeated
+            DisplayOrder();
         }
 
-        if (isSeated && orderDetails == null) {
-            Debug.LogError("[CustomerAI] Order details not found at seating time!");
-            UnityEditor.EditorApplication.isPlaying = false; // Commented out for debugging
-        }
-
-        // Countdown timer if seated and order isn't fulfilled
+        // Move the timer logic here, after potential order creation
         if (isSeated && !isOrderFulfilled && orderDetails != null)
         {
             if (!isTimerStarted)

@@ -1171,7 +1171,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   seatId: 0
   targetSeat: {fileID: 3435741005419498457}
-  exitDoor: {fileID: 0}
+  exitDoor: {fileID: 463364568}
   stopDistance: 1.5
   waitTime: 15
   isSeated: 0
@@ -1698,6 +1698,11 @@ MonoBehaviour:
   m_MinRegionArea: 2
   m_NavMeshData: {fileID: 23800000, guid: 3a65e866b549b0046aeabb9b0c9f1ff5, type: 2}
   m_BuildHeightMesh: 0
+--- !u!4 &463364568 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4859689443156797817, guid: 4ae60d1d676da304baddd4bdfa246f16, type: 3}
+  m_PrefabInstance: {fileID: 261394319}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &516277719
 GameObject:
   m_ObjectHideFlags: 0
@@ -2161,6 +2166,69 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8564915951976741474, guid: 7b8d9613223ef1f448bbe8fc90d8a85d, type: 3}
   m_PrefabInstance: {fileID: 645176498}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &661361737
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 661361739}
+  - component: {fileID: 661361738}
+  m_Layer: 0
+  m_Name: 'CustomerSpawner '
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &661361738
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 661361737}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0609fd94fc7de450f8e07e01d97ae750, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  customerPrefabs:
+  - {fileID: 1619613890}
+  - {fileID: 1513375943}
+  - {fileID: 327100779}
+  - {fileID: 1053533490}
+  seatPositions:
+  - {fileID: 1939481526}
+  - {fileID: 246098085}
+  - {fileID: 3680203020390086477}
+  - {fileID: 3435741005419498457}
+  - {fileID: 4713600566601724764}
+  - {fileID: 2805734451528898115}
+  - {fileID: 8536732852810343482}
+  - {fileID: 1251642388}
+  exitDoor: {fileID: 463364568}
+  spawnInterval: 15
+  maxCustomers: 8
+  gameGUI: {fileID: 239733096}
+  quizGeneratorObject: {fileID: 919028035}
+--- !u!4 &661361739
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 661361737}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 12.449296, y: 2.4741914, z: -9.277268}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &664245747
 GameObject:
   m_ObjectHideFlags: 0
@@ -3510,7 +3578,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   seatId: 0
   targetSeat: {fileID: 4713600566601724764}
-  exitDoor: {fileID: 0}
+  exitDoor: {fileID: 463364568}
   stopDistance: 1.5
   waitTime: 15
   isSeated: 0
@@ -3688,7 +3756,7 @@ Transform:
   m_GameObject: {fileID: 1208863370}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -278, y: -379, z: 0}
+  m_LocalPosition: {x: -275.69, y: -379, z: -0.99}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -5197,7 +5265,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   seatId: 0
   targetSeat: {fileID: 1251642388}
-  exitDoor: {fileID: 0}
+  exitDoor: {fileID: 463364568}
   stopDistance: 1.5
   waitTime: 15
   isSeated: 0
@@ -5627,7 +5695,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   seatId: 0
   targetSeat: {fileID: 2805734451528898115}
-  exitDoor: {fileID: 0}
+  exitDoor: {fileID: 463364568}
   stopDistance: 1.5
   waitTime: 15
   isSeated: 0
@@ -8196,6 +8264,7 @@ SceneRoots:
   - {fileID: 422016856}
   - {fileID: 1334196547}
   - {fileID: 1385863984}
+  - {fileID: 661361739}
   - {fileID: 719930862}
   - {fileID: 144653188}
   - {fileID: 4844684620895388626}

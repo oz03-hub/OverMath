@@ -826,7 +826,6 @@ MonoBehaviour:
   hasWon: 0
   gameOver: 0
   GameGUI: {fileID: 239733096}
-  quizGenerator: {fileID: 0}
 --- !u!4 &246098085 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 379426550814743814, guid: 74fbfa35831f841c6901051c253038b8, type: 3}
@@ -993,6 +992,11 @@ PrefabInstance:
 --- !u!4 &261394320 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5220891408672472619, guid: 4ae60d1d676da304baddd4bdfa246f16, type: 3}
+  m_PrefabInstance: {fileID: 261394319}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &261394321 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4859689443156797817, guid: 4ae60d1d676da304baddd4bdfa246f16, type: 3}
   m_PrefabInstance: {fileID: 261394319}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &263824278
@@ -2668,13 +2672,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b70a8bf5468ed4940827ea411c1aca11, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  seatId: 0
   targetSeat: {fileID: 3680203020390086477}
-  exitDoor: {fileID: 0}
+  exitDoor: {fileID: 261394321}
   stopDistance: 1.5
   waitTime: 15
-  orderUI: {fileID: 0}
   isSeated: 0
   isOrderFulfilled: 0
+  GameGUI: {fileID: 239733096}
+  quizGeneratorObject: {fileID: 919028035}
 --- !u!195 &821975438
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -2697,6 +2703,69 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!1 &825350926
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 825350928}
+  - component: {fileID: 825350927}
+  m_Layer: 0
+  m_Name: 'CustomerSpawner '
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &825350927
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 825350926}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0609fd94fc7de450f8e07e01d97ae750, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  customerPrefabs:
+  - {fileID: 1733723743}
+  - {fileID: 956304726}
+  - {fileID: 821975435}
+  - {fileID: 1619613890}
+  seatPositions:
+  - {fileID: 1939481526}
+  - {fileID: 246098085}
+  - {fileID: 1251642388}
+  - {fileID: 3680203020390086477}
+  - {fileID: 2805734451528898115}
+  - {fileID: 4713600566601724764}
+  - {fileID: 8536732852810343482}
+  - {fileID: 3435741005419498457}
+  exitDoor: {fileID: 261394321}
+  spawnInterval: 15
+  maxCustomers: 15
+  gameGUI: {fileID: 239733096}
+  quizGeneratorObject: {fileID: 919028035}
+--- !u!4 &825350928
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 825350926}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 12.449296, y: 2.4741914, z: -9.277268}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &825793398
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2983,13 +3052,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b70a8bf5468ed4940827ea411c1aca11, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  seatId: 0
   targetSeat: {fileID: 246098085}
-  exitDoor: {fileID: 0}
+  exitDoor: {fileID: 261394321}
   stopDistance: 1.5
   waitTime: 15
-  orderUI: {fileID: 0}
   isSeated: 0
   isOrderFulfilled: 0
+  GameGUI: {fileID: 239733096}
+  quizGeneratorObject: {fileID: 919028035}
 --- !u!195 &956304729
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -3480,7 +3551,6 @@ MonoBehaviour:
   hasWon: 0
   gameOver: 0
   GameGUI: {fileID: 239733096}
-  quizGenerator: {fileID: 919028036}
 --- !u!4 &1218733193
 Transform:
   m_ObjectHideFlags: 0
@@ -3980,6 +4050,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 6891580169314388076, guid: 66ae442726d1cf4428dacb34edd61ac4, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1619613892}
+    - targetCorrespondingSourceObject: {fileID: 6891580169314388076, guid: 66ae442726d1cf4428dacb34edd61ac4, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1619613894}
   m_SourcePrefab: {fileID: 100100000, guid: 66ae442726d1cf4428dacb34edd61ac4, type: 3}
 --- !u!4 &1329493213 stripped
 Transform:
@@ -4837,6 +4910,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 873531700701352353, guid: 28d0a30d6aed6fc4c8ca473413f70c24, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1733723745}
+    - targetCorrespondingSourceObject: {fileID: 873531700701352353, guid: 28d0a30d6aed6fc4c8ca473413f70c24, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1733723747}
   m_SourcePrefab: {fileID: 100100000, guid: 28d0a30d6aed6fc4c8ca473413f70c24, type: 3}
 --- !u!4 &1546473232 stripped
 Transform:
@@ -5029,13 +5105,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b70a8bf5468ed4940827ea411c1aca11, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  seatId: 0
   targetSeat: {fileID: 1251642388}
-  exitDoor: {fileID: 0}
+  exitDoor: {fileID: 261394321}
   stopDistance: 1.5
   waitTime: 15
-  orderUI: {fileID: 0}
   isSeated: 0
   isOrderFulfilled: 0
+  GameGUI: {fileID: 239733096}
+  quizGeneratorObject: {fileID: 919028035}
 --- !u!195 &1619613893
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -5058,6 +5136,28 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!95 &1619613894
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1619613890}
+  m_Enabled: 1
+  m_Avatar: {fileID: 9000000, guid: eb340672e17c0af4089e561b61cdc548, type: 3}
+  m_Controller: {fileID: 9100000, guid: 707b944f06051734793367fc0c69bc07, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1001 &1627163769
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5335,13 +5435,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b70a8bf5468ed4940827ea411c1aca11, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  seatId: 0
   targetSeat: {fileID: 1939481526}
-  exitDoor: {fileID: 0}
+  exitDoor: {fileID: 261394321}
   stopDistance: 1.5
   waitTime: 15
-  orderUI: {fileID: 0}
   isSeated: 0
   isOrderFulfilled: 0
+  GameGUI: {fileID: 239733096}
+  quizGeneratorObject: {fileID: 919028035}
 --- !u!195 &1733723746
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -5364,6 +5466,28 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!95 &1733723747
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1733723743}
+  m_Enabled: 1
+  m_Avatar: {fileID: 9000000, guid: eb340672e17c0af4089e561b61cdc548, type: 3}
+  m_Controller: {fileID: 9100000, guid: 707b944f06051734793367fc0c69bc07, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1001 &1746454750
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5802,12 +5926,37 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 3198502390492704377, guid: 0ba0f6eee23032e4e83d421e739dc905, type: 3}
       insertIndex: -1
       addedObject: {fileID: 956304728}
+    - targetCorrespondingSourceObject: {fileID: 3198502390492704377, guid: 0ba0f6eee23032e4e83d421e739dc905, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1905934027}
   m_SourcePrefab: {fileID: 100100000, guid: 0ba0f6eee23032e4e83d421e739dc905, type: 3}
 --- !u!4 &1905934026 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2821659471103554755, guid: 0ba0f6eee23032e4e83d421e739dc905, type: 3}
   m_PrefabInstance: {fileID: 1905934025}
   m_PrefabAsset: {fileID: 0}
+--- !u!95 &1905934027
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 956304726}
+  m_Enabled: 1
+  m_Avatar: {fileID: 9000000, guid: eb340672e17c0af4089e561b61cdc548, type: 3}
+  m_Controller: {fileID: 9100000, guid: 707b944f06051734793367fc0c69bc07, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &1915078112
 GameObject:
   m_ObjectHideFlags: 0
@@ -6515,12 +6664,37 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 6688149642241925542, guid: 11eed2dfd1329ab4db9e7f27b8e628b7, type: 3}
       insertIndex: -1
       addedObject: {fileID: 821975437}
+    - targetCorrespondingSourceObject: {fileID: 6688149642241925542, guid: 11eed2dfd1329ab4db9e7f27b8e628b7, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2095715473}
   m_SourcePrefab: {fileID: 100100000, guid: 11eed2dfd1329ab4db9e7f27b8e628b7, type: 3}
 --- !u!4 &2095715472 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6312573360258431772, guid: 11eed2dfd1329ab4db9e7f27b8e628b7, type: 3}
   m_PrefabInstance: {fileID: 2095715471}
   m_PrefabAsset: {fileID: 0}
+--- !u!95 &2095715473
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 821975435}
+  m_Enabled: 1
+  m_Avatar: {fileID: 9000000, guid: eb340672e17c0af4089e561b61cdc548, type: 3}
+  m_Controller: {fileID: 9100000, guid: 707b944f06051734793367fc0c69bc07, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &2123581030
 GameObject:
   m_ObjectHideFlags: 0
@@ -7659,3 +7833,4 @@ SceneRoots:
   - {fileID: 719930862}
   - {fileID: 144653188}
   - {fileID: 905042136}
+  - {fileID: 825350928}
