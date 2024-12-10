@@ -25,6 +25,10 @@ public class CustomerAI : MonoBehaviour
     private Animator animator; // TODO: Needs fix
     private float initialDelay; // New variable for random delay
     private bool hasStartedMoving = false; // New variable to track if customer has started moving
+    private float maxWaitTime = 20f; // Maximum time customer will wait
+    private float currentWaitTime; // Current remaining time
+    private bool isTimerStarted = false;
+    private CustomerSpawner spawner;
 
     void Start()
     {
@@ -77,22 +81,13 @@ public class CustomerAI : MonoBehaviour
             return;
         }
 
-        Debug.Log("[CustomerAI] Generating orderValue...");
-        orderValue = quizGenerator.GenerateQuestion();
-        Debug.Log("[CustomerAI] OrderValue generated: " + orderValue);
-
-        orderDetails = new Order
-        {
-            orderNum = orderValue,
-            timeLimit = 15,
-            tableNum = seatId,
-        };
-        Debug.Log("[CustomerAI] OrderDetails created: " + (orderDetails != null));
-
         // Set random delay between 1-30 seconds
         initialDelay = Random.Range(1f, 30f);
         Debug.Log("[CustomerAI] initialDelay set to: " + initialDelay);
         agent.isStopped = true; // Stop agent initially
+        currentWaitTime = maxWaitTime;
+
+        spawner = FindObjectOfType<CustomerSpawner>();
     }
 
     void Update()
@@ -134,13 +129,19 @@ public class CustomerAI : MonoBehaviour
         // Countdown timer if seated and order isn't fulfilled
         if (isSeated && !isOrderFulfilled && orderDetails != null)
         {
-            timer -= Time.deltaTime;
+            if (!isTimerStarted)
+            {
+                isTimerStarted = true;
+                currentWaitTime = maxWaitTime;
+            }
+
+            currentWaitTime -= Time.deltaTime;
             orderDetails.UpdateTime(Time.deltaTime);
 
-            if (timer <= 0f)
+            if (currentWaitTime <= 0f)
             {
                 Debug.Log("[CustomerAI] Timer ran out, leaving angrily.");
-                LeaveRestaurant(false); // Leave angrily if time runs out
+                LeaveRestaurant(false);
             }
         }
     }
@@ -155,10 +156,18 @@ public class CustomerAI : MonoBehaviour
     private void DisplayOrder()
     {
         Debug.Log("[CustomerAI] DisplayOrder() called.");
-        if (this.orderDetails == null) {
-            Debug.LogError("[CustomerAI] Order details not found in DisplayOrder!");
-            UnityEditor.EditorApplication.isPlaying = false; // Commented out for debugging
-            return;
+        
+        // Create order if it doesn't exist
+        if (orderDetails == null) 
+        {
+            Debug.Log("[CustomerAI] Creating new order...");
+            orderValue = quizGenerator.GenerateQuestion();
+            orderDetails = new Order
+            {
+                orderNum = orderValue,
+                timeLimit = 15,
+                tableNum = seatId,
+            };
         }
 
         Debug.Log("[CustomerAI] Generating order card UI.");
@@ -184,16 +193,22 @@ public class CustomerAI : MonoBehaviour
     private void LeaveRestaurant(bool happy)
     {
         Debug.Log("[CustomerAI] LeaveRestaurant called. Happy: " + happy);
-        if (happy)
+        
+        // Remove order UI
+        if (orderDetails != null && orderDetails.orderContainer != null)
         {
-            // animator.SetTrigger("Happy"); // Trigger happy animation
+            if (orderListContainer != null)
+            {
+                orderListContainer.Remove(orderDetails.orderContainer);
+            }
+            orderDetails = null;
         }
-        else
-        {
-            // animator.SetTrigger("Angry"); // Trigger angry animation
-        }
-        orderCardWrapper.RemoveFromHierarchy();
-        Destroy(gameObject, 2f); // Remove customer after animations play
+
+        // Set animation states
+        animator.SetBool("Idle", false);
+        animator.SetBool("Jump", true);  // Use jump animation for movement
+        
+        Leave();  // This will trigger the movement to door
     }
 
     public void Leave()
@@ -216,11 +231,23 @@ public class CustomerAI : MonoBehaviour
         {
             if (Vector3.Distance(transform.position, agent.destination) < 0.5f)
             {
-                animator.SetBool("Idle", false);
+                animator.SetBool("Jump", false);
+                animator.SetBool("Idle", true);
+                
+                // Add small delay before destroying
+                yield return new WaitForSeconds(0.5f);
                 Destroy(gameObject);
                 yield break;
             }
             yield return new WaitForSeconds(0.1f);
+        }
+    }
+
+    private void OnDestroy()
+    {
+        if (spawner != null)
+        {
+            spawner.CustomerLeft(seatId);
         }
     }
 }
