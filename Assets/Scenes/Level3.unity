@@ -2747,10 +2747,11 @@ MonoBehaviour:
   - {fileID: 8536732852810343482}
   - {fileID: 3435741005419498457}
   exitDoor: {fileID: 261394321}
-  spawnInterval: 15
+  spawnInterval: 10
   maxCustomers: 15
   gameGUI: {fileID: 239733096}
   quizGeneratorObject: {fileID: 919028035}
+  availableSeats: 
 --- !u!4 &825350928
 Transform:
   m_ObjectHideFlags: 0
@@ -3494,7 +3495,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1208863371
 Transform:
   m_ObjectHideFlags: 0
@@ -6335,7 +6336,7 @@ MonoBehaviour:
   FloatingTextPrefab: {fileID: 0}
   smokeEffectPrefab: {fileID: 0}
   smokeSpawn: {fileID: 0}
-  explosionEffect: {fileID: 0}
+  hitEffect: {fileID: 0}
   AudioSource: {fileID: 0}
   walkPoint: {x: 0, y: 0, z: 0}
   walkPointRange: 5

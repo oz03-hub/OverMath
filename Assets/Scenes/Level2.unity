@@ -3431,7 +3431,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1208863371
 Transform:
   m_ObjectHideFlags: 0
@@ -4102,10 +4102,11 @@ MonoBehaviour:
   - {fileID: 4713600566601724764}
   - {fileID: 3435741005419498457}
   exitDoor: {fileID: 261394321}
-  spawnInterval: 15
-  maxCustomers: 12
+  spawnInterval: 10
+  maxCustomers: 10
   gameGUI: {fileID: 239733096}
   quizGeneratorObject: {fileID: 919028035}
+  availableSeats: 
 --- !u!4 &1367241353
 Transform:
   m_ObjectHideFlags: 0

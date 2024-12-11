@@ -7,7 +7,7 @@ public class CustomerSpawner : MonoBehaviour
     public GameObject[] customerPrefabs;  // Array of different customer prefabs
     public Transform[] seatPositions;
     public Transform exitDoor;
-    public float spawnInterval = 20f;
+    public float spawnInterval = 10f;
     public int maxCustomers = 8;
     public UIDocument gameGUI;
     public GameObject quizGeneratorObject;
