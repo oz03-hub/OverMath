@@ -6,6 +6,8 @@ public class Ragdoll : MonoBehaviour
 {
     public GameObject rig;
     public Animator animator;
+    public AudioClip[] recoverClips;
+    public AudioSource audioSource;
 
     public void RagDollModeOn() {
         Debug.Log("RagDoll ON");
@@ -30,6 +32,13 @@ public class Ragdoll : MonoBehaviour
 
     public void RagDollModeOff() {
         Debug.Log("RagDoll OFF");
+        if (Random.Range(0, 10) > 3)
+        {
+            Debug.Log("Playing Audio For recovery");
+            int randIndx = Random.Range(0, recoverClips.Length);
+            AudioClip clip = recoverClips[randIndx];
+            audioSource.PlayOneShot(clip);
+        }
         transform.position = rigidbodies[0].position;
         GetComponent<CharacterController>().enabled = true;
         GetComponent<PlayerController>().enabled = true;
@@ -55,6 +64,7 @@ public class Ragdoll : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        audioSource = GetComponent<AudioSource>();
         GetRagDollBits();
         RagDollModeOff();
     }

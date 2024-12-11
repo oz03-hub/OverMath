@@ -125,7 +125,8 @@ MonoBehaviour:
   speed: 10
   ragdoll: {fileID: 0}
   playerBody: {fileID: 0}
-  clip: {fileID: 8300000, guid: 5fa026fd7fd0d194684192cc16c1548a, type: 3}
+  audioSource: {fileID: 0}
+  clip: {fileID: 0}
 --- !u!54 &3819091840327297490
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -165,17 +166,17 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
-  Priority: 128
+  Priority: 95
   DopplerLevel: 1
   MinDistance: 1
-  MaxDistance: 500
+  MaxDistance: 100
   Pan2D: 0
   rolloffMode: 1
   BypassEffects: 0

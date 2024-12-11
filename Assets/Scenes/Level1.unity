@@ -6825,7 +6825,7 @@ MonoBehaviour:
   FloatingTextPrefab: {fileID: 0}
   smokeEffectPrefab: {fileID: 0}
   smokeSpawn: {fileID: 0}
-  explosionEffect: {fileID: 0}
+  hitEffect: {fileID: 0}
   AudioSource: {fileID: 0}
   walkPoint: {x: 0, y: 0, z: 0}
   walkPointRange: 5

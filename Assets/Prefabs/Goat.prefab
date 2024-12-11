@@ -119,7 +119,7 @@ MonoBehaviour:
   FloatingTextPrefab: {fileID: 6487523235464291236, guid: 88217f88e51311b4a8e1b29ada8edbd6, type: 3}
   smokeEffectPrefab: {fileID: 4167121132795645790, guid: bfc86850157aeb546973b3382016cd89, type: 3}
   smokeSpawn: {fileID: 6312248858908513624}
-  explosionEffect: {fileID: 8300000, guid: 5fa026fd7fd0d194684192cc16c1548a, type: 3}
+  hitEffect: {fileID: 8300000, guid: 468574137ffa99a4d884e6c467afb6f8, type: 3}
   AudioSource: {fileID: 0}
   walkPoint: {x: 0, y: 0, z: 0}
   walkPointRange: 5
