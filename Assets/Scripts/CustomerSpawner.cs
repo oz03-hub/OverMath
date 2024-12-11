@@ -13,7 +13,7 @@ public class CustomerSpawner : MonoBehaviour
     public GameObject quizGeneratorObject;
     
     private float nextSpawnTime;
-    private List<int> availableSeats;
+    public List<int> availableSeats;
     private int customersActive = 0;
 
     void Start()
@@ -101,7 +101,7 @@ public class CustomerSpawner : MonoBehaviour
 
         int randomSeatIndex = Random.Range(0, availableSeats.Count);
         int seatId = availableSeats[randomSeatIndex];
-        availableSeats.RemoveAt(randomSeatIndex);
+        availableSeats.Remove(seatId);
 
         // Randomly select a customer prefab
         int randomPrefabIndex = Random.Range(0, customerPrefabs.Length);

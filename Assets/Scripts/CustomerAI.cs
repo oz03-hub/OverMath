@@ -108,7 +108,7 @@ public class CustomerAI : MonoBehaviour
         }
 
         // Check if customer has reached their offset seat position
-        if (!isSeated && Vector3.Distance(transform.position, agent.destination) < 0.5f)
+        if (!isSeated && Vector3.Distance(transform.position, agent.destination) < 1.5f)
         {
             Debug.Log("[CustomerAI] Customer reached seat destination.");
             isSeated = true;
@@ -226,7 +226,7 @@ public class CustomerAI : MonoBehaviour
     {
         while (true)
         {
-            if (Vector3.Distance(transform.position, agent.destination) < 0.5f)
+            if (Vector3.Distance(transform.position, agent.destination) < 1)
             {
                 animator.SetBool("Jump", false);
                 animator.SetBool("Idle", true);

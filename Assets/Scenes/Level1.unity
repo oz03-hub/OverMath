@@ -2214,6 +2214,7 @@ MonoBehaviour:
   maxCustomers: 8
   gameGUI: {fileID: 239733096}
   quizGeneratorObject: {fileID: 919028035}
+  availableSeats: 
 --- !u!4 &661361739
 Transform:
   m_ObjectHideFlags: 0
@@ -3002,6 +3003,26 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1208863371}
     m_Modifications:
+    - target: {fileID: 592038533539604657, guid: 66ae442726d1cf4428dacb34edd61ac4, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 592038533539604657, guid: 66ae442726d1cf4428dacb34edd61ac4, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.99864584
+      objectReference: {fileID: 0}
+    - target: {fileID: 592038533539604657, guid: 66ae442726d1cf4428dacb34edd61ac4, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 592038533539604657, guid: 66ae442726d1cf4428dacb34edd61ac4, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0.052024864
+      objectReference: {fileID: 0}
+    - target: {fileID: 592038533539604657, guid: 66ae442726d1cf4428dacb34edd61ac4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: -5.964
+      objectReference: {fileID: 0}
     - target: {fileID: 2795397902362475942, guid: 72c47fdc43d84b243bdc109c284341d6, type: 3}
       propertyPath: m_Name
       value: Slime_02
@@ -3049,26 +3070,6 @@ PrefabInstance:
     - target: {fileID: 3278883554580211484, guid: 72c47fdc43d84b243bdc109c284341d6, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 592038533539604657, guid: 66ae442726d1cf4428dacb34edd61ac4, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 592038533539604657, guid: 66ae442726d1cf4428dacb34edd61ac4, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.99864584
-      objectReference: {fileID: 0}
-    - target: {fileID: 592038533539604657, guid: 66ae442726d1cf4428dacb34edd61ac4, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 592038533539604657, guid: 66ae442726d1cf4428dacb34edd61ac4, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0.052024864
-      objectReference: {fileID: 0}
-    - target: {fileID: 592038533539604657, guid: 66ae442726d1cf4428dacb34edd61ac4, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: -5.964
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -3746,7 +3747,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1208863371
 Transform:
   m_ObjectHideFlags: 0
