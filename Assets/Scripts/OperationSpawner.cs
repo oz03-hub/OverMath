@@ -13,6 +13,7 @@ public class OperationSpawner : MonoBehaviour
 												 "Number8", 
 												 "Number9" };
 
+	// TODO: Change the location of the spawn positions
 	private Vector3[] spawnPositions = new Vector3[] { new Vector3(-14.77f, 2.5f, -9.7f), 
 													  new Vector3(-12.5f, 2.5f, -9.7f), 
 													  new Vector3(-10.19f, 2.5f, -9.7f), 
@@ -119,6 +120,7 @@ public class OperationSpawner : MonoBehaviour
 	 * @param: none
 	 * @return: void
 	 */
+	 // TODO: Update how these numbers are chosen to generate, right now generates more 3s
 	void SpawnNumbers()
 	{
 		/**
