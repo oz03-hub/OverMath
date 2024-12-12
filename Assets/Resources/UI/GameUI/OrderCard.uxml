@@ -1,4 +1,4 @@
-<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+<!-- <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/UI/GameUI/OrderCardStyles.uss?fileID=7433441132597879392&amp;guid=9968e53a227028540ba5b8971365582f&amp;type=3#OrderCardStyles" />
     <ui:VisualElement name="OrderCardWrapper" class="order-card-wrapper">
         <ui:VisualElement name="OrderCard" class="order-card">
@@ -13,4 +13,23 @@
             </ui:VisualElement>
         </ui:VisualElement>
     </ui:VisualElement>
+</ui:UXML> -->
+
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI/GameUI/OrderCardStyles.uss?fileID=7433441132597879392&amp;guid=9968e53a227028540ba5b8971365582f&amp;type=3#OrderCardStyles" />
+    <ui:VisualElement name="OrderCardWrapper" class="order-card-wrapper">
+        <ui:VisualElement name="OrderCard" class="order-card">
+            <ui:VisualElement name="Order" class="order">
+                <ui:Label name="OrderLabel" class="order-label" text="" />
+            </ui:VisualElement>
+            <ui:VisualElement name="Timer" class="timer">
+                <ui:VisualElement name="TimerBar" class="timer-bar" style="width: 100%;" />
+                <ui:Label name="TimerLabel" class="timer-label" text="15" />
+            </ui:VisualElement>
+            <ui:VisualElement name="TableNum" class="table-num">
+                <ui:Label name="TableNumLabel" class="table-num-label" text="" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
 </ui:UXML>
+

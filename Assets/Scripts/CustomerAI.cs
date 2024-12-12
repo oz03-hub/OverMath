@@ -25,8 +25,6 @@ public class CustomerAI : MonoBehaviour
     private Animator animator; // TODO: Needs fix
     private float initialDelay; // New variable for random delay
     private bool hasStartedMoving = false; // New variable to track if customer has started moving
-    private float maxWaitTime = 120f; // Maximum time customer will wait
-    private float currentWaitTime; // Current remaining time
     private bool isTimerStarted = false;
     private CustomerSpawner spawner;
 
@@ -85,7 +83,6 @@ public class CustomerAI : MonoBehaviour
         initialDelay = Random.Range(1f, 30f);
         Debug.Log("[CustomerAI] initialDelay set to: " + initialDelay);
         agent.isStopped = true; // Stop agent initially
-        currentWaitTime = maxWaitTime;
 
         spawner = FindObjectOfType<CustomerSpawner>();
     }
@@ -122,25 +119,6 @@ public class CustomerAI : MonoBehaviour
             // Create and display order after setting isSeated
             DisplayOrder();
         }
-
-        // Move the timer logic here, after potential order creation
-        if (isSeated && !isOrderFulfilled && orderDetails != null)
-        {
-            if (!isTimerStarted)
-            {
-                isTimerStarted = true;
-                currentWaitTime = maxWaitTime;
-            }
-
-            currentWaitTime -= Time.deltaTime;
-            orderDetails.UpdateTime(Time.deltaTime);
-
-            if (currentWaitTime <= 0f)
-            {
-                Debug.Log("[CustomerAI] Timer ran out, leaving angrily.");
-                LeaveRestaurant(false);
-            }
-        }
     }
 
     // Calculate an offset position to stop a certain distance from the seat
@@ -165,15 +143,41 @@ public class CustomerAI : MonoBehaviour
                 timeLimit = 15,
                 tableNum = seatId,
             };
+            StartCoroutine(CountdownTimer());
         }
 
         Debug.Log("[CustomerAI] Generating order card UI.");
         orderCardWrapper.Q<Label>("OrderLabel").text = orderValue.ToString();
         orderCardWrapper.Q<Label>("TableNumLabel").text = seatId.ToString();
+        orderCardWrapper.Q<Label>("TimerLabel").text = orderDetails.timeLimit.ToString();
         orderDetails.orderContainer = orderCardWrapper;
         orderListContainer.Add(orderCardWrapper);
         Debug.Log("[CustomerAI] Order card displayed successfully.");
     }
+
+    private IEnumerator CountdownTimer()
+    {
+        VisualElement timerBar = orderCardWrapper.Q<VisualElement>("TimerBar");
+        Label timerLabel = orderCardWrapper.Q<Label>("TimerLabel");
+        float initialWidth = 100f; // Assuming the initial width is 100%
+
+        while (orderDetails.timeLimit > 0)
+        {
+            yield return new WaitForSeconds(1f);
+            orderDetails.timeLimit--;
+            Debug.Log($"Time remaining: {orderDetails.timeLimit}");
+            
+            float remainingPercentage = (float)orderDetails.timeLimit / 15f * 100f;
+            timerBar.style.width = new StyleLength(Length.Percent(remainingPercentage));
+
+            timerLabel.text = orderDetails.timeLimit.ToString();
+        }
+
+        Debug.Log("Time's up!");
+        Debug.Log("[CustomerAI] Timer ran out, leaving angrily.");
+        LeaveRestaurant(false);
+    }
+
 
     public void FulfillOrder(int number)
     {
