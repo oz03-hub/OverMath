@@ -106,10 +106,19 @@ public class CustomerSpawner : MonoBehaviour
         // Randomly select a customer prefab
         int randomPrefabIndex = Random.Range(0, customerPrefabs.Length);
         GameObject selectedPrefab = customerPrefabs[randomPrefabIndex];
-        
-        GameObject customer = Instantiate(selectedPrefab, exitDoor.position, Quaternion.identity);
-        CustomerAI customerAI = customer.GetComponent<CustomerAI>();
-        
+
+        GameObject customerObject = Instantiate(selectedPrefab, exitDoor.position, Quaternion.identity);
+        CustomerAI customerAI = customerObject.GetComponent<CustomerAI>();
+
+        // Ensure the customer object has a trigger collider for interaction
+        Collider collider = customerObject.GetComponent<Collider>();
+        if (collider == null)
+        {
+            SphereCollider trigger = customerObject.AddComponent<SphereCollider>();
+            trigger.isTrigger = true;
+            trigger.radius = 5f; // Adjust radius for interaction range
+        }
+
         if (customerAI != null)
         {
             customerAI.seatId = seatId;
@@ -117,10 +126,12 @@ public class CustomerSpawner : MonoBehaviour
             customerAI.exitDoor = exitDoor;
             customerAI.GameGUI = gameGUI;
             customerAI.quizGeneratorObject = quizGeneratorObject;
+
             customersActive++;
             Debug.Log($"[CustomerSpawner] Spawned customer type {randomPrefabIndex} at seat {seatId}");
         }
     }
+
 
     public void CustomerLeft(int seatId)
     {

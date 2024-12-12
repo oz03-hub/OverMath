@@ -12,7 +12,7 @@ public class GameLevelManager : MonoBehaviour
     public bool hasWon = false;
     public bool gameOver = false;
     public UIDocument GameGUI;
-    public List<Order> orderList; //? Should this be here?
+    public List<Order> orderList;
 
     private float timeRemaining;
     private float lastUpdateTime;
@@ -37,8 +37,6 @@ public class GameLevelManager : MonoBehaviour
     {
         timeRemaining = timeLimit;
         lastUpdateTime = Time.time;
-
-        // orderList = new List<Order>();
         ingredientText.text = "";
     }
 
@@ -50,17 +48,6 @@ public class GameLevelManager : MonoBehaviour
         {
             lastUpdateTime = Time.time;
             timeRemaining = Mathf.Max(0, timeRemaining - 1f);
-            // foreach (Order order in orderList)
-            // {
-            //     order.UpdateTime();
-            //     if (order.timeRemaining == 0)
-            //     {
-                    
-            //         orderList.Remove(order);
-            //         order.orderContainer.RemoveFromHierarchy();
-            //         break;
-            //     }
-            // }
         }
 
         if (timeRemaining <= 0)
@@ -149,7 +136,9 @@ public class GameLevelManager : MonoBehaviour
         if (string.IsNullOrEmpty(ingredient))
         {
             ingredientText.text = "";
-        } else {
+        }
+        else
+        {
             ingredientText.text = ingredient;
         }
     }

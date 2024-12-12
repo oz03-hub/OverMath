@@ -2,29 +2,29 @@ using UnityEngine;
 using UnityEngine.AI;
 using System.Collections;
 using UnityEngine.UIElements;
-using Unity.VisualScripting;
 
 public class CustomerAI : MonoBehaviour
 {
     public int seatId;
-    public Transform targetSeat; // Assigned dynamically when customer spawns
-    public Transform exitDoor; // Reference to the door transform
-    public float stopDistance = 1.5f; // Distance from the seat to stop
-    public float waitTime = 15f; // Time before leaving
+    public Transform targetSeat;
+    public Transform exitDoor;
+    public float stopDistance = 1.5f;
+    public float waitTime = 15f;
     public bool isSeated = false;
     public bool isOrderFulfilled = false;
+    public bool IsInteractable { get; private set; } = false; // New property
     public UIDocument GameGUI;
     public GameObject quizGeneratorObject;
-    private QuizGenerator quizGenerator;   
-    private Order orderDetails; 
+    private QuizGenerator quizGenerator;
+    private Order orderDetails;
     private VisualElement orderListContainer;
     private VisualElement orderCardWrapper;
-    private int orderValue;
+    public int orderValue;
     private NavMeshAgent agent;
     private float timer;
-    private Animator animator; // TODO: Needs fix
-    private float initialDelay; // New variable for random delay
-    private bool hasStartedMoving = false; // New variable to track if customer has started moving
+    private Animator animator;
+    private float initialDelay;
+    private bool hasStartedMoving = false;
     private bool isTimerStarted = false;
     private CustomerSpawner spawner;
     private bool leaving = false;
@@ -36,7 +36,8 @@ public class CustomerAI : MonoBehaviour
         agent = GetComponent<NavMeshAgent>();
         animator = GetComponent<Animator>();
 
-        if (quizGenerator == null) {
+        if (quizGenerator == null)
+        {
             if (quizGeneratorObject == null)
             {
                 Debug.LogError("[CustomerAI] QuizGenerator not assigned. Will try finding it in scene");
@@ -46,29 +47,23 @@ public class CustomerAI : MonoBehaviour
             if (quizGenerator == null)
             {
                 Debug.LogError("[CustomerAI] QuizGenerator still not found, orderDetails cannot be created.");
-                UnityEditor.EditorApplication.isPlaying = false; // Commented out for debugging
+                UnityEditor.EditorApplication.isPlaying = false; // For debugging
                 return;
             }
         }
-
-        Debug.Log("[CustomerAI] quizGenerator is not null: " + (quizGenerator != null));
 
         VisualTreeAsset orderCardTemplate = Resources.Load<VisualTreeAsset>("UI/GameUI/OrderCard");
         if (orderCardTemplate == null)
         {
             Debug.LogError("[CustomerAI] OrderCard template not found");
-            UnityEditor.EditorApplication.isPlaying = false; // Commented out for debugging
+            UnityEditor.EditorApplication.isPlaying = false; // For debugging
             return;
         }
-        else {
-            orderCardWrapper = orderCardTemplate.Instantiate();
-            Debug.Log("[CustomerAI] orderCardWrapper instantiated successfully.");
-        }
 
+        orderCardWrapper = orderCardTemplate.Instantiate();
         if (GameGUI == null)
         {
             Debug.LogError("[CustomerAI] GameGUI (UIDocument) not assigned.");
-            // UnityEditor.EditorApplication.isPlaying = false; // Commented out for debugging
             return;
         }
 
@@ -76,14 +71,11 @@ public class CustomerAI : MonoBehaviour
         if (orderListContainer == null)
         {
             Debug.LogError("[CustomerAI] OrderListContainer not found in GameGUI!");
-            // UnityEditor.EditorApplication.isPlaying = false; // Commented out for debugging
             return;
         }
 
-        // Set random delay between 1-10 seconds
         initialDelay = Random.Range(1f, 10f);
-        Debug.Log("[CustomerAI] initialDelay set to: " + initialDelay);
-        agent.isStopped = true; // Stop agent initially
+        agent.isStopped = true;
 
         spawner = FindObjectOfType<CustomerSpawner>();
     }
@@ -95,7 +87,6 @@ public class CustomerAI : MonoBehaviour
             initialDelay -= Time.deltaTime;
             if (initialDelay <= 0)
             {
-                Debug.Log("[CustomerAI] Starting movement towards seat.");
                 hasStartedMoving = true;
                 agent.isStopped = false;
                 Vector3 offsetPosition = CalculateOffsetPosition(targetSeat.position, stopDistance);
@@ -105,27 +96,22 @@ public class CustomerAI : MonoBehaviour
             return;
         }
 
-        // Check if customer has reached their offset seat position
         if (!isSeated && Vector3.Distance(transform.position, agent.destination) < 1.5f)
         {
-            Debug.Log("[CustomerAI] Customer reached seat destination.");
             isSeated = true;
-            agent.isStopped = true; // Stop movement
+            agent.isStopped = true;
             timer = waitTime;
 
-            // Trigger idle animation and display order
             animator.SetBool("Jump", false);
             animator.SetBool("Idle", true);
 
             if (!leaving)
             {
-                // Create and display order after setting isSeated
                 DisplayOrder();
             }
         }
     }
 
-    // Calculate an offset position to stop a certain distance from the seat
     private Vector3 CalculateOffsetPosition(Vector3 seatPosition, float distance)
     {
         Vector3 direction = (seatPosition - transform.position).normalized;
@@ -134,94 +120,72 @@ public class CustomerAI : MonoBehaviour
 
     private void DisplayOrder()
     {
-        Debug.Log("[CustomerAI] DisplayOrder() called.");
-        
-        // Create order if it doesn't exist
-        if (orderDetails == null) 
+        if (orderDetails == null)
         {
-            Debug.Log("[CustomerAI] Creating new order...");
             orderValue = quizGenerator.GenerateQuestion();
             orderDetails = new Order
             {
                 orderNum = orderValue,
-                timeLimit = 15,
+                timeLimit = 30,
                 tableNum = seatId,
             };
             StartCoroutine(CountdownTimer());
         }
 
-        Debug.Log("[CustomerAI] Generating order card UI.");
         orderCardWrapper.Q<Label>("OrderLabel").text = orderValue.ToString();
         orderCardWrapper.Q<Label>("TableNumLabel").text = seatId.ToString();
         orderCardWrapper.Q<Label>("TimerLabel").text = orderDetails.timeLimit.ToString();
         orderDetails.orderContainer = orderCardWrapper;
         orderListContainer.Add(orderCardWrapper);
-        Debug.Log("[CustomerAI] Order card displayed successfully.");
     }
 
     private IEnumerator CountdownTimer()
     {
         VisualElement timerBar = orderCardWrapper.Q<VisualElement>("TimerBar");
         Label timerLabel = orderCardWrapper.Q<Label>("TimerLabel");
-        float initialWidth = 100f; // Assuming the initial width is 100%
 
         while (orderDetails.timeLimit > 0)
         {
             yield return new WaitForSeconds(1f);
             orderDetails.timeLimit--;
-            //Debug.Log($"Time remaining: {orderDetails.timeLimit}");
-            
+
             float remainingPercentage = (float)orderDetails.timeLimit / 15f * 100f;
             timerBar.style.width = new StyleLength(Length.Percent(remainingPercentage));
 
             timerLabel.text = orderDetails.timeLimit.ToString();
         }
 
-        Debug.Log("Time's up!");
-        Debug.Log("[CustomerAI] Timer ran out, leaving angrily.");
         LeaveRestaurant(false);
     }
-
 
     public void FulfillOrder(int number)
     {
         if (isOrderFulfilled) return;
-        if (number != orderValue) {
-            Debug.Log("[CustomerAI] Wrong order. Expected: " + orderValue + ", got: " + number);
-            return;
-        }
+        if (number != orderValue) return;
+
         isOrderFulfilled = true;
-        Debug.Log("[CustomerAI] Order fulfilled. Leaving happily.");
-        LeaveRestaurant(true); // Leave happily
+        LeaveRestaurant(true);
     }
 
-    private void LeaveRestaurant(bool happy)
+    public void LeaveRestaurant(bool happy)
     {
-        Debug.Log("[CustomerAI] LeaveRestaurant called. Happy: " + happy);
         leaving = true;
-        
-        // Remove order UI
+
         if (orderDetails != null && orderDetails.orderContainer != null)
         {
-            if (orderListContainer != null)
-            {
-                orderListContainer.Remove(orderDetails.orderContainer);
-            }
+            orderListContainer.Remove(orderDetails.orderContainer);
             orderDetails = null;
         }
 
-        // Set animation states
         animator.SetBool("Idle", false);
-        animator.SetBool("Jump", true);  // Use jump animation for movement
-        
-        Leave();  // This will trigger the movement to door
+        animator.SetBool("Jump", true);
+        Leave();
     }
 
     public void Leave()
     {
         if (isSeated)
         {
-            Debug.Log("[CustomerAI] Customer leaving through the door.");
             isSeated = false;
             agent.isStopped = false;
             Vector3 doorPosition = exitDoor.position;
@@ -239,8 +203,6 @@ public class CustomerAI : MonoBehaviour
             {
                 animator.SetBool("Jump", false);
                 animator.SetBool("Idle", true);
-                
-                // Add small delay before destroying
                 yield return new WaitForSeconds(0.5f);
                 Destroy(gameObject);
                 yield break;
@@ -249,11 +211,22 @@ public class CustomerAI : MonoBehaviour
         }
     }
 
-    private void OnDestroy()
+    private void OnTriggerEnter(Collider other)
     {
-        if (spawner != null)
+        if (other.CompareTag("Player"))
         {
-            spawner.CustomerLeft(seatId);
+            IsInteractable = true;
+            Debug.Log($"[CustomerAI] Player entered interaction range for customer at seat {seatId}");
         }
     }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            IsInteractable = false;
+            Debug.Log($"[CustomerAI] Player exited interaction range for customer at seat {seatId}");
+        }
+    }
+
 }
