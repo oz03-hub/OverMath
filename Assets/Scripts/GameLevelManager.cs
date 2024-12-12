@@ -6,19 +6,15 @@ public class GameLevelManager : MonoBehaviour
 {
     public int playerPoints = 0;
     public int pointsToWin = 100;
-    public int ordersCompleted = 0;
-    public int totalOrders = 5;
     public float timeLimit = 300f;
     public bool hasWon = false;
     public bool gameOver = false;
     public UIDocument GameGUI;
-    public List<Order> orderList;
-
     private float timeRemaining;
     private float lastUpdateTime;
     private Label timerText;
     private Label scoreText;
-    private Label ingredientText;
+    public Label ingredientText;
 
     void OnEnable()
     {
@@ -38,16 +34,20 @@ public class GameLevelManager : MonoBehaviour
         timeRemaining = timeLimit;
         lastUpdateTime = Time.time;
         ingredientText.text = "";
+        UpdateUI(); // Ensure UI is updated at the start
     }
 
     void Update()
     {
         if (gameOver) return;
 
+        Debug.Log($"[GameLevelManager] Current playerPoints: {playerPoints}");
+
         if (Time.time - lastUpdateTime >= 1f)
         {
             lastUpdateTime = Time.time;
             timeRemaining = Mathf.Max(0, timeRemaining - 1f);
+            UpdateUI();
         }
 
         if (timeRemaining <= 0)
@@ -59,13 +59,6 @@ public class GameLevelManager : MonoBehaviour
         {
             WinGame();
         }
-
-        if (ordersCompleted >= totalOrders)
-        {
-            CompleteAllTasks();
-        }
-
-        UpdateUI();
     }
 
     void OnDisable()
@@ -85,6 +78,7 @@ public class GameLevelManager : MonoBehaviour
         if (scoreText != null)
         {
             scoreText.text = playerPoints.ToString();
+            Debug.Log($"[GameLevelManager] ScoreText updated to {playerPoints}");
         }
     }
 
@@ -100,34 +94,32 @@ public class GameLevelManager : MonoBehaviour
     {
         hasWon = true;
         gameOver = true;
+        Debug.Log("You win!");
     }
 
     void GameOver()
     {
         gameOver = true;
+        Debug.Log("Game Over!");
     }
 
-    void CompleteAllTasks()
-    {
-        if (!gameOver)
-        {
-            Debug.Log("All tasks completed!");
-        }
-    }
-
-    public void AddPoints(int points)
+   public void AddPoints(int points)
     {
         if (!gameOver)
         {
             playerPoints += points;
+            Debug.Log($"[GameLevelManager] Points added. New score: {playerPoints}");
+            UpdateUI();
         }
     }
 
-    public void CompleteTask()
+    public void SubtractPoints(int points)
     {
-        if (!gameOver && ordersCompleted < totalOrders)
+        if (!gameOver)
         {
-            ordersCompleted++;
+            playerPoints = Mathf.Max(0, playerPoints - points);
+            Debug.Log($"[GameLevelManager] Points subtracted. New score: {playerPoints}");
+            UpdateUI();
         }
     }
 

@@ -3,9 +3,11 @@ using UnityEngine;
 
 public class CustomerManager : MonoBehaviour
 {
-    public Transform player; // Reference to the player's transform
+    public Transform player;
     private List<CustomerAI> activeCustomers = new List<CustomerAI>();
-    public int score = 0;
+
+    public int pointsForCorrectOrder = 10;
+    public int pointsForIncorrectOrder = 5;
 
     void Update()
     {
@@ -71,41 +73,63 @@ public class CustomerManager : MonoBehaviour
     {
         if (customer.isSeated && !customer.isOrderFulfilled)
         {
-            // Pass the customer object to GetPlayerHoldingNumber
             int playerHoldingNumber = GetPlayerHoldingNumber(customer);
-
             Debug.Log($"[CustomerManager] Player attempting to fulfill order with number: {playerHoldingNumber}");
+
+            GameLevelManager levelManager = FindObjectOfType<GameLevelManager>();
+
+            if (levelManager == null)
+            {
+                Debug.LogError("[CustomerManager] GameLevelManager not found in scene!");
+                return;
+            }
 
             if (playerHoldingNumber == customer.orderValue)
             {
-                Debug.Log("[CustomerManager] Correct order! Updating score and fulfilling order.");
-                score++;
+                Debug.Log("[CustomerManager] Correct order! Adding points.");
+                levelManager.AddPoints(pointsForCorrectOrder);
                 customer.FulfillOrder(playerHoldingNumber);
             }
             else
             {
-                Debug.Log("[CustomerManager] Incorrect order! Customer leaving angrily.");
+                Debug.Log("[CustomerManager] Incorrect order! Subtracting points.");
+                levelManager.SubtractPoints(pointsForIncorrectOrder);
                 customer.LeaveRestaurant(false);
             }
         }
         else
         {
-            Debug.Log("[CustomerManager] Customer is not ready for interaction (either not seated or already fulfilled).");
+            Debug.Log("[CustomerManager] Customer is not ready for interaction.");
         }
     }
-
 
     private int GetPlayerHoldingNumber(CustomerAI customer)
     {
-        if (customer != null)
+        GameLevelManager gameManager = FindObjectOfType<GameLevelManager>();
+        if (gameManager == null)
         {
-            int customerOrder = customer.orderValue; // Fetch the customer's order value
-            Debug.Log($"[CustomerManager] Player is holding number: {customerOrder}");
-            return customerOrder;
+            Debug.LogError("[CustomerManager] GameLevelManager not found in the scene!");
+            return -1;
         }
 
-        Debug.LogWarning("[CustomerManager] No valid customer passed to GetPlayerHoldingNumber.");
-        return -1; // Return -1 if no valid order is retrieved
-    }
+        if (gameManager.ingredientText == null)
+        {
+            Debug.LogError("[CustomerManager] IngredientText is null in GameLevelManager!");
+            return -1;
+        }
 
+        string ingredientValue = gameManager.ingredientText.text;
+        Debug.Log($"[CustomerManager] Player is holding ingredient: {ingredientValue}");
+
+        if (int.TryParse(ingredientValue, out int result))
+        {
+            Debug.Log($"[CustomerManager] Parsed ingredient value as: {result}");
+            return result;
+        }
+        else
+        {
+            Debug.LogWarning("[CustomerManager] IngredientText value could not be parsed to an integer!");
+            return -1;
+        }
+    }
 }
