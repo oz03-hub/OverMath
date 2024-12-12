@@ -19,11 +19,28 @@ public class QuizGenerator : MonoBehaviour
 
     private Dictionary<Operators, Func<int, int, int>> operatorFunctions;
     private List<int> orderList;
-    void Start()
+    void Awake()
     {
         InitializeOperatorFunctions();
+    }
+
+    void Start()
+    {
+        if (allowedNumbers == null || allowedNumbers.Length == 0)
+        {
+            Debug.LogError("[QuizGenerator] allowedNumbers is not set or is empty!");
+            return; // Prevent running GenerateQuestion if we have no allowed numbers
+        }
+
+        if (allowedOperators == null || allowedOperators.Length == 0)
+        {
+            Debug.LogError("[QuizGenerator] allowedOperators is not set or is empty!");
+            return; // Prevent running GenerateQuestion if we have no allowed operators
+        }
+
         orderList = new List<int>();
     }
+
 
     private void InitializeOperatorFunctions()
     {
@@ -44,49 +61,60 @@ public class QuizGenerator : MonoBehaviour
         throw new ArgumentException("Invalid operator");
     }
 
-    private int GenerateQuestion()
+    public int GenerateQuestion()
     {
+        if (allowedNumbers == null || allowedNumbers.Length == 0)
+        {
+            Debug.LogError("[QuizGenerator] Cannot generate question, allowedNumbers is empty or null!");
+            return 0;
+        }
+
+        if (allowedOperators == null || allowedOperators.Length == 0)
+        {
+            Debug.LogError("[QuizGenerator] Cannot generate question, allowedOperators is empty or null!");
+            return 0;
+        }
+
+        if (maxCombinationLength <= 0)
+        {
+            Debug.LogError("[QuizGenerator] maxCombinationLength must be greater than 0!");
+            return 0;
+        }
+
         int a = 0;
         int b = 0;
         Operators op = Operators.Addition;
-        for (global::System.Int32 i = 0; i < UnityEngine.Random.Range(1, maxCombinationLength); i++)
+        int length = UnityEngine.Random.Range(1, maxCombinationLength);
+        for (int i = 0; i < length; i++)
         {
+            b = allowedNumbers[UnityEngine.Random.Range(0, allowedNumbers.Length)];
+            op = allowedOperators[UnityEngine.Random.Range(0, allowedOperators.Length)];
+
+            // For the first iteration, set 'a' before the loop continues.
             if (i == 0)
             {
                 a = allowedNumbers[UnityEngine.Random.Range(0, allowedNumbers.Length)];
-                b = allowedNumbers[UnityEngine.Random.Range(0, allowedNumbers.Length)];
-                op = allowedOperators[UnityEngine.Random.Range(0, allowedOperators.Length)];
-                a = PerformOperation(op, a, b);
-                continue;
             }
 
-            b = allowedNumbers[UnityEngine.Random.Range(0, allowedNumbers.Length)];
-            op = allowedOperators[UnityEngine.Random.Range(0, allowedOperators.Length)];
             a = PerformOperation(op, a, b);
         }
 
         return a;
     }
 
-    public void InitOrder()
-    {
-        StartCoroutine(AwaitQuiz());
-    }
-
-    public List<int> GetOrder()
-    {
-        return orderList;
-    }
-
-    IEnumerator AwaitQuiz()
-    {
-        while (true)
-        {
-            int result = GenerateQuestion();
-            orderList.Add(result);
-            yield return new WaitForSeconds(10.0f);
-        }
-    }
+    // public List<int> GetOrder()
+    // {
+    //     return orderList;
+    // }
+    // IEnumerator AwaitQuiz()
+    // {
+    // while (true)
+    // {
+    //     int result = GenerateQuestion();
+    //     orderList.Add(result);
+    //     yield return new WaitForSeconds(10.0f);
+    // }
+    // }
 
     // Update is called once per frame
     void Update()

@@ -165,6 +165,7 @@
     max-width: 100%;
     max-height: 100%;
     flex-shrink: 0;
+    margin-right: 24px;
 }
 
 .holding-panel {

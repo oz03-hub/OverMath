@@ -12,53 +12,19 @@ public class GameLevelManager : MonoBehaviour
     public bool hasWon = false;
     public bool gameOver = false;
     public UIDocument GameGUI;
-    public QuizGenerator quizGenerator;
+    public List<Order> orderList; //? Should this be here?
 
     private float timeRemaining;
     private float lastUpdateTime;
-
     private Label timerText;
     private Label scoreText;
-    private VisualElement orderListContainer;
     private Label ingredientText;
-
-    // Bad code alert pls dont shame me
-    private class Order {
-        public int orderNum;
-        public int tableNum;
-        public int timeRemaining;
-        public int timeLimit;
-        public bool isCompleted;
-        public VisualElement orderContainer;
-
-        public void UpdateTime() {
-            timeRemaining = Mathf.Max(0, timeRemaining - 1);
-            var timerElement = orderContainer.Q<VisualElement>("Timer");
-            var timerBar = timerElement.Q<VisualElement>("TimerBar");
-            if (timerBar != null)
-            {
-                // Debug.Log("Timer: " + timeRemaining);
-                float timeRemainPercent = timeRemaining / (float)timeLimit * 100;
-                if (timeRemainPercent < 20)
-                {
-                    timerBar.style.backgroundColor = new StyleColor(new Color32(225, 112, 85, 255));
-                }
-                else if (timeRemainPercent < 50)
-                {
-                    timerBar.style.backgroundColor = new StyleColor(new Color32(253, 203, 110, 255));
-                }
-                timerBar.style.width = Length.Percent(timeRemainPercent);
-            }
-        }
-    }
-    private List<Order> orderList;
 
     void OnEnable()
     {
         var root = GameGUI.rootVisualElement;
         timerText = root.Q<Label>("Time");
         scoreText = root.Q<Label>("Score");
-        orderListContainer = root.Q<VisualElement>("OrderGroups");
         ingredientText = root.Q<Label>("IngredientText");
 
         if (ingredientText == null)
@@ -71,12 +37,8 @@ public class GameLevelManager : MonoBehaviour
     {
         timeRemaining = timeLimit;
         lastUpdateTime = Time.time;
-        if (quizGenerator == null) {
-            Debug.LogError("QuizGenerator not assigned. Will try finding it in scene");
-            quizGenerator = FindObjectOfType<QuizGenerator>();
-        }
-        quizGenerator.InitOrder();
-        orderList = new List<Order>();
+
+        // orderList = new List<Order>();
         ingredientText.text = "";
     }
 
@@ -88,16 +50,17 @@ public class GameLevelManager : MonoBehaviour
         {
             lastUpdateTime = Time.time;
             timeRemaining = Mathf.Max(0, timeRemaining - 1f);
-            foreach (Order order in orderList)
-            {
-                order.UpdateTime();
-                if (order.timeRemaining == 0)
-                {
-                    orderList.Remove(order);
-                    order.orderContainer.RemoveFromHierarchy();
-                    break;
-                }
-            }
+            // foreach (Order order in orderList)
+            // {
+            //     order.UpdateTime();
+            //     if (order.timeRemaining == 0)
+            //     {
+                    
+            //         orderList.Remove(order);
+            //         order.orderContainer.RemoveFromHierarchy();
+            //         break;
+            //     }
+            // }
         }
 
         if (timeRemaining <= 0)
@@ -135,42 +98,6 @@ public class GameLevelManager : MonoBehaviour
         if (scoreText != null)
         {
             scoreText.text = playerPoints.ToString();
-        }
-
-        if (orderList != null) {
-            // Add new order to GUI if there is
-            List<int> orders = quizGenerator.GetOrder();
-            if (orders.Count > orderList.Count && orders.Count < totalOrders)
-            {
-                int newOrderNum = orders[orders.Count - 1];
-                int givenTime = Random.Range(50, 200);
-                Order newOrder = new Order
-                {
-                    orderNum = newOrderNum,
-                    tableNum = Random.Range(1, 10), // TODO: Fix later
-                    timeRemaining = givenTime,
-                    timeLimit = givenTime,
-                    isCompleted = false
-                };
-
-                VisualTreeAsset orderCardTemplate = Resources.Load<VisualTreeAsset>("UI/GameUI/OrderCard");
-                if (orderCardTemplate == null)
-                {
-                    Debug.LogError("OrderCard template not found");
-                    return;
-                }
-                VisualElement orderCardWrapper = orderCardTemplate.Instantiate();
-  
-                var orderLabel = orderCardWrapper.Q<Label>("OrderLabel");
-                orderLabel.text = newOrder.orderNum.ToString();
-
-                var tableNumLabel = orderCardWrapper.Q<Label>("TableNumLabel");
-                tableNumLabel.text = newOrder.tableNum.ToString();
-
-                newOrder.orderContainer = orderCardWrapper;
-                orderList.Add(newOrder);
-                orderListContainer.Add(orderCardWrapper);
-            }
         }
     }
 
