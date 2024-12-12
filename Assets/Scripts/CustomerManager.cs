@@ -96,12 +96,19 @@ public class CustomerManager : MonoBehaviour
                 levelManager.SubtractPoints(pointsForIncorrectOrder);
                 customer.LeaveRestaurant(false);
             }
+            levelManager.UpdateIngredientText("");
         }
         else
         {
             Debug.Log("[CustomerManager] Customer is not ready for interaction.");
+            GameLevelManager levelManager = FindObjectOfType<GameLevelManager>();
+            if (levelManager != null)
+            {
+                levelManager.UpdateIngredientText("");
+            }
         }
     }
+
 
     private int GetPlayerHoldingNumber(CustomerAI customer)
     {

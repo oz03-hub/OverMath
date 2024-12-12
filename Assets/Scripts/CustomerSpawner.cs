@@ -4,7 +4,7 @@ using UnityEngine.UIElements;
 
 public class CustomerSpawner : MonoBehaviour
 {
-    public GameObject[] customerPrefabs;  // Array of different customer prefabs
+    public GameObject[] customerPrefabs;
     public Transform[] seatPositions;
     public Transform exitDoor;
     public float spawnInterval = 10f;
@@ -27,7 +27,6 @@ public class CustomerSpawner : MonoBehaviour
             return;
         }
 
-        // Check if any prefabs are null
         for (int i = 0; i < customerPrefabs.Length; i++)
         {
             if (customerPrefabs[i] == null)
@@ -103,20 +102,18 @@ public class CustomerSpawner : MonoBehaviour
         int seatId = availableSeats[randomSeatIndex];
         availableSeats.Remove(seatId);
 
-        // Randomly select a customer prefab
         int randomPrefabIndex = Random.Range(0, customerPrefabs.Length);
         GameObject selectedPrefab = customerPrefabs[randomPrefabIndex];
 
         GameObject customerObject = Instantiate(selectedPrefab, exitDoor.position, Quaternion.identity);
         CustomerAI customerAI = customerObject.GetComponent<CustomerAI>();
 
-        // Ensure the customer object has a trigger collider for interaction
         Collider collider = customerObject.GetComponent<Collider>();
         if (collider == null)
         {
             SphereCollider trigger = customerObject.AddComponent<SphereCollider>();
             trigger.isTrigger = true;
-            trigger.radius = 5f; // Adjust radius for interaction range
+            trigger.radius = 5f;
         }
 
         if (customerAI != null)

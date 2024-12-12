@@ -34,7 +34,7 @@ public class GameLevelManager : MonoBehaviour
         timeRemaining = timeLimit;
         lastUpdateTime = Time.time;
         ingredientText.text = "";
-        UpdateUI(); // Ensure UI is updated at the start
+        UpdateUI();
     }
 
     void Update()
