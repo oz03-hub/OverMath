@@ -127,13 +127,20 @@ public class RangedAdvAI : MonoBehaviour
                     }
 
                     Debug.Log("RANGED ATTACK");
-                    Invoke(nameof(GoToStash), 2);
+                    //Invoke(nameof(GoToStash), 2);
+                    StartCoroutine(WaitForAttackAnimation());
                 }
                 else {
                     Debug.Log("Player not in sight");
                 }
             }
         }
+    }
+
+    private IEnumerator WaitForAttackAnimation()
+    {
+        yield return new WaitForSeconds(1);
+        GoToStash();
     }
 
     private void ResetAttack()
@@ -175,11 +182,11 @@ public class RangedAdvAI : MonoBehaviour
             return;
         }
 
-        if (alreadyAttacked)
-        {
-            animation_controller.SetBool("attack", false);
-            return;
-        }
+        //if (alreadyAttacked)
+        //{
+        //    animation_controller.SetBool("attack", false);
+        //    return;
+        //}
 
         if (!playerInSightRange && !playerInAttackRange)
         {

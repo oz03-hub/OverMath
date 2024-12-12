@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PauseManager : MonoBehaviour
 {
@@ -24,6 +25,11 @@ public class PauseManager : MonoBehaviour
                 ResumeGame();
             }
         }
+
+        if (isPaused && Input.GetKeyDown(KeyCode.R))
+        {
+            RestartCurrentLevel();
+        }
     }
 
     public void PauseGame()
@@ -31,6 +37,19 @@ public class PauseManager : MonoBehaviour
         isPaused = true;
         Time.timeScale = 0;
         pauseMenu.SetActive(true);
+    }
+
+    public void RestartLevel(int idx)
+    {
+        SceneManager.LoadScene(idx);
+        ResumeGame();
+    }
+
+    public void RestartCurrentLevel()
+    {
+        int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+        SceneManager.LoadScene(currentSceneIndex);
+        ResumeGame();
     }
 
     public void ResumeGame()
