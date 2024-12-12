@@ -41,51 +41,71 @@ public class CustomerManager : MonoBehaviour
 
     private void InteractWithCustomer()
     {
+        CustomerAI closestCustomer = null;
+        float closestDistance = float.MaxValue;
+
         foreach (var customer in activeCustomers)
         {
-            if (customer == null)
-            {
-                Debug.LogWarning("[CustomerManager] Skipping null customer in activeCustomers list.");
+            if (customer == null || !customer.IsInteractable)
                 continue;
-            }
 
-            if (customer.IsInteractable) // Interaction only if the customer is within the trigger zone
+            float distanceToPlayer = Vector3.Distance(player.position, customer.transform.position);
+            if (distanceToPlayer < closestDistance)
             {
-                Debug.Log($"[CustomerManager] Interacting with customer at seat {customer.seatId}");
-
-                if (customer.isSeated && !customer.isOrderFulfilled)
-                {
-                    int playerHoldingNumber = GetPlayerHoldingNumber(); // Retrieve what the player is holding
-
-                    if (playerHoldingNumber == customer.orderValue)
-                    {
-                        Debug.Log("[CustomerManager] Correct order! Updating score and fulfilling order.");
-                        score++;
-                        customer.FulfillOrder(playerHoldingNumber);
-                    }
-                    else
-                    {
-                        Debug.Log("[CustomerManager] Wrong order! Customer leaving angrily.");
-                        customer.LeaveRestaurant(false);
-                    }
-                }
-                else
-                {
-                    Debug.Log("[CustomerManager] Customer is not ready for interaction (either not seated or already fulfilled).");
-                }
-
-                return; // Interact with only one customer per key press
+                closestDistance = distanceToPlayer;
+                closestCustomer = customer;
             }
         }
 
-        Debug.Log("[CustomerManager] No interactable customer to interact with.");
+        if (closestCustomer != null)
+        {
+            HandleCustomerInteraction(closestCustomer);
+        }
+        else
+        {
+            Debug.Log("[CustomerManager] No interactable customer nearby.");
+        }
     }
 
-    private int GetPlayerHoldingNumber()
+    private void HandleCustomerInteraction(CustomerAI customer)
     {
-        // Implement logic to retrieve the player's currently held item or number
-        // For now, return a placeholder value
-        Debug.Log("[CustomerManager] Player holding number: Placeholder value");
-        return 0; // Replace with actual logic
+        if (customer.isSeated && !customer.isOrderFulfilled)
+        {
+            // Pass the customer object to GetPlayerHoldingNumber
+            int playerHoldingNumber = GetPlayerHoldingNumber(customer);
+
+            Debug.Log($"[CustomerManager] Player attempting to fulfill order with number: {playerHoldingNumber}");
+
+            if (playerHoldingNumber == customer.orderValue)
+            {
+                Debug.Log("[CustomerManager] Correct order! Updating score and fulfilling order.");
+                score++;
+                customer.FulfillOrder(playerHoldingNumber);
+            }
+            else
+            {
+                Debug.Log("[CustomerManager] Incorrect order! Customer leaving angrily.");
+                customer.LeaveRestaurant(false);
+            }
+        }
+        else
+        {
+            Debug.Log("[CustomerManager] Customer is not ready for interaction (either not seated or already fulfilled).");
+        }
     }
+
+
+    private int GetPlayerHoldingNumber(CustomerAI customer)
+    {
+        if (customer != null)
+        {
+            int customerOrder = customer.orderValue; // Fetch the customer's order value
+            Debug.Log($"[CustomerManager] Player is holding number: {customerOrder}");
+            return customerOrder;
+        }
+
+        Debug.LogWarning("[CustomerManager] No valid customer passed to GetPlayerHoldingNumber.");
+        return -1; // Return -1 if no valid order is retrieved
+    }
+
 }

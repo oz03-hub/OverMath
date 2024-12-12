@@ -78,6 +78,21 @@ public class CustomerAI : MonoBehaviour
         agent.isStopped = true;
 
         spawner = FindObjectOfType<CustomerSpawner>();
+
+        CustomerManager manager = FindObjectOfType<CustomerManager>();
+        if (manager != null)
+        {
+            manager.RegisterCustomer(this);
+        }
+    }
+
+    void OnDestroy()
+    {
+        CustomerManager manager = FindObjectOfType<CustomerManager>();
+        if (manager != null)
+        {
+            manager.DeregisterCustomer(this);
+        }
     }
 
     void Update()
