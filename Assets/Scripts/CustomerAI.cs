@@ -27,6 +27,7 @@ public class CustomerAI : MonoBehaviour
     private bool hasStartedMoving = false; // New variable to track if customer has started moving
     private bool isTimerStarted = false;
     private CustomerSpawner spawner;
+    private bool leaving = false;
 
     void Start()
     {
@@ -79,8 +80,8 @@ public class CustomerAI : MonoBehaviour
             return;
         }
 
-        // Set random delay between 1-30 seconds
-        initialDelay = Random.Range(1f, 30f);
+        // Set random delay between 1-10 seconds
+        initialDelay = Random.Range(1f, 10f);
         Debug.Log("[CustomerAI] initialDelay set to: " + initialDelay);
         agent.isStopped = true; // Stop agent initially
 
@@ -115,9 +116,12 @@ public class CustomerAI : MonoBehaviour
             // Trigger idle animation and display order
             animator.SetBool("Jump", false);
             animator.SetBool("Idle", true);
-            
-            // Create and display order after setting isSeated
-            DisplayOrder();
+
+            if (!leaving)
+            {
+                // Create and display order after setting isSeated
+                DisplayOrder();
+            }
         }
     }
 
@@ -165,7 +169,7 @@ public class CustomerAI : MonoBehaviour
         {
             yield return new WaitForSeconds(1f);
             orderDetails.timeLimit--;
-            Debug.Log($"Time remaining: {orderDetails.timeLimit}");
+            //Debug.Log($"Time remaining: {orderDetails.timeLimit}");
             
             float remainingPercentage = (float)orderDetails.timeLimit / 15f * 100f;
             timerBar.style.width = new StyleLength(Length.Percent(remainingPercentage));
@@ -194,6 +198,7 @@ public class CustomerAI : MonoBehaviour
     private void LeaveRestaurant(bool happy)
     {
         Debug.Log("[CustomerAI] LeaveRestaurant called. Happy: " + happy);
+        leaving = true;
         
         // Remove order UI
         if (orderDetails != null && orderDetails.orderContainer != null)
