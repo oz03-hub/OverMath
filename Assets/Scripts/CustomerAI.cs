@@ -214,11 +214,12 @@ public class CustomerAI : MonoBehaviour
     {
         while (true)
         {
-            if (Vector3.Distance(transform.position, agent.destination) < 1)
+            if (Vector3.Distance(transform.position, agent.destination) < 3)
             {
                 animator.SetBool("Jump", false);
                 animator.SetBool("Idle", true);
                 yield return new WaitForSeconds(0.5f);
+                spawner.CustomerLeft(seatId);
                 Destroy(gameObject);
                 yield break;
             }

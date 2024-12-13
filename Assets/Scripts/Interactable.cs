@@ -97,14 +97,16 @@ public class Interactable : MonoBehaviour
         {
             if (player.HeldNumber != null)
             {
+                Debug.Log($"[Interactable {interactionType}] Not picking up, already holding");
                 return;
             }
+
             gameObject.SetActive(false); // Hide the object
             GameInteractableManager.Instance.DisableTemporarily(gameObject, 3.0f); // Call GameManager to handle re-enabling
         }
         else if (interactionType == InteractionType.Discard)
         {
-            Debug.Log("Discarding held number");
+            Debug.Log("[Interactable] Discarding held number");
             player.DiscardHeldNumber();
         }
     }
@@ -126,13 +128,28 @@ public class Interactable : MonoBehaviour
             firstNumber = player.HeldNumber;
             isHoldingNumber = true;
             renderer.material = FilledMaterial;
+            Debug.Log($"[Interactable] Storing {firstNumber} as first number");
 
             player.DiscardHeldNumber();
+
+            if (gameObject.name.Contains("Addition"))
+            {
+                player.UpdateIntText($"{firstNumber}+");
+            }
+            else if (gameObject.name.Contains("Subtraction"))
+            {
+                player.UpdateIntText($"{firstNumber}-");
+            }
+            else if (gameObject.name.Contains("Multiplication"))
+            {
+                player.UpdateIntText($"{firstNumber}*");
+            }
         }
         else if (secondNumber == null)
         {
             secondNumber = player.HeldNumber;
             player.DiscardHeldNumber();
+            Debug.Log($"[Interactable] Storing {secondNumber} as second number");
 
             StartCoroutine(CalculateResult(player));
         }
@@ -162,18 +179,23 @@ public class Interactable : MonoBehaviour
     {
         isCalculating = true;
 
-        yield return new WaitForSeconds(1.0f);
+        yield return new WaitForSeconds(.2f);
 
         int result = 0;
-        Debug.Log("Calculating result");
+        Debug.Log($"[Interactable] Calculating result");
         if (gameObject.name.Contains("Addition")) // Example: Cube is for addition
         {
-            Debug.Log("Calculating addition" + firstNumber + " + " + secondNumber);
+            Debug.Log($"[Interactable] Calculating addition {firstNumber} + {secondNumber}");
             result = (firstNumber ?? 0) + (secondNumber ?? 0);
         }
         else if (gameObject.name.Contains("Subtraction")) // Example: Sphere is for subtraction
         {
+            Debug.Log($"[Interactable] Calculating substraction {firstNumber} - {secondNumber}");
             result = (firstNumber ?? 0) - (secondNumber ?? 0);
+        } else if (gameObject.name.Contains("Multiplication"))
+        {
+            Debug.Log($"[Interactable] Calculating multiplication {firstNumber} * {secondNumber}");
+            result = (firstNumber ?? 0) * (secondNumber ?? 0);
         }
 
         player.SetHeldNumber(result);

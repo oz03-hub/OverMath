@@ -23,6 +23,7 @@ public class PlayerController : MonoBehaviour
     private Interactable currentInteractable;
     private int? heldNumber = null;
     public int? HeldNumber => heldNumber;
+    public bool operating = false;
     public GameLevelManager gameLevelManager;
 
     private TrailRenderer trail_renderer;
@@ -177,6 +178,8 @@ public class PlayerController : MonoBehaviour
 
         character_controller.Move(movement_direction * speed * Time.deltaTime);
 
+        // Object interaction
+
         DetectInteractable();
 
         // Handle dropping the number (if holding any)
@@ -195,15 +198,16 @@ public class PlayerController : MonoBehaviour
         {
             currentInteractable.Interact(this);
 
-            NumberComponent numberComponent = currentInteractable.GetComponent<NumberComponent>();
-            if (numberComponent != null)
-            {
-                heldNumber  = numberComponent.numberValue;
-                gameLevelManager.UpdateIngredientText(heldNumber.ToString());
+            if (((int)currentInteractable.interactionType) == 0) {
+                NumberComponent numberComponent = currentInteractable.GetComponent<NumberComponent>();
+                if (numberComponent != null)
+                {
+                    heldNumber = numberComponent.numberValue;
+                    gameLevelManager.UpdateIngredientText(heldNumber.ToString());
+                }
             }
             ClearCurrentHighlight();
         }
-
     }
 
     // public void DiscardHeldNumber()
@@ -236,6 +240,7 @@ public class PlayerController : MonoBehaviour
             ClearCurrentHighlight();
         }
     }
+
     void ClearCurrentHighlight()
     {
         if (currentInteractable != null)
@@ -247,6 +252,7 @@ public class PlayerController : MonoBehaviour
 
     public void SetHeldNumber(int? number)
     {
+        Debug.Log($"[PLAYER] Set new held number {number}");
         heldNumber = number;
 
         if (gameLevelManager != null)
@@ -257,22 +263,30 @@ public class PlayerController : MonoBehaviour
 
     public void PickUpNumber(int number)
     {
-        if (HeldNumber != null)
+        if (heldNumber != null)
         {
+            Debug.Log($"[PLAYER] Cannot pick-up number, currently holding {heldNumber}");
             return;
         }
+
         heldNumber = number;
         gameLevelManager.UpdateIngredientText(heldNumber.ToString());
+        Debug.Log($"[PLAYER] Picked up {heldNumber}");
+    }
+
+    public void UpdateIntText(string text) {
+        gameLevelManager.UpdateIngredientText(text);
     }
 
     public void DiscardHeldNumber()
     {
-        if (HeldNumber == null)
+        if (heldNumber == null)
         {
             return;
         }
 
         heldNumber = null;
         gameLevelManager.UpdateIngredientText("");
+        Debug.Log($"[PLAYER] Discarded held number");
     }
 }
