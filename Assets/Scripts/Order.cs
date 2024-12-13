@@ -6,8 +6,24 @@ public class Order
 {
     public int orderNum;
     public int tableNum;
-    public int timeLimit;
+    public float timeLimit;
     public VisualElement orderContainer;
+
+    public void StartTime() {
+        if (orderContainer == null) {
+            Debug.LogError("OrderContainer is null!");
+            UnityEditor.EditorApplication.isPlaying = false; // For debugging
+        }
+        var timerElement = orderContainer.Q<VisualElement>("Timer");
+        var timerBar = timerElement.Q<VisualElement>("TimerBar");
+        if (timerBar != null)
+        {
+            timerBar.style.width = Length.Percent(100);
+        } else {
+            Debug.LogError("TimerBar is null!");
+            UnityEditor.EditorApplication.isPlaying = false; // For debugging
+        }
+    }
 
     public void UpdateTime(float timer)
     {

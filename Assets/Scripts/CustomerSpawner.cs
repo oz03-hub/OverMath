@@ -6,6 +6,7 @@ public class CustomerSpawner : MonoBehaviour
 {
     public GameObject[] customerPrefabs;
     public Transform[] seatPositions;
+    public float[] waitTimeRange = new float[] { 30f, 60f };
     public Transform exitDoor;
     public float spawnInterval = 10f;
     public int maxCustomers = 8;
@@ -107,6 +108,7 @@ public class CustomerSpawner : MonoBehaviour
 
         GameObject customerObject = Instantiate(selectedPrefab, exitDoor.position, Quaternion.identity);
         CustomerAI customerAI = customerObject.GetComponent<CustomerAI>();
+        customerAI.waitTime = Random.Range(waitTimeRange[0], waitTimeRange[1]);
 
         Collider collider = customerObject.GetComponent<Collider>();
         if (collider == null)

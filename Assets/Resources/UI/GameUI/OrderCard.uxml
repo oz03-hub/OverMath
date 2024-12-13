@@ -7,7 +7,6 @@
             </ui:VisualElement>
             <ui:VisualElement name="Timer" class="timer">
                 <ui:VisualElement name="TimerBar" class="timer-bar" style="width: 100%;" />
-                <ui:Label name="TimerLabel" class="timer-label" text="15" />
             </ui:VisualElement>
             <ui:VisualElement name="TableNum" class="table-num">
                 <ui:Label name="TableNumLabel" class="table-num-label" text="" />
