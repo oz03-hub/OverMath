@@ -9,7 +9,7 @@ public class CustomerAI : MonoBehaviour
     public Transform targetSeat;
     public Transform exitDoor;
     public float stopDistance = 1.5f;
-    public float waitTime = 15f;
+    public float waitTime = 30f;
     public bool isSeated = false;
     public bool isOrderFulfilled = false;
     public bool IsInteractable { get; private set; } = false; // New property
@@ -141,7 +141,7 @@ public class CustomerAI : MonoBehaviour
             orderDetails = new Order
             {
                 orderNum = orderValue,
-                timeLimit = 30,
+                timeLimit = waitTime,
                 tableNum = seatId,
             };
             StartCoroutine(CountdownTimer());
@@ -149,25 +149,19 @@ public class CustomerAI : MonoBehaviour
 
         orderCardWrapper.Q<Label>("OrderLabel").text = orderValue.ToString();
         orderCardWrapper.Q<Label>("TableNumLabel").text = seatId.ToString();
-        orderCardWrapper.Q<Label>("TimerLabel").text = orderDetails.timeLimit.ToString();
+
         orderDetails.orderContainer = orderCardWrapper;
+        orderDetails.StartTime();
         orderListContainer.Add(orderCardWrapper);
     }
 
     private IEnumerator CountdownTimer()
     {
-        VisualElement timerBar = orderCardWrapper.Q<VisualElement>("TimerBar");
-        Label timerLabel = orderCardWrapper.Q<Label>("TimerLabel");
-
-        while (orderDetails.timeLimit > 0)
+        while (timer > 0)
         {
             yield return new WaitForSeconds(1f);
-            orderDetails.timeLimit--;
-
-            float remainingPercentage = (float)orderDetails.timeLimit / 15f * 100f;
-            timerBar.style.width = new StyleLength(Length.Percent(remainingPercentage));
-
-            timerLabel.text = orderDetails.timeLimit.ToString();
+            timer--;
+            orderDetails.UpdateTime(timer);
         }
 
         LeaveRestaurant(false);

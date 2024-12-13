@@ -4,6 +4,7 @@ using UnityEngine;
 public class CustomerManager : MonoBehaviour
 {
     public Transform player;
+    public float[] orderTimeLimitRange = new float[] { 30f, 60f };
     private List<CustomerAI> activeCustomers = new List<CustomerAI>();
 
     public int pointsForCorrectOrder = 10;
