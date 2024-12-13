@@ -16,6 +16,7 @@ public class PauseManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
+            Debug.Log("[PAUSED] Pressed ESC");
             if (!isPaused)
             {
                 PauseGame();
@@ -34,6 +35,7 @@ public class PauseManager : MonoBehaviour
 
     public void PauseGame()
     {
+        Debug.Log("[PAUSE] Game Paused");
         isPaused = true;
         Time.timeScale = 0;
         pauseMenu.SetActive(true);

@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
 
 public class GameLevelManager : MonoBehaviour
@@ -15,6 +16,9 @@ public class GameLevelManager : MonoBehaviour
     private Label timerText;
     private Label scoreText;
     public Label ingredientText;
+
+    public GameObject LoseUI;
+    public GameObject WinUI;
 
     void OnEnable()
     {
@@ -95,12 +99,16 @@ public class GameLevelManager : MonoBehaviour
         hasWon = true;
         gameOver = true;
         Debug.Log("You win!");
+        Time.timeScale = 0;
+        WinUI.SetActive(true);
     }
 
     void GameOver()
     {
         gameOver = true;
         Debug.Log("Game Over!");
+        Time.timeScale = 0;
+        LoseUI.SetActive(true);
     }
 
    public void AddPoints(int points)
@@ -133,5 +141,17 @@ public class GameLevelManager : MonoBehaviour
         {
             ingredientText.text = ingredient;
         }
+    }
+
+    public void RestartCurrentLevel()
+    {
+        int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+        SceneManager.LoadScene(currentSceneIndex);
+    }
+
+    public void GoToNextLevel()
+    {
+        int nextScene = SceneManager.GetActiveScene().buildIndex+1;
+        SceneManager.LoadScene(nextScene);
     }
 }
