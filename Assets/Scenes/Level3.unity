@@ -3113,7 +3113,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   allowedNumbers: 010000000200000003000000040000000700000005000000060000000900000008000000
   allowedOperators: 020000000000000001000000
-  maxCombinationLength: 5
+  maxCombinationLength: 3
 --- !u!4 &919028037
 Transform:
   m_ObjectHideFlags: 0
@@ -4128,8 +4128,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerPoints: 0
-  pointsToWin: 90
-  timeLimit: 600
+  pointsToWin: 30
+  timeLimit: 300
   hasWon: 0
   gameOver: 0
   GameGUI: {fileID: 239733096}
