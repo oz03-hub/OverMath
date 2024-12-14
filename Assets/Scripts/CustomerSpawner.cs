@@ -8,7 +8,7 @@ public class CustomerSpawner : MonoBehaviour
     public Transform[] seatPositions;
     public float[] waitTimeRange = new float[] { 30f, 60f };
     public Transform exitDoor;
-    public float spawnInterval = 10f;
+    public float spawnInterval = 15f;
     public int maxCustomers = 8;
     public UIDocument gameGUI;
     public GameObject quizGeneratorObject;

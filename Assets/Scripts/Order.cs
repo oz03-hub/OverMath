@@ -31,7 +31,6 @@ public class Order
         var timerBar = timerElement.Q<VisualElement>("TimerBar");
         if (timerBar != null)
         {
-            // Debug.Log("Timer: " + timeRemaining);
             float timeRemainPercent = timer / (float)timeLimit * 100;
             if (timeRemainPercent < 20)
             {

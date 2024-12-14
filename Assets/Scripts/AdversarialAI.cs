@@ -51,19 +51,6 @@ public class AdversarialAI : MonoBehaviour
         AudioSource = GetComponent<AudioSource>();
     }
 
-    //private void SearchWalkPoint()
-    //{
-    //    float randomZ = Random.Range(-walkPointRange, walkPointRange);
-    //    float randomX = Random.Range(-walkPointRange, walkPointRange);
-
-    //    walkPoint = new Vector3(transform.position.x + randomX, transform.position.y, transform.position.z + randomZ);
-
-    //    if (Physics.Raycast(walkPoint, Vector3.down, whatIsGround))
-    //    {
-    //        walkPointSet = true;
-    //    }
-    //}
-
     private void SearchWalkPoint()
     {
         Vector3 randomPoint = transform.position + Random.insideUnitSphere * walkPointRange;
@@ -79,12 +66,6 @@ public class AdversarialAI : MonoBehaviour
             walkPointSet = true;
         }
 
-
-        //else
-        //{
-        //    walkPoint = Vector3.zero;
-        //    walkPointSet = false;
-        //}
     }
 
 

@@ -102,20 +102,6 @@ public class QuizGenerator : MonoBehaviour
         return a;
     }
 
-    // public List<int> GetOrder()
-    // {
-    //     return orderList;
-    // }
-    // IEnumerator AwaitQuiz()
-    // {
-    // while (true)
-    // {
-    //     int result = GenerateQuestion();
-    //     orderList.Add(result);
-    //     yield return new WaitForSeconds(10.0f);
-    // }
-    // }
-
     // Update is called once per frame
     void Update()
     {

@@ -57,8 +57,6 @@ public class GameLevelManager : MonoBehaviour
     {
         if (gameOver) return;
 
-        //Debug.Log($"[GameLevelManager] Current playerPoints: {playerPoints}");
-
         if (Time.time - lastUpdateTime >= 1f)
         {
             lastUpdateTime = Time.time;
@@ -94,7 +92,6 @@ public class GameLevelManager : MonoBehaviour
         if (scoreText != null)
         {
             scoreText.text = $"{playerPoints.ToString()}/{pointsToWin.ToString()}";
-            //Debug.Log($"[GameLevelManager] ScoreText updated to {playerPoints}");
         }
     }
 

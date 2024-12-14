@@ -12,7 +12,7 @@ public class CustomerAI : MonoBehaviour
     public float waitTime = 30f;
     public bool isSeated = false;
     public bool isOrderFulfilled = false;
-    public bool IsInteractable { get; private set; } = false; // New property
+    public bool IsInteractable { get; private set; } = false;
     public UIDocument GameGUI;
     public GameObject quizGeneratorObject;
     private QuizGenerator quizGenerator;
@@ -56,7 +56,7 @@ public class CustomerAI : MonoBehaviour
         if (orderCardTemplate == null)
         {
             Debug.LogError("[CustomerAI] OrderCard template not found");
-            UnityEditor.EditorApplication.isPlaying = false; // For debugging
+            UnityEditor.EditorApplication.isPlaying = false;
             return;
         }
 

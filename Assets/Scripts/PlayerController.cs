@@ -107,17 +107,6 @@ public class PlayerController : MonoBehaviour
             {
                 SetState(MovementState.Jumping);
             }
-            //else if (Input.GetKey(KeyCode.Q))
-            //{
-            //        if (Time.time - dash_timer > 5.0f) {
-            //            dashing = true;
-            //            dash_timer = Time.time;
-            //            SetState(MovementState.Dashing);
-            //        } else
-            //        {
-            //            SetState(MovementState.Walking);
-            //        }
-            //    }
             else if (Input.GetKey(KeyCode.LeftShift))
             {
                 SetState(MovementState.Sprinting);
@@ -138,22 +127,6 @@ public class PlayerController : MonoBehaviour
     {
         CheckState();
         UpdateSpeed();
-
-        //if (dash_timer > 0)
-        //{
-        //    dash_timer -= Time.deltaTime;
-        //    movement_direction = dash_direction;
-        //}
-
-        //if (dash_timer - Time.time < 1.0f)
-        //{
-        //    movement_direction = dash_direction;
-        //    character_controller.Move(movement_direction * speed * Time.deltaTime);
-        //    return;
-        //}
-        //else {
-        //    dashing = false;
-        //}
 
         float xdirection = Input.GetAxisRaw("Horizontal");
         float zdirection = Input.GetAxisRaw("Vertical");
@@ -182,43 +155,12 @@ public class PlayerController : MonoBehaviour
 
         DetectInteractable();
 
-        // Handle dropping the number (if holding any)
-        // if (heldNumber != null)
-        // {
-        //     if (Input.GetKeyDown(KeyCode.G)) // Example key for dropping
-        //     {
-        //         DiscardHeldNumber();
-        //     }
-
-        //     // Prevent picking up another number while holding one
-        //     return; // Skip the logic below, but allow dropping and blinking
-        // }
-
         if (currentInteractable != null && Input.GetKeyDown(KeyCode.F))
         {
             currentInteractable.Interact(this, currentInteractable.GetComponent<NumberComponent>());
-
-            // if (((int)currentInteractable.interactionType) == 0) {
-            //     NumberComponent numberComponent = currentInteractable.GetComponent<NumberComponent>();
-            //     if (numberComponent != null)
-            //     {
-            //         heldNumber = numberComponent.numberValue;
-            //         Debug.Log("1");
-            //         gameLevelManager.UpdateIngredientText(heldNumber.ToString());
-            //     }
-            // }
             ClearCurrentHighlight();
         }
     }
-
-    // public void DiscardHeldNumber()
-    // {
-    //     if (heldNumber != null)
-    //     {
-    //         heldNumber = null;
-    //         gameLevelManager.UpdateIngredientText("");
-    //     }
-    // }
 
     void DetectInteractable()
     {

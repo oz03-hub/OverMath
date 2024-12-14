@@ -3,20 +3,10 @@ using UnityEngine;
 
 public class CustomerManager : MonoBehaviour
 {
-    // public Transform player;
-    // public float[] orderTimeLimitRange = new float[] { 30f, 60f };
     private List<CustomerAI> activeCustomers = new List<CustomerAI>();
 
     public int pointsForCorrectOrder = 10;
     public int pointsForIncorrectOrder = 5;
-
-    // void Update()
-    // {
-    //     if (Input.GetKeyDown(KeyCode.F))
-    //     {
-    //         InteractWithCustomer();
-    //     }
-    // }
 
     public void RegisterCustomer(CustomerAI customer)
     {
