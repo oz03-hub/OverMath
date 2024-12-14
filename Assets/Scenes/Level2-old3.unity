@@ -2847,6 +2847,26 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1208863371}
     m_Modifications:
+    - target: {fileID: 592038533539604657, guid: 66ae442726d1cf4428dacb34edd61ac4, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 592038533539604657, guid: 66ae442726d1cf4428dacb34edd61ac4, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.99864584
+      objectReference: {fileID: 0}
+    - target: {fileID: 592038533539604657, guid: 66ae442726d1cf4428dacb34edd61ac4, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 592038533539604657, guid: 66ae442726d1cf4428dacb34edd61ac4, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0.052024864
+      objectReference: {fileID: 0}
+    - target: {fileID: 592038533539604657, guid: 66ae442726d1cf4428dacb34edd61ac4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: -5.964
+      objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: eb340672e17c0af4089e561b61cdc548, type: 3}
       propertyPath: m_LocalPosition.x
       value: 18.86
@@ -2895,26 +2915,6 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 592038533539604657, guid: 66ae442726d1cf4428dacb34edd61ac4, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 592038533539604657, guid: 66ae442726d1cf4428dacb34edd61ac4, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.99864584
-      objectReference: {fileID: 0}
-    - target: {fileID: 592038533539604657, guid: 66ae442726d1cf4428dacb34edd61ac4, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 592038533539604657, guid: 66ae442726d1cf4428dacb34edd61ac4, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0.052024864
-      objectReference: {fileID: 0}
-    - target: {fileID: 592038533539604657, guid: 66ae442726d1cf4428dacb34edd61ac4, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: -5.964
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2937,6 +2937,26 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1208863371}
     m_Modifications:
+    - target: {fileID: 592038533539604657, guid: 66ae442726d1cf4428dacb34edd61ac4, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 592038533539604657, guid: 66ae442726d1cf4428dacb34edd61ac4, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.99864584
+      objectReference: {fileID: 0}
+    - target: {fileID: 592038533539604657, guid: 66ae442726d1cf4428dacb34edd61ac4, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 592038533539604657, guid: 66ae442726d1cf4428dacb34edd61ac4, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0.052024864
+      objectReference: {fileID: 0}
+    - target: {fileID: 592038533539604657, guid: 66ae442726d1cf4428dacb34edd61ac4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: -5.964
+      objectReference: {fileID: 0}
     - target: {fileID: 2795397902362475942, guid: 72c47fdc43d84b243bdc109c284341d6, type: 3}
       propertyPath: m_Name
       value: Slime_02
@@ -2984,26 +3004,6 @@ PrefabInstance:
     - target: {fileID: 3278883554580211484, guid: 72c47fdc43d84b243bdc109c284341d6, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 592038533539604657, guid: 66ae442726d1cf4428dacb34edd61ac4, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 592038533539604657, guid: 66ae442726d1cf4428dacb34edd61ac4, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.99864584
-      objectReference: {fileID: 0}
-    - target: {fileID: 592038533539604657, guid: 66ae442726d1cf4428dacb34edd61ac4, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 592038533539604657, guid: 66ae442726d1cf4428dacb34edd61ac4, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0.052024864
-      objectReference: {fileID: 0}
-    - target: {fileID: 592038533539604657, guid: 66ae442726d1cf4428dacb34edd61ac4, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: -5.964
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -3110,9 +3110,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5b4032c648ba704395765e08f117131, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  allowedNumbers: 010000000200000003000000040000000700000005000000060000000900000008000000
+  allowedNumbers: 01000000020000000500000007000000
   allowedOperators: 020000000000000001000000
-  maxCombinationLength: 5
+  maxCombinationLength: 3
 --- !u!4 &919028037
 Transform:
   m_ObjectHideFlags: 0
@@ -3898,7 +3898,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0c4272f257ae4dfa8d4d6d1b21f4bed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pointsForCorrectOrder: 15
+  pointsForCorrectOrder: 10
   pointsForIncorrectOrder: 5
   audioSource: {fileID: 0}
   happyClip: {fileID: 8300000, guid: 710634c132d989644a6ee51f92276879, type: 3}
@@ -3912,7 +3912,7 @@ Transform:
   m_GameObject: {fileID: 1158178582}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 302, y: 106.75, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3937,12 +3937,12 @@ AudioSource:
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
-  Priority: 83
+  Priority: 80
   DopplerLevel: 1
   MinDistance: 1
   MaxDistance: 500
   Pan2D: 0
-  rolloffMode: 0
+  rolloffMode: 1
   BypassEffects: 0
   BypassListenerEffects: 0
   BypassReverbZones: 0
@@ -3975,7 +3975,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 1
+      value: 0
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -4127,7 +4127,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerPoints: 0
-  pointsToWin: 90
+  pointsToWin: 60
   timeLimit: 600
   hasWon: 0
   gameOver: 0
