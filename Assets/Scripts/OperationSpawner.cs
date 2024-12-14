@@ -1,4 +1,6 @@
+using System;
 using UnityEngine;
+using System.Collections.Generic;
 
 public class OperationSpawner : MonoBehaviour
 {
@@ -13,28 +15,48 @@ public class OperationSpawner : MonoBehaviour
 												 "Number8", 
 												 "Number9" };
 	private string[] prefabNamesOperator = new string[] { "PlusPan", 
-														  "MinusCuttingBoard" 
+														  "MinusCuttingBoard",
+														  "MultiplyMicrowave"
 														};
 	private Vector3[] spawnPositions = new Vector3[] { new Vector3(-14.77f, 2.5f, -9.7f), 
 													  new Vector3(-12.5f, 2.5f, -9.7f), 
 													  new Vector3(-10.19f, 2.5f, -9.7f), 
 													  new Vector3(-4.1f, 2.8f, -18.7f),
-													  new Vector3(-2.29f, 2.8f, -18.7f),
+													  new Vector3(-2.46f, 2.8f, -18.7f),
 													  new Vector3(-0.9f, 2.8f, -18.7f),
-													  new Vector3(0.4f, 2.8f, -18.7f),
-													  new Vector3(1.29f, 2.8f, -18.7f),
-													  new Vector3(2.1f, 2.8f, -18.7f),
+													  new Vector3(0.89f, 2.8f, -18.7f),
+													  new Vector3(2.52f, 2.8f, -18.7f),
+													  new Vector3(4.1f, 2.8f, -18.7f),
 													  };
-	private Vector3[] operatorSpawnPosition = new Vector3[] {new Vector3(11.89f, 2.5f, -9.7f),
-															 new Vector3(14.27f, 2.466f, -9.7f),
-															 new Vector3(16.53f, 2.46f, -9.7f)
-															};
-	private Vector3[] operatorSpawnRotation = new Vector3[] {new Vector3(-90f, 0f, 0f),
-															 new Vector3(0f, 0f, -90f)
-															};
+	private Dictionary<string, Vector3> operatorSpawnPosition = new Dictionary<string, Vector3>
+	{
+		{ "PlusPan", new Vector3(11.89f, 2.5f, -9.7f) },
+		{ "MinusCuttingBoard", new Vector3(14.27f, 2.466f, -9.7f) },
+		{ "MultiplyMicrowave", new Vector3(16.53f, 2.76f, -9.7f) }
+	};
+	
+	private Dictionary<string, Vector3> operatorSpawnRotation = new Dictionary<string, Vector3>
+	{
+		{ "PlusPan", new Vector3(-90f, 0f, 0f) },
+		{ "MinusCuttingBoard", new Vector3(0f, 0f, -90f) },
+		{ "MultiplyMicrowave", new Vector3(-90f, 0f, -90f) }
+	};
+	private Dictionary<string, Vector3> operatorSpawnScale = new Dictionary<string, Vector3>
+	{
+		{ "PlusPan", new Vector3(120f, 120f, 120f)},
+		{ "MinusCuttingBoard", new Vector3(120f, 120f, 120f)},
+		{ "MultiplyMicrowave", new Vector3(80f, 80f, 80f) }
+	};
+	private Dictionary<string, string> map = new Dictionary<string, string>
+	{
+    	{ "Addition", "PlusPan" },
+    	{ "Subtraction", "MinusCuttingBoard" },
+    	{ "Multiplication", "MultiplyMicrowave" }
+	};
 	public QuizGenerator quizGenerator;
 	private Interactable interactable;
 	private int[] allowedNumbers;
+	private QuizGenerator.Operators[] allowedOperators;
 	// public Vector3 spawnPositionAdditive = new Vector3(11.89f, 2.5f, -9.7f);
 	// public Vector3 spawnPositionSubtractive = new Vector3(14.27f, 2.466f, -9.7f);
 
@@ -61,6 +83,7 @@ public class OperationSpawner : MonoBehaviour
 		{
 			Debug.Log("QuizGenerator found!");
 			allowedNumbers = quizGenerator.allowedNumbers;
+			allowedOperators = quizGenerator.allowedOperators;
 		}
 		else
 		{
@@ -75,17 +98,22 @@ public class OperationSpawner : MonoBehaviour
 	 */
 	void SpawnOperation()
 	{
-		void ApplyOperatorPrefabProperties(string prefabName, int i)
+		void ApplyOperatorPrefabProperties(string prefabName, int i, float[] position_x)
 		{
 			GameObject operationPrefab = Resources.Load<GameObject>("Operators/" + prefabName);
 
-			GameObject operation = Instantiate(operationPrefab, operatorSpawnPosition[i], Quaternion.identity);
+			GameObject operation = Instantiate(operationPrefab, operatorSpawnPosition[prefabName], Quaternion.identity);
+
+			Vector3 position = operation.transform.position;
+			position.x = position_x[i]; // Update only the x-coordinate
+			operation.transform.position = position; // Apply the updated position back
+
 
 			operation.name = prefabName;
 
-			operation.transform.Rotate(operatorSpawnRotation[i]);
+			operation.transform.Rotate(operatorSpawnRotation[prefabName]);
 
-			operation.transform.localScale = new Vector3(120f, 120f, 120f);
+			operation.transform.localScale = operatorSpawnScale[prefabName];
 
 			int interactableLayer = LayerMask.NameToLayer("Interactable");
 			operation.layer = interactableLayer;
@@ -111,9 +139,9 @@ public class OperationSpawner : MonoBehaviour
 			operationInteractable.originalMaterial = Resources.Load<Material>("Materials/" + prefabName);
 		}
 
-		for (int i = 0; i < prefabNamesOperator.Length; i++)
+		for (int i = 0; i < allowedOperators.Length; i++)
 		{
-			ApplyOperatorPrefabProperties(prefabNamesOperator[i], i);
+			ApplyOperatorPrefabProperties(map[allowedOperators[i].ToString()], i, new float[] {11.89f, 14.27f, 16.53f});
 		}
 
 		Debug.Log("Operation spawned!");

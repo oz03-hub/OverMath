@@ -99,7 +99,6 @@ public class Interactable : MonoBehaviour
         {
             if (player.HeldNumber != null || number == null)
             {
-                Debug.Log("t the la t depzai vailon");
                 Debug.Log($"[Interactable {interactionType}] Not picking up, already holding");
                 return;
             }
@@ -116,8 +115,6 @@ public class Interactable : MonoBehaviour
         else if (interactionType == InteractionType.Customer)
         {
             CustomerManager customerManager = FindObjectOfType<CustomerManager>();
-            Debug.Log("WTFFF");
-            Debug.Log(number);
             if (player.GetHeldNumber() == -1)
             {
                 Debug.LogWarning("[Interactable] Cannot serve customer. Player is not holding a number.");
@@ -142,6 +139,7 @@ public class Interactable : MonoBehaviour
 
     private void HandleOperatorInteraction(PlayerController player)
     {
+        Debug.Log("Ditme t deptraivainoi");
         if (isCalculating)
         {
             return;
@@ -161,15 +159,15 @@ public class Interactable : MonoBehaviour
 
             player.DiscardHeldNumber();
 
-            if (gameObject.name.Contains("Addition"))
+            if (gameObject.name.Contains("PlusPan"))
             {
                 player.UpdateIntText($"{firstNumber}+");
             }
-            else if (gameObject.name.Contains("Subtraction"))
+            else if (gameObject.name.Contains("MinusCuttingBoard"))
             {
                 player.UpdateIntText($"{firstNumber}-");
             }
-            else if (gameObject.name.Contains("Multiplication"))
+            else if (gameObject.name.Contains("MultiplyMicrowave"))
             {
                 player.UpdateIntText($"{firstNumber}*");
             }
@@ -192,16 +190,16 @@ public class Interactable : MonoBehaviour
 
         int result = 0;
         Debug.Log($"[Interactable] Calculating result");
-        if (gameObject.name.Contains("Addition")) // Example: Cube is for addition
+        if (gameObject.name.Contains("PlusPan")) // Example: Cube is for addition
         {
             Debug.Log($"[Interactable] Calculating addition {firstNumber} + {secondNumber}");
             result = (firstNumber ?? 0) + (secondNumber ?? 0);
         }
-        else if (gameObject.name.Contains("Subtraction")) // Example: Sphere is for subtraction
+        else if (gameObject.name.Contains("MinusCuttingBoard")) // Example: Sphere is for subtraction
         {
             Debug.Log($"[Interactable] Calculating substraction {firstNumber} - {secondNumber}");
             result = (firstNumber ?? 0) - (secondNumber ?? 0);
-        } else if (gameObject.name.Contains("Multiplication"))
+        } else if (gameObject.name.Contains("MultiplyMicrowave"))
         {
             Debug.Log($"[Interactable] Calculating multiplication {firstNumber} * {secondNumber}");
             result = (firstNumber ?? 0) * (secondNumber ?? 0);

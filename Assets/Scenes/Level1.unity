@@ -3098,7 +3098,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   allowedNumbers: 0100000002000000030000000400000007000000
-  allowedOperators: 0000000001000000
+  allowedOperators: 020000000000000001000000
   maxCombinationLength: 5
 --- !u!4 &919028037
 Transform:
