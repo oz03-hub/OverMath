@@ -31,5 +31,6 @@ Player: https://assetstore.unity.com/packages/3d/characters/humanoids/picochan-2
 Restaurant Assets: https://assetstore.unity.com/packages/3d/environments/fast-food-restaurant-kit-239419
 Player Animations: https://assetstore.unity.com/packages/3d/animations/basic-motions-free-154271
 Apartment Kit: https://assetstore.unity.com/packages/3d/environments/apartment-kit-124055
+Bit8 Audio: https://assetstore.unity.com/packages/audio/music/8bit-music-062022-225623
 
 GitHub Repository: https://github.com/oz03-hub/OverMath
