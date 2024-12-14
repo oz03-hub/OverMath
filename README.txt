@@ -19,9 +19,9 @@ Hanna Jiang:
 - Jiang implemented and designed the GameLevelManager.cs, lines 1-157
 - Jiang implemented the PauseManager.cs, lines 1-75
 - Jiang implemented the TableSpawner.cs, lines 1-36
-- Jiang implemented the Level2Button.cs, lines 1-28
 - Jiang implemented the StartButton.cs, lines 1-11
 - Jiang implemented the StartMenu.cs, lines 1-29
+- Jiang implemented the RestartGame.cs, lines 1-48
 - Designed scene
 
 Used Assets:
@@ -30,4 +30,6 @@ Customer Slimes: https://assetstore.unity.com/packages/3d/characters/creatures/k
 Player: https://assetstore.unity.com/packages/3d/characters/humanoids/picochan-220038
 Restaurant Assets: https://assetstore.unity.com/packages/3d/environments/fast-food-restaurant-kit-239419
 Player Animations: https://assetstore.unity.com/packages/3d/animations/basic-motions-free-154271
-Furniture Pack: https://assetstore.unity.com/packages/3d/props/furniture/hdrp-furniture-pack-153946
+Apartment Kit: https://assetstore.unity.com/packages/3d/environments/apartment-kit-124055
+
+GitHub Repository: https://github.com/oz03-hub/OverMath
