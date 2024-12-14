@@ -18,7 +18,7 @@ public class PlayerController : MonoBehaviour
     private float dash_timer;
     private Vector3 dash_direction;
     private bool dashing;
-    public float interactionRange = 1.95f;
+    public float interactionRange;
     public LayerMask interactableLayer;
     private Interactable currentInteractable;
     private int? heldNumber = null;
@@ -196,16 +196,17 @@ public class PlayerController : MonoBehaviour
 
         if (currentInteractable != null && Input.GetKeyDown(KeyCode.F))
         {
-            currentInteractable.Interact(this);
+            currentInteractable.Interact(this, currentInteractable.GetComponent<NumberComponent>());
 
-            if (((int)currentInteractable.interactionType) == 0) {
-                NumberComponent numberComponent = currentInteractable.GetComponent<NumberComponent>();
-                if (numberComponent != null)
-                {
-                    heldNumber = numberComponent.numberValue;
-                    gameLevelManager.UpdateIngredientText(heldNumber.ToString());
-                }
-            }
+            // if (((int)currentInteractable.interactionType) == 0) {
+            //     NumberComponent numberComponent = currentInteractable.GetComponent<NumberComponent>();
+            //     if (numberComponent != null)
+            //     {
+            //         heldNumber = numberComponent.numberValue;
+            //         Debug.Log("1");
+            //         gameLevelManager.UpdateIngredientText(heldNumber.ToString());
+            //     }
+            // }
             ClearCurrentHighlight();
         }
     }
@@ -221,6 +222,7 @@ public class PlayerController : MonoBehaviour
 
     void DetectInteractable()
     {
+        interactionRange = 1.6f;
         // Find all colliders within the interaction range
         // If there are any objects within this range, they are stored in hitColliders as an array of colliders
         Collider[] hitColliders = Physics.OverlapSphere(transform.position, interactionRange, interactableLayer);
@@ -253,15 +255,28 @@ public class PlayerController : MonoBehaviour
     public void SetHeldNumber(int? number)
     {
         Debug.Log($"[PLAYER] Set new held number {number}");
+            // Prevent overriding an already-held number
+        if (heldNumber != null)
+        {
+            Debug.LogWarning("[PlayerController] Cannot pick up a new number while already holding one.");
+            return;
+        }
+
         heldNumber = number;
 
         if (gameLevelManager != null)
         {
+            Debug.Log("Till this point");
+            Debug.Log("2");
             gameLevelManager.UpdateIngredientText(heldNumber.ToString());
         }
     }
+    public int GetHeldNumber()
+    {
+        return heldNumber ?? -1;
+    }
 
-    public void PickUpNumber(int number)
+    public void PickUpNumber(NumberComponent number)
     {
         if (heldNumber != null)
         {
@@ -269,7 +284,9 @@ public class PlayerController : MonoBehaviour
             return;
         }
 
-        heldNumber = number;
+        heldNumber = number.numberValue;
+        Debug.Log(number);
+        Debug.Log("2");
         gameLevelManager.UpdateIngredientText(heldNumber.ToString());
         Debug.Log($"[PLAYER] Picked up {heldNumber}");
     }

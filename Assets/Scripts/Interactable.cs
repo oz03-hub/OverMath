@@ -6,7 +6,8 @@ public class Interactable : MonoBehaviour
     {
         PickUp, // For number items
         Discard, // For trash items
-        Operator
+        Operator, // For operator items
+        Customer // For customer interaction 
     }
     public InteractionType interactionType;
     public Material highlightMaterial;
@@ -17,6 +18,7 @@ public class Interactable : MonoBehaviour
     private bool isBlinking = false;
     private Coroutine blinkCoroutine;
     private bool isHoldingNumber = false;
+    private CustomerAI associateCustomer;
 
     private int? firstNumber = null;
     private int? secondNumber = null;
@@ -87,7 +89,7 @@ public class Interactable : MonoBehaviour
 			}
 		}
 	}
-    public void Interact(PlayerController player)
+    public void Interact(PlayerController player, NumberComponent number)
     {
         if (interactionType == InteractionType.Operator)
         {
@@ -95,11 +97,12 @@ public class Interactable : MonoBehaviour
         }
         else if (interactionType == InteractionType.PickUp)
         {
-            if (player.HeldNumber != null)
+            if (player.HeldNumber != null || number == null)
             {
                 Debug.Log($"[Interactable {interactionType}] Not picking up, already holding");
                 return;
             }
+            player.PickUpNumber(number);
 
             gameObject.SetActive(false); // Hide the object
             GameInteractableManager.Instance.DisableTemporarily(gameObject, 3.0f); // Call GameManager to handle re-enabling
@@ -108,11 +111,35 @@ public class Interactable : MonoBehaviour
         {
             Debug.Log("[Interactable] Discarding held number");
             player.DiscardHeldNumber();
+        } 
+        else if (interactionType == InteractionType.Customer)
+        {
+            CustomerManager customerManager = FindObjectOfType<CustomerManager>();
+            if (player.GetHeldNumber() == -1)
+            {
+                Debug.LogWarning("[Interactable] Cannot serve customer. Player is not holding a number.");
+                return;
+            }
+            if (customerManager == null)
+            {
+                Debug.LogError("[Interactable] CustomerManager not found in scene!");
+                return;
+            }
+
+            if (associateCustomer == null)
+            {
+                Debug.LogError("[Interactable] Customer not found!");
+                return;
+            }
+
+            customerManager.HandleCustomerInteraction(associateCustomer, player.HeldNumber ?? -1);
+            player.DiscardHeldNumber();
         }
     }
 
     private void HandleOperatorInteraction(PlayerController player)
     {
+        Debug.Log("Ditme t deptraivainoi");
         if (isCalculating)
         {
             return;
@@ -132,15 +159,15 @@ public class Interactable : MonoBehaviour
 
             player.DiscardHeldNumber();
 
-            if (gameObject.name.Contains("Addition"))
+            if (gameObject.name.Contains("PlusPan"))
             {
                 player.UpdateIntText($"{firstNumber}+");
             }
-            else if (gameObject.name.Contains("Subtraction"))
+            else if (gameObject.name.Contains("MinusCuttingBoard"))
             {
                 player.UpdateIntText($"{firstNumber}-");
             }
-            else if (gameObject.name.Contains("Multiplication"))
+            else if (gameObject.name.Contains("MultiplyMicrowave"))
             {
                 player.UpdateIntText($"{firstNumber}*");
             }
@@ -153,26 +180,6 @@ public class Interactable : MonoBehaviour
 
             StartCoroutine(CalculateResult(player));
         }
-        // if (player.HeldNumber != null)
-        // {
-        //     if (!isHoldingNumber)
-        //     {
-        //         firstNumber = player.HeldNumber;
-        //         isHoldingNumber = true;
-        //         renderer.material = FilledMaterial;
-
-        //         player.DiscardHeldNumber();
-
-        //     } 
-        //     else if (firstNumber != null && secondNumber == null)
-        //     {
-        //         Debug.Log("Second number stored");
-        //         secondNumber = player.HeldNumber;
-        //         player.DiscardHeldNumber();
-
-        //         StartCoroutine(CalculateResult(player));
-        //     }
-        // } 
     }
 
     private IEnumerator CalculateResult(PlayerController player)
@@ -183,16 +190,16 @@ public class Interactable : MonoBehaviour
 
         int result = 0;
         Debug.Log($"[Interactable] Calculating result");
-        if (gameObject.name.Contains("Addition")) // Example: Cube is for addition
+        if (gameObject.name.Contains("PlusPan")) // Example: Cube is for addition
         {
             Debug.Log($"[Interactable] Calculating addition {firstNumber} + {secondNumber}");
             result = (firstNumber ?? 0) + (secondNumber ?? 0);
         }
-        else if (gameObject.name.Contains("Subtraction")) // Example: Sphere is for subtraction
+        else if (gameObject.name.Contains("MinusCuttingBoard")) // Example: Sphere is for subtraction
         {
             Debug.Log($"[Interactable] Calculating substraction {firstNumber} - {secondNumber}");
             result = (firstNumber ?? 0) - (secondNumber ?? 0);
-        } else if (gameObject.name.Contains("Multiplication"))
+        } else if (gameObject.name.Contains("MultiplyMicrowave"))
         {
             Debug.Log($"[Interactable] Calculating multiplication {firstNumber} * {secondNumber}");
             result = (firstNumber ?? 0) * (secondNumber ?? 0);
@@ -233,5 +240,10 @@ public class Interactable : MonoBehaviour
         }
 
         renderer.material = originalMaterial; // Revert to the original material (if not holding a number)
+    }
+
+    public void AssignCustomer(CustomerAI customer)
+    {
+        associateCustomer = customer;
     }
 }
