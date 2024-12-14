@@ -30,6 +30,6 @@ Customer Slimes: https://assetstore.unity.com/packages/3d/characters/creatures/k
 Player: https://assetstore.unity.com/packages/3d/characters/humanoids/picochan-220038
 Restaurant Assets: https://assetstore.unity.com/packages/3d/environments/fast-food-restaurant-kit-239419
 Player Animations: https://assetstore.unity.com/packages/3d/animations/basic-motions-free-154271
-Furniture Pack: https://assetstore.unity.com/packages/3d/props/furniture/hdrp-furniture-pack-153946
+Apartment Kit: https://assetstore.unity.com/packages/3d/environments/apartment-kit-124055
 
 GitHub Repository: https://github.com/oz03-hub/OverMath
