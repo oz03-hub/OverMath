@@ -77,7 +77,7 @@ public class CustomerManager : MonoBehaviour
             int playerHoldingNumber = GetPlayerHoldingNumber(customer);
             Debug.Log($"[CustomerManager] Player attempting to fulfill order with number: {playerHoldingNumber}");
 
-            GameLevelManager levelManager = FindObjectOfType<GameLevelManager>();
+            GameLevelManager levelManager = FindFirstObjectByType<GameLevelManager>();
 
             if (levelManager == null)
             {
@@ -102,7 +102,7 @@ public class CustomerManager : MonoBehaviour
         else
         {
             Debug.Log("[CustomerManager] Customer is not ready for interaction.");
-            GameLevelManager levelManager = FindObjectOfType<GameLevelManager>();
+            GameLevelManager levelManager = FindFirstObjectByType<GameLevelManager>();
             if (levelManager != null)
             {
                 levelManager.UpdateIngredientText("");
@@ -113,7 +113,7 @@ public class CustomerManager : MonoBehaviour
 
     private int GetPlayerHoldingNumber(CustomerAI customer)
     {
-        GameLevelManager gameManager = FindObjectOfType<GameLevelManager>();
+        GameLevelManager gameManager = FindFirstObjectByType<GameLevelManager>();
         if (gameManager == null)
         {
             Debug.LogError("[CustomerManager] GameLevelManager not found in the scene!");

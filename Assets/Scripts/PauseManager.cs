@@ -1,14 +1,32 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UIElements;
 
 public class PauseManager : MonoBehaviour
 {
-    public GameObject pauseMenu;
+    private VisualElement PauseMenu;
+    private Button PauseButton;
+    private Button ResumeButton;
+    private Button RestartButton;
     private bool isPaused = false;
 
     void Start()
     {
-        pauseMenu.SetActive(false);
+        var root = GetComponent<UIDocument>().rootVisualElement;
+        PauseMenu = root.Q<VisualElement>("Pause");
+        PauseButton = root.Q<Button>("MenuBtn");
+        if (PauseMenu == null || PauseButton == null) {
+            Debug.LogError("[PauseManager] PauseMenu or PauseButton not found! Please check GameGUI");
+            UnityEditor.EditorApplication.isPlaying = false;
+        }
+        PauseButton.RegisterCallback<ClickEvent>((e) => TogglePauseMenu());
+
+        ResumeButton = root.Q<Button>("ResumeBtn");
+        ResumeButton.RegisterCallback<ClickEvent>((e) => ResumeGame());
+
+        RestartButton = root.Q<Button>("RestartBtn");
+        RestartButton.RegisterCallback<ClickEvent>((e) => RestartCurrentLevel());
+
         Time.timeScale = 1;
     }
 
@@ -17,14 +35,7 @@ public class PauseManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             Debug.Log("[PAUSED] Pressed ESC");
-            if (!isPaused)
-            {
-                PauseGame();
-            }
-            else
-            {
-                ResumeGame();
-            }
+            TogglePauseMenu();
         }
 
         if (isPaused && Input.GetKeyDown(KeyCode.R))
@@ -38,7 +49,7 @@ public class PauseManager : MonoBehaviour
         Debug.Log("[PAUSE] Game Paused");
         isPaused = true;
         Time.timeScale = 0;
-        pauseMenu.SetActive(true);
+        PauseMenu.RemoveFromClassList("hide-top");
     }
 
     public void RestartLevel(int idx)
@@ -58,12 +69,13 @@ public class PauseManager : MonoBehaviour
     {
         isPaused = false;
         Time.timeScale = 1;
-        pauseMenu.SetActive(false);
+        PauseMenu.AddToClassList("hide-top");
     }
 
     public void TogglePauseMenu()
     {
-        if (pauseMenu.activeSelf)
+        Debug.Log("[PAUSE] Toggling Pause Menu");
+        if (isPaused)
         {
             ResumeGame();
         }

@@ -17,8 +17,11 @@ public class GameLevelManager : MonoBehaviour
     private Label scoreText;
     public Label ingredientText;
 
-    public GameObject LoseUI;
-    public GameObject WinUI;
+    private VisualElement LoseMenu;
+    private VisualElement WinMenu;
+    private Button RetryButton;
+    private Button ContinueButton;
+
 
     void OnEnable()
     {
@@ -31,6 +34,14 @@ public class GameLevelManager : MonoBehaviour
         {
             Debug.LogError("IngredientText not found in GameGUI!");
         }
+
+        LoseMenu = root.Q<VisualElement>("Lose");
+        WinMenu = root.Q<VisualElement>("Win");
+        RetryButton = LoseMenu.Q<Button>("RetryBtn");
+        ContinueButton = WinMenu.Q<Button>("ContinueBtn");
+
+        RetryButton.RegisterCallback<ClickEvent>((e) => RestartCurrentLevel());
+        ContinueButton.RegisterCallback<ClickEvent>((e) => GoToNextLevel());
     }
 
     void Start()
@@ -81,7 +92,7 @@ public class GameLevelManager : MonoBehaviour
 
         if (scoreText != null)
         {
-            scoreText.text = playerPoints.ToString();
+            scoreText.text = $"{playerPoints.ToString()}/{pointsToWin.ToString()}";
             //Debug.Log($"[GameLevelManager] ScoreText updated to {playerPoints}");
         }
     }
@@ -100,7 +111,7 @@ public class GameLevelManager : MonoBehaviour
         gameOver = true;
         Debug.Log("You win!");
         Time.timeScale = 0;
-        WinUI.SetActive(true);
+        WinMenu.RemoveFromClassList("hide-top");
     }
 
     void GameOver()
@@ -108,7 +119,7 @@ public class GameLevelManager : MonoBehaviour
         gameOver = true;
         Debug.Log("Game Over!");
         Time.timeScale = 0;
-        LoseUI.SetActive(true);
+        LoseMenu.RemoveFromClassList("hide-top");
     }
 
    public void AddPoints(int points)
@@ -145,12 +156,15 @@ public class GameLevelManager : MonoBehaviour
 
     public void RestartCurrentLevel()
     {
+        LoseMenu.AddToClassList("hide-top");
         int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
         SceneManager.LoadScene(currentSceneIndex);
     }
 
     public void GoToNextLevel()
     {
+        WinMenu.AddToClassList("hide-top");
+        Time.timeScale = 1;
         int nextScene = SceneManager.GetActiveScene().buildIndex+1;
         SceneManager.LoadScene(nextScene);
     }

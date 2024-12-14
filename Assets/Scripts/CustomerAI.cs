@@ -77,9 +77,9 @@ public class CustomerAI : MonoBehaviour
         initialDelay = Random.Range(1f, 10f);
         agent.isStopped = true;
 
-        spawner = FindObjectOfType<CustomerSpawner>();
+        spawner = FindFirstObjectByType<CustomerSpawner>();
 
-        CustomerManager manager = FindObjectOfType<CustomerManager>();
+        CustomerManager manager = FindFirstObjectByType<CustomerManager>();
         if (manager != null)
         {
             manager.RegisterCustomer(this);
@@ -88,7 +88,7 @@ public class CustomerAI : MonoBehaviour
 
     void OnDestroy()
     {
-        CustomerManager manager = FindObjectOfType<CustomerManager>();
+        CustomerManager manager = FindFirstObjectByType<CustomerManager>();
         if (manager != null)
         {
             manager.DeregisterCustomer(this);

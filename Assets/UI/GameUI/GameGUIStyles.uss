@@ -263,3 +263,90 @@
     text-shadow: 2px 2px 12px rgb(27, 27, 27);
     -unity-font-style: bold;
 }
+
+.instruction-header {
+    color: rgb(43, 15, 3);
+    -unity-font-style: bold;
+    -unity-font-definition: url("project://database/Assets/Fonts/CollectEmAll-Bold.ttf?fileID=12800000&guid=3a696efbba8b14a47824dae56013e3e2&type=3#CollectEmAll-Bold");
+    font-size: 20px;
+}
+
+.hide-top {
+    top: auto;
+    transition-property: all, ignored;
+    transition-duration: 300s, 0s;
+    transition-timing-function: ease-in-elastic, ease;
+    transition-delay: 0s, 0s;
+    position: absolute;
+    translate: 0 -100%;
+    opacity: 0.8;
+}
+
+.game-btn {
+    font-size: 20px;
+    -unity-font-style: bold;
+    -unity-font-definition: url("project://database/Assets/Fonts/CollectEmAll-Bold.ttf?fileID=12800000&guid=3a696efbba8b14a47824dae56013e3e2&type=3#CollectEmAll-Bold");
+    -unity-text-align: upper-left;
+    padding-bottom: 12px;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+    border-bottom-left-radius: 8px;
+    background-color: rgb(24, 64, 137);
+    border-left-color: rgb(6, 27, 91);
+    border-right-color: rgb(6, 27, 91);
+    border-top-color: rgb(6, 27, 91);
+    border-bottom-color: rgb(6, 27, 91);
+    border-top-width: 4px;
+    border-right-width: 4px;
+    border-bottom-width: 4px;
+    border-left-width: 4px;
+    color: rgb(226, 229, 238);
+    transition-duration: 0.3s;
+}
+
+.game-btn:hover {
+    font-size: 20px;
+    -unity-font-style: bold;
+    -unity-font-definition: url("project://database/Assets/Fonts/CollectEmAll-Bold.ttf?fileID=12800000&guid=3a696efbba8b14a47824dae56013e3e2&type=3#CollectEmAll-Bold");
+    -unity-text-align: upper-left;
+    padding-bottom: 12px;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+    border-bottom-left-radius: 8px;
+    background-color: rgb(24, 64, 137);
+    border-left-color: rgb(6, 27, 91);
+    border-right-color: rgb(6, 27, 91);
+    border-top-color: rgb(6, 27, 91);
+    border-bottom-color: rgb(6, 27, 91);
+    border-top-width: 4px;
+    border-right-width: 4px;
+    border-bottom-width: 4px;
+    border-left-width: 4px;
+    color: rgb(226, 229, 238);
+    scale: 1.1 1.1;
+}
+
+.game-btn:active {
+    font-size: 20px;
+    -unity-font-style: bold;
+    -unity-font-definition: url("project://database/Assets/Fonts/CollectEmAll-Bold.ttf?fileID=12800000&guid=3a696efbba8b14a47824dae56013e3e2&type=3#CollectEmAll-Bold");
+    -unity-text-align: upper-left;
+    padding-bottom: 12px;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+    border-bottom-left-radius: 8px;
+    background-color: rgb(24, 64, 137);
+    border-left-color: rgb(6, 27, 91);
+    border-right-color: rgb(6, 27, 91);
+    border-top-color: rgb(6, 27, 91);
+    border-bottom-color: rgb(6, 27, 91);
+    border-top-width: 4px;
+    border-right-width: 4px;
+    border-bottom-width: 4px;
+    border-left-width: 4px;
+    color: rgb(226, 229, 238);
+    scale: 0.8 0.8;
+}

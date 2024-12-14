@@ -60,6 +60,7 @@
     border-bottom-right-radius: 16px;
     border-bottom-left-radius: 16px;
     transition-duration: 0s;
+    scale: 1.1 1.1;
 }
 
 .play-btn:active {
@@ -84,4 +85,21 @@
     border-bottom-left-radius: 16px;
     transition-duration: 0s;
     scale: 0.9 0.9;
+}
+
+.header {
+    font-size: 24px;
+    -unity-font-definition: url("project://database/Assets/Fonts/CollectEmAll-Bold.ttf?fileID=12800000&guid=3a696efbba8b14a47824dae56013e3e2&type=3#CollectEmAll-Bold");
+    -unity-font-style: bold;
+    color: rgb(93, 54, 27);
+}
+
+.content {
+    -unity-text-align: upper-center;
+    text-shadow: -2.5px 0 0 rgba(0, 0, 0, 0);
+    max-width: 698px;
+    color: rgb(93, 54, 27);
+    white-space: normal;
+    -unity-font-style: bold;
+    font-size: 16px;
 }
