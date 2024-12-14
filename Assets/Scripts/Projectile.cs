@@ -37,7 +37,7 @@ public class Projectile : MonoBehaviour
 
     void OnCollisionEnter(Collision collision)
     {
-        Debug.Log(collision.gameObject.name);
+        Debug.Log($"[APPLE] Collided with: {collision.gameObject.name}");
         if (collision.gameObject.CompareTag("Player")) {
             Debug.Log("Apple collided with Player");
             audioSource.PlayOneShot(clip);
