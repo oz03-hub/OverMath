@@ -820,8 +820,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerPoints: 0
   pointsToWin: 100
-  ordersCompleted: 0
-  totalOrders: 5
   timeLimit: 300
   hasWon: 0
   gameOver: 0
@@ -1539,6 +1537,7 @@ MonoBehaviour:
   interactableLayer:
     serializedVersion: 2
     m_Bits: 0
+  operating: 0
   gameLevelManager: {fileID: 0}
   stepClip: {fileID: 0}
   thudClip: {fileID: 0}
@@ -2681,6 +2680,7 @@ MonoBehaviour:
   isOrderFulfilled: 0
   GameGUI: {fileID: 239733096}
   quizGeneratorObject: {fileID: 919028035}
+  orderValue: 0
 --- !u!195 &821975438
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -2998,6 +2998,7 @@ MonoBehaviour:
   isOrderFulfilled: 0
   GameGUI: {fileID: 239733096}
   quizGeneratorObject: {fileID: 919028035}
+  orderValue: 0
 --- !u!195 &956304729
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -3482,8 +3483,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerPoints: 0
   pointsToWin: 100
-  ordersCompleted: 0
-  totalOrders: 5
   timeLimit: 300
   hasWon: 0
   gameOver: 0
@@ -4101,6 +4100,9 @@ MonoBehaviour:
   - {fileID: 2805734451528898115}
   - {fileID: 4713600566601724764}
   - {fileID: 3435741005419498457}
+  waitTimeRange:
+  - 30
+  - 60
   exitDoor: {fileID: 261394321}
   spawnInterval: 10
   maxCustomers: 10
@@ -5115,6 +5117,7 @@ MonoBehaviour:
   isOrderFulfilled: 0
   GameGUI: {fileID: 239733096}
   quizGeneratorObject: {fileID: 919028035}
+  orderValue: 0
 --- !u!195 &1619613893
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -5445,6 +5448,7 @@ MonoBehaviour:
   isOrderFulfilled: 0
   GameGUI: {fileID: 239733096}
   quizGeneratorObject: {fileID: 919028035}
+  orderValue: 0
 --- !u!195 &1733723746
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -7119,6 +7123,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Goat
       objectReference: {fileID: 0}
+    - target: {fileID: 4756981320961124423, guid: 2e3257ad4be2f5a4b8c8e0e988b192c8, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5282689250146267901, guid: 2e3257ad4be2f5a4b8c8e0e988b192c8, type: 3}
       propertyPath: m_LocalPosition.x
       value: 4.906383
@@ -7227,7 +7235,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 5187733561954605034, guid: d2adae1440d524e1b92518be0ae9885e, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 0}
   m_SourcePrefab: {fileID: 100100000, guid: d2adae1440d524e1b92518be0ae9885e, type: 3}
 --- !u!4 &2805734451528898115 stripped
 Transform:
@@ -7289,7 +7300,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 19582757339648472, guid: 05033535ce35e40ea8fe2ebabfaee61f, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 0}
   m_SourcePrefab: {fileID: 100100000, guid: 05033535ce35e40ea8fe2ebabfaee61f, type: 3}
 --- !u!4 &3435741005419498457 stripped
 Transform:
@@ -7351,7 +7365,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 5846086108674692285, guid: 929b99c74f5684175b7a4026f0b546e6, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 0}
   m_SourcePrefab: {fileID: 100100000, guid: 929b99c74f5684175b7a4026f0b546e6, type: 3}
 --- !u!4 &3680203020390086477 stripped
 Transform:
@@ -7413,7 +7430,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4046683658073671857, guid: d2031a7422d26403d81b26c9fff20cd8, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 0}
   m_SourcePrefab: {fileID: 100100000, guid: d2031a7422d26403d81b26c9fff20cd8, type: 3}
 --- !u!1001 &4116813028144421510
 PrefabInstance:
@@ -7536,7 +7556,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4166396978507738574, guid: 3a8cfcaa447a94137832c7068211c69c, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 0}
   m_SourcePrefab: {fileID: 100100000, guid: 3a8cfcaa447a94137832c7068211c69c, type: 3}
 --- !u!4 &4713600566601724764 stripped
 Transform:
@@ -7598,7 +7621,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4341381102944122987, guid: 74fbfa35831f841c6901051c253038b8, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 0}
   m_SourcePrefab: {fileID: 100100000, guid: 74fbfa35831f841c6901051c253038b8, type: 3}
 --- !u!1001 &4844684620895388626
 PrefabInstance:
@@ -7720,7 +7746,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 1958690038199779683, guid: 3be1ab0e4d28b43e390f3fd5429857e6, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 0}
   m_SourcePrefab: {fileID: 100100000, guid: 3be1ab0e4d28b43e390f3fd5429857e6, type: 3}
 --- !u!1001 &8536732852810343481
 PrefabInstance:
@@ -7777,7 +7806,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4248634224260271071, guid: ce527058531ce4c25b723a186286840d, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 0}
   m_SourcePrefab: {fileID: 100100000, guid: ce527058531ce4c25b723a186286840d, type: 3}
 --- !u!4 &8536732852810343482 stripped
 Transform:
