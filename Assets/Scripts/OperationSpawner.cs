@@ -12,27 +12,34 @@ public class OperationSpawner : MonoBehaviour
 												 "Number7", 
 												 "Number8", 
 												 "Number9" };
-
+	private string[] prefabNamesOperator = new string[] { "PlusPan", 
+														  "MinusCuttingBoard" 
+														};
 	private Vector3[] spawnPositions = new Vector3[] { new Vector3(-14.77f, 2.5f, -9.7f), 
 													  new Vector3(-12.5f, 2.5f, -9.7f), 
 													  new Vector3(-10.19f, 2.5f, -9.7f), 
 													  new Vector3(-4.1f, 2.8f, -18.7f),
-													  new Vector3(-2.5f, 2.8f, -18.7f),
+													  new Vector3(-2.29f, 2.8f, -18.7f),
 													  new Vector3(-0.9f, 2.8f, -18.7f),
 													  new Vector3(0.4f, 2.8f, -18.7f),
 													  new Vector3(1.29f, 2.8f, -18.7f),
 													  new Vector3(2.1f, 2.8f, -18.7f),
 													  };
+	private Vector3[] operatorSpawnPosition = new Vector3[] {new Vector3(11.89f, 2.5f, -9.7f),
+															 new Vector3(14.27f, 2.466f, -9.7f),
+															 new Vector3(16.53f, 2.46f, -9.7f)
+															};
+	private Vector3[] operatorSpawnRotation = new Vector3[] {new Vector3(-90f, 0f, 0f),
+															 new Vector3(0f, 0f, -90f)
+															};
 	public QuizGenerator quizGenerator;
 	private Interactable interactable;
 	private int[] allowedNumbers;
-	public Vector3 spawnPositionAdditive = new Vector3(11.89f, 2.5f, -9.7f);
-	public Vector3 spawnPositionSubtractive = new Vector3(14.27f, 2.5f, -9.7f);
+	// public Vector3 spawnPositionAdditive = new Vector3(11.89f, 2.5f, -9.7f);
+	// public Vector3 spawnPositionSubtractive = new Vector3(14.27f, 2.466f, -9.7f);
 
 	public Vector3 numberScale = new Vector3(70f, 70f, 70f);
 	public Vector3 numberRotation = new Vector3(0f, 0f, -90f);
-
-	public Vector3 operationScale = new Vector3(0.7f, 0.7f, 0.7f);
 
 	// public Interactable interactable;
 
@@ -68,48 +75,46 @@ public class OperationSpawner : MonoBehaviour
 	 */
 	void SpawnOperation()
 	{
-		GameObject additive = GameObject.CreatePrimitive(PrimitiveType.Cube);
-		GameObject subtractive = GameObject.CreatePrimitive(PrimitiveType.Sphere);
-
-		additive.name = "Addition";
-		subtractive.name = "Subtraction";
-
-		additive.transform.position = spawnPositionAdditive;
-		subtractive.transform.position = spawnPositionSubtractive;
-
-		additive.transform.localScale = operationScale;
-		subtractive.transform.localScale = operationScale;
-
-		int interactableLayer = LayerMask.NameToLayer("Interactable");
-		additive.layer = interactableLayer;
-		subtractive.layer = interactableLayer;
-
-		additive.AddComponent<BoxCollider>();
-		subtractive.AddComponent<BoxCollider>();
-
-		Interactable additiveInteractable = additive.AddComponent<Interactable>();
-		additiveInteractable.interactionType = Interactable.InteractionType.Operator;
-
-		Interactable subtractiveInteractable = subtractive.AddComponent<Interactable>();
-		subtractiveInteractable.interactionType = Interactable.InteractionType.Operator;
-
-		Material highlightMaterial = Resources.Load<Material>("Materials/HighlightMaterial");
-		Material filledMaterial = Resources.Load<Material>("Materials/FilledMaterial");
-
-		if (highlightMaterial != null)
+		void ApplyOperatorPrefabProperties(string prefabName, int i)
 		{
-			additiveInteractable.highlightMaterial = highlightMaterial;
-			subtractiveInteractable.highlightMaterial = highlightMaterial;
+			GameObject operationPrefab = Resources.Load<GameObject>("Operators/" + prefabName);
+
+			GameObject operation = Instantiate(operationPrefab, operatorSpawnPosition[i], Quaternion.identity);
+
+			operation.name = prefabName;
+
+			operation.transform.Rotate(operatorSpawnRotation[i]);
+
+			operation.transform.localScale = new Vector3(120f, 120f, 120f);
+
+			int interactableLayer = LayerMask.NameToLayer("Interactable");
+			operation.layer = interactableLayer;
+
+			operation.AddComponent<BoxCollider>();
+
+			Interactable operationInteractable = operation.AddComponent<Interactable>();
+			operationInteractable.interactionType = Interactable.InteractionType.Operator;
+
+			Material highlightMaterial = Resources.Load<Material>("Materials/HighlightMaterial");
+			Material filledMaterial = Resources.Load<Material>("Materials/FilledMaterial");
+
+			if (highlightMaterial != null)
+			{
+				operationInteractable.highlightMaterial = highlightMaterial;
+			}
+
+			if (filledMaterial != null)
+			{
+				operationInteractable.FilledMaterial = filledMaterial;
+			}
+
+			operationInteractable.originalMaterial = Resources.Load<Material>("Materials/" + prefabName);
 		}
 
-		if (filledMaterial != null)
+		for (int i = 0; i < prefabNamesOperator.Length; i++)
 		{
-			additiveInteractable.FilledMaterial = filledMaterial;
-			subtractiveInteractable.FilledMaterial = filledMaterial;
+			ApplyOperatorPrefabProperties(prefabNamesOperator[i], i);
 		}
-
-		additiveInteractable.originalMaterial = Resources.Load<Material>("Materials/MockMaterial");
-		subtractiveInteractable.originalMaterial = Resources.Load<Material>("Materials/MockMaterial");
 
 		Debug.Log("Operation spawned!");
 	}

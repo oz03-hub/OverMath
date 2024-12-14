@@ -107,17 +107,57 @@ public class CustomerSpawner : MonoBehaviour
         GameObject selectedPrefab = customerPrefabs[randomPrefabIndex];
 
         GameObject customerObject = Instantiate(selectedPrefab, exitDoor.position, Quaternion.identity);
-        CustomerAI customerAI = customerObject.GetComponent<CustomerAI>();
-        customerAI.waitTime = Random.Range(waitTimeRange[0], waitTimeRange[1]);
+        
+
+        customerObject.layer = LayerMask.NameToLayer("Interactable");
 
         Collider collider = customerObject.GetComponent<Collider>();
         if (collider == null)
         {
             SphereCollider trigger = customerObject.AddComponent<SphereCollider>();
             trigger.isTrigger = true;
-            trigger.radius = 5f;
+            trigger.radius = 1.5f;
         }
 
+        Renderer renderer = customerObject.GetComponent<Renderer>();
+        if (renderer == null)
+        {
+            MeshRenderer meshRenderer = customerObject.AddComponent<MeshRenderer>();
+        }
+
+        Interactable interactable = customerObject.AddComponent<Interactable>();
+        if (interactable == null)
+        {
+            interactable = customerObject.AddComponent<Interactable>();
+        }
+        interactable.interactionType = Interactable.InteractionType.Customer;
+
+        Material highlightMaterial = Resources.Load<Material>("Materials/HighlightCustomer");
+        Material filledMaterial = Resources.Load<Material>("Materials/FilledCustomer");
+        Material originalMaterial = Resources.Load<Material>("Materials/OriginalCustomer");
+
+        if (highlightMaterial != null)
+        {
+            interactable.highlightMaterial = highlightMaterial;
+        }
+
+        if (filledMaterial != null)
+        {
+            interactable.FilledMaterial = filledMaterial;
+        }
+
+        if (originalMaterial != null)
+        {
+            interactable.originalMaterial = originalMaterial;
+
+            if (renderer != null)
+            {
+                renderer.material = originalMaterial;
+            }
+        }
+
+        CustomerAI customerAI = customerObject.GetComponent<CustomerAI>();
+        customerAI.waitTime = Random.Range(waitTimeRange[0], waitTimeRange[1]);
         if (customerAI != null)
         {
             customerAI.seatId = seatId;
@@ -125,6 +165,8 @@ public class CustomerSpawner : MonoBehaviour
             customerAI.exitDoor = exitDoor;
             customerAI.GameGUI = gameGUI;
             customerAI.quizGeneratorObject = quizGeneratorObject;
+
+            interactable.AssignCustomer(customerAI);
 
             customersActive++;
             Debug.Log($"[CustomerSpawner] Spawned customer type {randomPrefabIndex} at seat {seatId}");
