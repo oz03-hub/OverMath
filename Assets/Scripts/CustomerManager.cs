@@ -5,7 +5,7 @@ public class CustomerManager : MonoBehaviour
 {
     private List<CustomerAI> activeCustomers = new List<CustomerAI>();
 
-    public int pointsForCorrectOrder = 10;
+    public int pointsForCorrectOrder = 15;
     public int pointsForIncorrectOrder = 5;
 
     public void RegisterCustomer(CustomerAI customer)

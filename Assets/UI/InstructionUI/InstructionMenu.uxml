@@ -5,7 +5,7 @@
         <ui:VisualElement name="Menu" style="flex-grow: initial; flex-basis: auto; flex-shrink: initial; align-items: stretch; justify-content: flex-start; align-self: auto;">
             <ui:VisualElement name="Instruction" style="flex-grow: 1; flex-wrap: nowrap; background-color: rgb(226, 211, 204); width: auto; padding-top: 16px; padding-right: 32px; padding-bottom: 16px; padding-left: 32px; border-top-left-radius: 8px; border-top-right-radius: 8px; border-bottom-right-radius: 8px; border-bottom-left-radius: 8px; border-left-color: rgb(156, 113, 87); border-right-color: rgb(156, 113, 87); border-top-color: rgb(156, 113, 87); border-bottom-color: rgb(156, 113, 87); border-top-width: 8px; border-right-width: 8px; border-bottom-width: 8px; border-left-width: 8px; align-self: auto; align-items: center;">
                 <ui:Label text="How to play" name="Header" class="header" />
-                <ui:Label text="Use standard W,A,S,D to walk around, combine with LeftShift to sprint and Space to jump.&#10;" name="Content" class="content" />
+                <ui:Label text="Use standard W,A,S,D to walk around, combine with LeftShift to sprint; Space to jump; F to interact (pick up, drop). &#10;" name="Content" class="content" />
                 <ui:Label text="GOAL" name="Header" class="header" />
                 <ui:Label text="Satisfy as many orders as possible. Each customer will request a number as their order.&#10;Use the numbers and operators given in the kitchen to combine and create that number.&#10;After you have produced the number, run back to the customer to serve their number.&#10;" name="Content" class="content" />
                 <ui:Label text="caution" name="Header" class="header" />
