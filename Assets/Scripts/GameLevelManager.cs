@@ -49,6 +49,7 @@ public class GameLevelManager : MonoBehaviour
         timeRemaining = timeLimit;
         lastUpdateTime = Time.time;
         ingredientText.text = "";
+        scoreText.text = $"0/{pointsToWin.ToString()}";
         UpdateUI();
     }
 
