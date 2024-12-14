@@ -8,6 +8,15 @@ public class CustomerManager : MonoBehaviour
     public int pointsForCorrectOrder = 10;
     public int pointsForIncorrectOrder = 5;
 
+    public AudioSource audioSource;
+    public AudioClip happyClip;
+    public AudioClip sadClip;
+
+    void Start()
+    {
+        audioSource = GetComponent<AudioSource>();
+    }
+
     public void RegisterCustomer(CustomerAI customer)
     {
         if (customer == null)
@@ -78,12 +87,14 @@ public class CustomerManager : MonoBehaviour
             {
                 Debug.Log("[CustomerManager] Correct order! Adding points.");
                 levelManager.AddPoints(pointsForCorrectOrder);
+                audioSource.PlayOneShot(happyClip);
                 customer.FulfillOrder(playerHeldNumber);
             }
             else
             {
                 Debug.Log("[CustomerManager] Incorrect order! Subtracting points.");
                 levelManager.SubtractPoints(pointsForIncorrectOrder);
+                audioSource.PlayOneShot(sadClip);
                 customer.LeaveRestaurant(false);
             }
             levelManager.UpdateIngredientText("");

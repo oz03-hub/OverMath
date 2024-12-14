@@ -28,6 +28,7 @@ public class CustomerAI : MonoBehaviour
     private bool isTimerStarted = false;
     private CustomerSpawner spawner;
     private bool leaving = false;
+    public AudioSource audioSource;
 
     void Start()
     {
@@ -35,6 +36,7 @@ public class CustomerAI : MonoBehaviour
 
         agent = GetComponent<NavMeshAgent>();
         animator = GetComponent<Animator>();
+        audioSource = GetComponent<AudioSource>();
 
         if (quizGenerator == null)
         {
