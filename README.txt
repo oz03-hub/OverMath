@@ -24,6 +24,12 @@ Hanna Jiang:
 - Jiang implemented the RestartGame.cs, lines 1-48
 - Designed scene
 
+Kien To:
+- Created the CustomerAI.cs, lines 1-244.
+- Created the CustomerSpawner.cs, lines 1-143.
+- Added customer prefabs and animations.
+- Implemented ordering by customers.
+
 Used Assets:
 Enemy Animals: https://assetstore.unity.com/packages/3d/characters/animals/quirky-series-free-animals-pack-178235
 Customer Slimes: https://assetstore.unity.com/packages/3d/characters/creatures/kawaii-slimes-221172
