@@ -27,6 +27,7 @@ Hanna Jiang:
 Kien To:
 - Created the CustomerAI.cs, lines 1-244.
 - Created the CustomerSpawner.cs, lines 1-143.
+- Implemented algorithm for pathfinding of AI customers.
 - Added customer prefabs and animations.
 - Implemented ordering by customers.
 
