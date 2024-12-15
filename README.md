@@ -43,7 +43,8 @@ The game aims to teach math by encouraging players to think in reverse, building
 - Orders are **timed**; customers leave if not served in time, resulting in lost points.
 - Points are awarded for each successfully completed order. Players must meet a point threshold to progress to the next level.
 
-### Animation
+### Physic/Animation
+- Using colliders to detect the interaction range between the main characters and objects such as numbers, operators, and customers, while enhancing the interaction through object highlighting and blinking effects by adding customized "interaction" layer.
 - Characters will use **keyframe animations**.
 - A **rag-doll, physics-based animation** will be used when the player is head-butted by the animal, adding a humorous and dynamic gameplay element.
 
