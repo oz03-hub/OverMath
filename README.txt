@@ -42,6 +42,7 @@ Bao Dang:
 - Designed prefabs for 3D numbers, kitchen tools with math-operators (PlusPan, MinusCuttingBoard, MultiplyMicrowave) using Anything World, can be found in Resources folder
 - Implemented Order.cs to dynamically generating order cards with running timer on the GUI, lines 1-46
 - Integrated QuizGenerator.cs with GameGUI, lines 13, 20-24, 98-104, 155-168
+- Fixed customer slimes' moving animation and integration with GUI in CustomerAI.cs, lines 111, 122-123, 150-157, 172-178
 
 Minh Vu:
 - I cooked
