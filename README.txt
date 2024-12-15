@@ -45,7 +45,12 @@ Bao Dang:
 - Fixed customer slimes' moving animation and integration with GUI in CustomerAI.cs, lines 111, 122-123, 150-157, 172-178
 
 Minh Vu:
-- I cooked
+- Implemented Interactable.cs, 249 lines
+- GameInteractableManager.cs 20 lines
+- NumberComponent.cs, 1 line
+- PlayerController.cs, lines 156-251
+
+All detailed commit history can be found in repository.
 
 ----
 
