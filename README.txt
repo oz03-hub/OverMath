@@ -31,6 +31,23 @@ Kien To:
 - Added customer prefabs and animations.
 - Implemented ordering by customers.
 
+Bao Dang:
+- Designed OverMath's logo
+- Designed game's GUI in Unity's UI Toolkit, including:
+    - InstructionUI.uxml, lines 1-17
+    - instruction-menu.uss, lines 1-105
+    - GameUI.uxml with dynamic transition for pause, win, and lose menus, lines 1-54
+    - GameGUIStyles.uss, lines 1-352
+- Linked game's GUI with Hanna's scripts StartMenu.cs, RestartGame.cs, PauseManager.cs
+- Designed prefabs for 3D numbers, kitchen tools with math-operators (PlusPan, MinusCuttingBoard, MultiplyMicrowave) using Anything World, can be found in Resources folder
+- Implemented Order.cs to dynamically generating order cards with running timer on the GUI, lines 1-46
+- Integrated QuizGenerator.cs with GameGUI, lines 13, 20-24, 98-104, 155-168
+
+Minh Vu:
+- I cooked
+
+----
+
 Used Assets:
 Enemy Animals: https://assetstore.unity.com/packages/3d/characters/animals/quirky-series-free-animals-pack-178235
 Customer Slimes: https://assetstore.unity.com/packages/3d/characters/creatures/kawaii-slimes-221172
